@@ -5,7 +5,7 @@ apply plugin: 'com.jfrog.bintray'
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-version = properties.getProperty("project.moatversion")
+version = properties.getProperty("project.version")
 group = properties.getProperty("project.group")
 
 def siteUrl = 'https://github.com/SuperAwesomeLTD/sa-mobile-lib-android-events'
