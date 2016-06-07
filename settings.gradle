@@ -1,1 +1,1 @@
-include ':app', ':saevents'
+include ':app', ':saevents', ':samoatevents'

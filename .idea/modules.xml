@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sa-mobile-lib-android-events.iml" filepath="$PROJECT_DIR$/sa-mobile-lib-android-events.iml" />
       <module fileurl="file://$PROJECT_DIR$/saevents/saevents.iml" filepath="$PROJECT_DIR$/saevents/saevents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/samoatevents/samoatevents.iml" filepath="$PROJECT_DIR$/samoatevents/samoatevents.iml" />
     </modules>
   </component>
 </project>

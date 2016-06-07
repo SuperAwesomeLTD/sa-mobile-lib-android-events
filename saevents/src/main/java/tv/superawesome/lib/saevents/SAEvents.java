@@ -56,10 +56,10 @@ public class SAEvents {
     }
 
     public static void sendDisplayMoatEvent(Activity activity, View view, HashMap<String, String> adData) {
-        if (!SAUtils.isClassAvailable("tv.superawesome.samoat.SAMoatEvents")) return;
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
-            Class<?> moat = Class.forName("tv.superawesome.samoat.SAMoatEvents");
+            Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
             java.lang.reflect.Method method1 = moat.getMethod("sendDisplayMoatEvent", Activity.class, View.class, HashMap.class);
@@ -76,10 +76,10 @@ public class SAEvents {
     }
 
     public static void sendVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adData){
-        if (!SAUtils.isClassAvailable("tv.superawesome.samoat.SAMoatEvents")) return;
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
-            Class<?> moat = Class.forName("tv.superawesome.samoat.SAMoatEvents");
+            Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
             java.lang.reflect.Method method1 = moat.getMethod("sendVideoMoatEvent", Activity.class, VideoView.class, MediaPlayer.class, HashMap.class);
@@ -96,10 +96,10 @@ public class SAEvents {
     }
 
     public static void sendVideoMoatComplete(int placementId) {
-        if (!SAUtils.isClassAvailable("tv.superawesome.samoat.SAMoatEvents")) return;
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
-            Class<?> moat = Class.forName("tv.superawesome.samoat.SAMoatEvents");
+            Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
             java.lang.reflect.Method method1 = moat.getMethod("sendVideoMoatComplete", String.class);
