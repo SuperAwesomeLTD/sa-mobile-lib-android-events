@@ -24,14 +24,16 @@ public class SAMoatEvents {
 
     /** other variables */
     private MoatFactory factory = null;
-    private HashMap<String, NativeVideoTracker> trackerDict;
+    private HashMap<String, NativeDisplayTracker> displayDict;
+    private HashMap<String, NativeVideoTracker> videoDict;
 
     /** the singleton SuperAwesome instance */
     private static SAMoatEvents instance = new SAMoatEvents();
 
     /** make the constructor private so that this class cannot be instantiated */
     private SAMoatEvents(){
-        trackerDict = new HashMap<>();
+        displayDict = new HashMap<>();
+        videoDict = new HashMap<>();
     }
 
     /** Get the only object available */
@@ -65,10 +67,17 @@ public class SAMoatEvents {
         adIds.put("moatClientSlicer1", "" + adDetails.get("app"));
         adIds.put("moatClientSlicer2", "" + adDetails.get("placementId"));
 
-        /** track ads */
+        displayDict.put("display_ad_tracker_" + adDetails.get("placementId"), moatDisplayTracker);
         moatDisplayTracker.track(adIds);
 
         Log.d("SuperAwesome", "[AA :: Info] Register Moat Display Event");
+    }
+
+    public void sentDisplayMoatStop (String adId) {
+        NativeDisplayTracker tracker = displayDict.get("display_ad_tracker_" + adId);
+        if (tracker != null) {
+            tracker.stopTracking();
+        }
     }
 
     /**
@@ -97,10 +106,9 @@ public class SAMoatEvents {
         adIds.put("moatClientLevel4", "" + adDetails.get("creativeId"));
         adIds.put("moatClientSlicer1", "" + adDetails.get("app"));
         adIds.put("moatClientSlicer2", "" + adDetails.get("placementId"));
-        moatVideoTracker.trackVideoAd(adIds, mp, video);
 
-        /** add the moat video tracker */
-        trackerDict.put("video_ad_tracker_" + adDetails.get("placementId"), moatVideoTracker);
+        videoDict.put("video_ad_tracker_" + adDetails.get("placementId"), moatVideoTracker);
+        moatVideoTracker.trackVideoAd(adIds, mp, video);
 
         Log.d("SuperAwesome", "[AA :: Info] Register Moat Video Event");
     }
@@ -113,12 +121,12 @@ public class SAMoatEvents {
         /** go on */
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("type", "AdVideoComplete");
-        NativeVideoTracker tracker = trackerDict.get("video_ad_tracker_" + adId);
+        NativeVideoTracker tracker = videoDict.get("video_ad_tracker_" + adId);
 
         if (tracker != null) {
             Log.d("SuperAwesome", "[AA :: Info] Remove Moat Video Event");
             tracker.dispatchEvent(params);
-            trackerDict.remove("video_ad_tracker_" + adId);
+            videoDict.remove("video_ad_tracker_" + adId);
         }
     }
 }
