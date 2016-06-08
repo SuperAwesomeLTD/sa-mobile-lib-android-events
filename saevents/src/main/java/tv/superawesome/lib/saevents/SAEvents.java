@@ -75,6 +75,26 @@ public class SAEvents {
         }
     }
 
+    public static void sentDisplayMoatStop(int placementId) {
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
+
+        try {
+            Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
+            java.lang.reflect.Method method = moat.getMethod("getInstance");
+            Object moatInstance = method.invoke(moat);
+            java.lang.reflect.Method method1 = moat.getMethod("sentDisplayMoatStop", String.class);
+            method1.invoke(moatInstance, "" + placementId);
+        } catch (ClassNotFoundException e) {
+            // failure
+        } catch (NoSuchMethodException e) {
+            // failure
+        } catch (InvocationTargetException e) {
+            // failure
+        } catch (IllegalAccessException e) {
+            // failure;
+        }
+    }
+
     public static void sendVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adData){
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
