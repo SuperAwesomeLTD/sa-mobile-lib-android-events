@@ -26,10 +26,10 @@ public class SAMoatEvents {
     private final String MOAT_VIDEO_KEY = "video_ad_tracker_";
 
     private final String MOAT_ERROR_MSG = "[AA :: Info | Moat] Did not send moat event this time";
-    private final String MOAT_DISPLAY_REGISTER_MSG = "[AA :: Info | Moat ] Register display event for key: ";
-    private final String MOAT_DISPLAY_UNREGISTER_MSG = "[AA :: Info | Moat] Stop tracking for key: ";
-    private final String MOAT_VIDEO_REGISTER_MSG = "";
-    private final String MOAT_VIDEO_UNREGISTER_MSG = "";
+    private final String MOAT_DISPLAY_REGISTER_MSG = "[AA :: Info | Moat] Register display event for key: ";
+    private final String MOAT_DISPLAY_UNREGISTER_MSG = "[AA :: Info | Moat] Unregister display event for key: ";
+    private final String MOAT_VIDEO_REGISTER_MSG = "[AA :: Info | Moat] Register video event for key: ";
+    private final String MOAT_VIDEO_UNREGISTER_MSG = "[AA :: Info | Moat] Unregister video event for key: ";
 
     /** other variables */
     private MoatFactory factory = null;
@@ -93,6 +93,7 @@ public class SAMoatEvents {
         if (tracker != null) {
             Log.d("SuperAwesome", MOAT_DISPLAY_UNREGISTER_MSG + key);
             tracker.stopTracking();
+            displayDict.remove(key);
         }
     }
 
