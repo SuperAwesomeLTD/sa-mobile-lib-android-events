@@ -22,6 +22,15 @@ public class SAMoatEvents {
     private final String MOAT_DISPLAY_PARTNER_CODE = "superawesomeinappdisplay731223424656";
     private final String MOAT_VIDEO_PARTNER_CODE = "superawesomeinappvideo467548716573";
 
+    private final String MOAT_DISPLAY_KEY = "display_ad_tracker_";
+    private final String MOAT_VIDEO_KEY = "video_ad_tracker_";
+
+    private final String MOAT_ERROR_MSG = "[AA :: Info | Moat] Did not send moat event this time";
+    private final String MOAT_DISPLAY_REGISTER_MSG = "[AA :: Info | Moat ] Register display event for key: ";
+    private final String MOAT_DISPLAY_UNREGISTER_MSG = "[AA :: Info | Moat] Stop tracking for key: ";
+    private final String MOAT_VIDEO_REGISTER_MSG = "";
+    private final String MOAT_VIDEO_UNREGISTER_MSG = "";
+
     /** other variables */
     private MoatFactory factory = null;
     private HashMap<String, NativeDisplayTracker> displayDict;
@@ -46,11 +55,11 @@ public class SAMoatEvents {
      * @param view - the parent view
      * @param adDetails - ad data to be sent
      */
-    public void sendDisplayMoatEvent(Activity activity, View view, HashMap<String, String> adDetails) {
+    public void registerDisplayMoatEvent(Activity activity, View view, HashMap<String, String> adDetails) {
 
         Random rand  = new Random();
         if (rand.nextInt(101) > 20) {
-            Log.d("SuperAwesome", "[AA :: Info] Did not send Moat Display Event this time");
+            Log.d("SuperAwesome", MOAT_ERROR_MSG);
             return;
         }
 
@@ -67,15 +76,22 @@ public class SAMoatEvents {
         adIds.put("moatClientSlicer1", "" + adDetails.get("app"));
         adIds.put("moatClientSlicer2", "" + adDetails.get("placementId"));
 
-        displayDict.put("display_ad_tracker_" + adDetails.get("placementId"), moatDisplayTracker);
+        String key = MOAT_DISPLAY_KEY + adDetails.get("placementId");
+        displayDict.put(key, moatDisplayTracker);
         moatDisplayTracker.track(adIds);
 
-        Log.d("SuperAwesome", "[AA :: Info] Register Moat Display Event");
+        Log.d("SuperAwesome", MOAT_DISPLAY_REGISTER_MSG + key);
     }
 
-    public void sentDisplayMoatStop (String adId) {
-        NativeDisplayTracker tracker = displayDict.get("display_ad_tracker_" + adId);
+    /**
+     * Unregister display moat events
+     * @param placementId
+     */
+    public void unregisterDisplayMoatEvent (int placementId) {
+        String key = MOAT_DISPLAY_KEY + placementId;
+        NativeDisplayTracker tracker = displayDict.get(key);
         if (tracker != null) {
+            Log.d("SuperAwesome", MOAT_DISPLAY_UNREGISTER_MSG + key);
             tracker.stopTracking();
         }
     }
@@ -86,11 +102,11 @@ public class SAMoatEvents {
      * @param mp - the media player
      * @param adDetails - ad data to send
      */
-    public void sendVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adDetails){
+    public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adDetails){
 
         Random rand  = new Random();
         if (rand.nextInt(101) > 20) {
-            Log.d("SuperAwesome", "[AA :: Info] Did not send Moat Video Event this time");
+            Log.d("SuperAwesome", MOAT_ERROR_MSG);
             return;
         }
 
@@ -107,26 +123,28 @@ public class SAMoatEvents {
         adIds.put("moatClientSlicer1", "" + adDetails.get("app"));
         adIds.put("moatClientSlicer2", "" + adDetails.get("placementId"));
 
-        videoDict.put("video_ad_tracker_" + adDetails.get("placementId"), moatVideoTracker);
+        String key = MOAT_VIDEO_KEY + adDetails.get("placementId");
+        videoDict.put(key, moatVideoTracker);
         moatVideoTracker.trackVideoAd(adIds, mp, video);
 
-        Log.d("SuperAwesome", "[AA :: Info] Register Moat Video Event");
+        Log.d("SuperAwesome", MOAT_VIDEO_REGISTER_MSG + key);
     }
 
     /**
      * Send the Video complete event and remove the tracker from the dict
-     * @param adId
+     * @param placementId
      */
-    public void sendVideoMoatComplete(String adId){
+    public void unregisterVideoMoatEvent(int placementId){
         /** go on */
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("type", "AdVideoComplete");
-        NativeVideoTracker tracker = videoDict.get("video_ad_tracker_" + adId);
+        String key = MOAT_VIDEO_KEY + placementId;
+        NativeVideoTracker tracker = videoDict.get(key);
 
         if (tracker != null) {
-            Log.d("SuperAwesome", "[AA :: Info] Remove Moat Video Event");
+            Log.d("SuperAwesome", MOAT_VIDEO_UNREGISTER_MSG + key);
             tracker.dispatchEvent(params);
-            videoDict.remove("video_ad_tracker_" + adId);
+            videoDict.remove(key);
         }
     }
 }

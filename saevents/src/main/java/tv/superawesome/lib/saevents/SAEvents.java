@@ -55,14 +55,14 @@ public class SAEvents {
         isSATrackingEnabled = false;
     }
 
-    public static void sendDisplayMoatEvent(Activity activity, View view, HashMap<String, String> adData) {
+    public static void registerDisplayMoatEvent(Activity activity, View view, HashMap<String, String> adData) {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
-            java.lang.reflect.Method method1 = moat.getMethod("sendDisplayMoatEvent", Activity.class, View.class, HashMap.class);
+            java.lang.reflect.Method method1 = moat.getMethod("registerDisplayMoatEvent", Activity.class, View.class, HashMap.class);
             method1.invoke(moatInstance, activity, view, adData);
         } catch (ClassNotFoundException e) {
             // failure
@@ -75,15 +75,15 @@ public class SAEvents {
         }
     }
 
-    public static void sentDisplayMoatStop(int placementId) {
+    public static void unregisterDisplayMoatEvent(int placementId) {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
-            java.lang.reflect.Method method1 = moat.getMethod("sentDisplayMoatStop", String.class);
-            method1.invoke(moatInstance, "" + placementId);
+            java.lang.reflect.Method method1 = moat.getMethod("unregisterDisplayMoatEvent", int.class);
+            method1.invoke(moatInstance, placementId);
         } catch (ClassNotFoundException e) {
             // failure
         } catch (NoSuchMethodException e) {
@@ -95,14 +95,14 @@ public class SAEvents {
         }
     }
 
-    public static void sendVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adData){
+    public static void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adData){
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
-            java.lang.reflect.Method method1 = moat.getMethod("sendVideoMoatEvent", Activity.class, VideoView.class, MediaPlayer.class, HashMap.class);
+            java.lang.reflect.Method method1 = moat.getMethod("registerVideoMoatEvent", Activity.class, VideoView.class, MediaPlayer.class, HashMap.class);
             method1.invoke(moatInstance, activity, video, mp, adData);
         } catch (ClassNotFoundException e) {
             // failure
@@ -115,15 +115,15 @@ public class SAEvents {
         }
     }
 
-    public static void sendVideoMoatComplete(int placementId) {
+    public static void unregisterVideoMoatEvent(int placementId) {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
-            java.lang.reflect.Method method1 = moat.getMethod("sendVideoMoatComplete", String.class);
-            method1.invoke(moatInstance, "" + placementId);
+            java.lang.reflect.Method method1 = moat.getMethod("unregisterVideoMoatEvent", int.class);
+            method1.invoke(moatInstance, placementId);
         } catch (ClassNotFoundException e) {
             // failure
         } catch (NoSuchMethodException e) {
