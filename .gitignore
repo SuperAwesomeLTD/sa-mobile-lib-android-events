@@ -3,3 +3,7 @@ app/*
 wrapper/*
 .gradle/*
 local.properties
+java_pid*
+saevents/java_pid*
+samoatevents/java_pid*
+app/java_pid*
