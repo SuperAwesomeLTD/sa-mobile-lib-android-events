@@ -44,7 +44,7 @@ public class SAEvents {
             type = SAUtils.getNetworkConnectivity(c);
         }
         // simple version for now
-        String finalEvtUrl = url + "&" + type.ordinal();
+        String finalEvtUrl = url + "&ct=" + type.ordinal();
 
         network.asyncGet(finalEvtUrl, new JSONObject(), new SANetworkInterface() {
             @Override
