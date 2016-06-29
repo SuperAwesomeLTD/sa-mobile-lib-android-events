@@ -1,16 +1,19 @@
 package tv.superawesome.lib.saevents;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
 import android.widget.VideoView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import tv.superawesome.lib.sautils.SAApplication;
 import tv.superawesome.lib.sautils.SANetworkInterface;
 import tv.superawesome.lib.sautils.SANetwork;
 import tv.superawesome.lib.sautils.SAUtils;
@@ -34,7 +37,20 @@ public class SAEvents {
         if (!isSATrackingEnabled) return;
 
         SANetwork network = new SANetwork();
-        network.asyncGet(url, new JSONObject(), new SANetworkInterface() {
+
+        SAUtils.SAConnectionType type = SAUtils.SAConnectionType.unknown;
+        Context c = SAApplication.getSAApplicationContext();
+        if (c != null) {
+            type = SAUtils.getNetworkConnectivity(c);
+        }
+        JSONObject queryParams = new JSONObject();
+        try {
+            queryParams.put("ct", type.ordinal());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        network.asyncGet(url, queryParams, new SANetworkInterface() {
             @Override
             public void success(Object data) {
                 /** do nothing */
