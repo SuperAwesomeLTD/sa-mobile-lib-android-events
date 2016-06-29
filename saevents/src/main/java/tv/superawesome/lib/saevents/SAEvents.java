@@ -43,14 +43,10 @@ public class SAEvents {
         if (c != null) {
             type = SAUtils.getNetworkConnectivity(c);
         }
-        JSONObject queryParams = new JSONObject();
-        try {
-            queryParams.put("ct", type.ordinal());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        // simple version for now
+        String finalEvtUrl = url + "&" + type.ordinal();
 
-        network.asyncGet(url, queryParams, new SANetworkInterface() {
+        network.asyncGet(finalEvtUrl, new JSONObject(), new SANetworkInterface() {
             @Override
             public void success(Object data) {
                 /** do nothing */
