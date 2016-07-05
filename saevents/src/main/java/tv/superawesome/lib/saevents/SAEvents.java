@@ -13,10 +13,9 @@ import org.json.JSONObject;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import tv.superawesome.lib.sautils.SAApplication;
-import tv.superawesome.lib.sautils.SANetworkInterface;
-import tv.superawesome.lib.sautils.SANetwork;
+import tv.superawesome.lib.sanetwork.request.*;
 import tv.superawesome.lib.sautils.SAUtils;
+import tv.superawesome.lib.sautils.SAApplication;
 
 /**
  * Class that sends events to the server (click, viewable impression, etc)
@@ -36,7 +35,6 @@ public class SAEvents {
     public static void sendEventToURL(final String url) {
         if (!isSATrackingEnabled) return;
 
-        SANetwork network = new SANetwork();
 
         SAUtils.SAConnectionType type = SAUtils.SAConnectionType.unknown;
         Context c = SAApplication.getSAApplicationContext();
@@ -44,17 +42,26 @@ public class SAEvents {
             type = SAUtils.getNetworkConnectivity(c);
         }
         // simple version for now
-        String finalEvtUrl = url + "&ct=" + type.ordinal();
+        String finalEvtUrl = url; // + "&ct=" + type.ordinal();
 
-        network.asyncGet(finalEvtUrl, new JSONObject(), new SANetworkInterface() {
+        JSONObject header = new JSONObject();
+        try {
+            header.put("Content-Type", "application/json");
+            header.put("User-Agent", SAUtils.getUserAgent());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        SANetwork network = new SANetwork();
+        network.sendGET(c, finalEvtUrl, new JSONObject(), header, new SANetworkInterface() {
             @Override
-            public void success(Object data) {
-                /** do nothing */
+            public void success(int status, String payload) {
+                Log.d("SuperAwesome", "Event response " + status + " | " + payload);
             }
 
             @Override
             public void failure() {
-                /** do nothing */
+
             }
         });
     }
