@@ -73,7 +73,7 @@ public class SAMoatEvents {
 
         /** track data */
         String moatQuery = "";
-        moatQuery += "moatClientLevel1=SuperAwesome";
+        moatQuery += "moatClientLevel1=" + adDetails.get("advertiserId");
         moatQuery += "&moatClientLevel2=" + adDetails.get("campaignId");
         moatQuery += "&moatClientLevel3=" + adDetails.get("lineItemId");
         moatQuery += "&moatClientLevel4=" + adDetails.get("creativeId");
@@ -123,7 +123,7 @@ public class SAMoatEvents {
 
         /** track data */
         HashMap<String, String> adIds = new HashMap<String, String>();
-        adIds.put("moatClientLevel1", "SuperAwesome");
+        adIds.put("moatClientLevel1", "" + adDetails.get("advertiserId"));
         adIds.put("moatClientLevel2", "" + adDetails.get("campaignId"));
         adIds.put("moatClientLevel3", "" + adDetails.get("lineItemId"));
         adIds.put("moatClientLevel4", "" + adDetails.get("creativeId"));
