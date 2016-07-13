@@ -123,12 +123,12 @@ public class SAMoatEvents {
 
         /** track data */
         HashMap<String, String> adIds = new HashMap<String, String>();
-        adIds.put("moatClientLevel1", "" + adDetails.get("advertiserId"));
-        adIds.put("moatClientLevel2", "" + adDetails.get("campaignId"));
-        adIds.put("moatClientLevel3", "" + adDetails.get("lineItemId"));
-        adIds.put("moatClientLevel4", "" + adDetails.get("creativeId"));
-        adIds.put("moatClientSlicer1", "" + adDetails.get("app"));
-        adIds.put("moatClientSlicer2", "" + adDetails.get("placementId"));
+        adIds.put("level1", "" + adDetails.get("advertiserId"));
+        adIds.put("level2", "" + adDetails.get("campaignId"));
+        adIds.put("level3", "" + adDetails.get("lineItemId"));
+        adIds.put("level4", "" + adDetails.get("creativeId"));
+        adIds.put("slicer1", "" + adDetails.get("app"));
+        adIds.put("slicer2", "" + adDetails.get("placementId"));
 
         String key = MOAT_VIDEO_KEY + adDetails.get("placementId");
         videoDict.put(key, moatVideoTracker);
