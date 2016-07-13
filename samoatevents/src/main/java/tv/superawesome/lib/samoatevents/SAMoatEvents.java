@@ -3,12 +3,12 @@ package tv.superawesome.lib.samoatevents;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.util.Log;
-import android.view.View;
+import android.webkit.WebView;
 import android.widget.VideoView;
 
 import com.moat.analytics.mobile.MoatFactory;
-import com.moat.analytics.mobile.NativeDisplayTracker;
 import com.moat.analytics.mobile.NativeVideoTracker;
+import com.moat.analytics.mobile.WebAdTracker;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -19,8 +19,10 @@ import java.util.Random;
 public class SAMoatEvents {
 
     /** Moat tracking hardcoded constants */
-    private final String MOAT_DISPLAY_PARTNER_CODE = "superawesomeinappdisplay731223424656";
-    private final String MOAT_VIDEO_PARTNER_CODE = "superawesomeinappvideo467548716573";
+    private static final String MOAT_SERVER = "https://z.moatads.com";
+    private static final String MOAT_URL = "moatad.js";
+    private static final String MOAT_DISPLAY_PARTNER_CODE = "superawesomeinappdisplay731223424656";
+    private static final String MOAT_VIDEO_PARTNER_CODE = "superawesomeinappvideo467548716573";
 
     private final String MOAT_DISPLAY_KEY = "display_ad_tracker_";
     private final String MOAT_VIDEO_KEY = "video_ad_tracker_";
@@ -33,7 +35,7 @@ public class SAMoatEvents {
 
     /** other variables */
     private MoatFactory factory = null;
-    private HashMap<String, NativeDisplayTracker> displayDict;
+    private HashMap<String, WebAdTracker> displayDict;
     private HashMap<String, NativeVideoTracker> videoDict;
 
     /** the singleton SuperAwesome instance */
@@ -51,36 +53,41 @@ public class SAMoatEvents {
     }
 
     /**
-     * Function that sends a moat tracking event
-     * @param view - the parent view
-     * @param adDetails - ad data to be sent
+     * Moat display ad
+     * @param activity the activity
+     * @param view the webview
+     * @param adDetails ad details
+     * @return a moat string or an empty string
      */
-    public void registerDisplayMoatEvent(Activity activity, View view, HashMap<String, String> adDetails) {
+    public String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adDetails) {
 
-        Random rand  = new Random();
-        if (rand.nextInt(101) > 20) {
-            Log.d("SuperAwesome", MOAT_ERROR_MSG);
-            return;
-        }
+//        Random rand  = new Random();
+//        if (rand.nextInt(101) > 20) {
+//            Log.d("SuperAwesome", MOAT_ERROR_MSG);
+//            return "";
+//        }
 
         /** create factory */
         factory = MoatFactory.create(activity);
-        NativeDisplayTracker moatDisplayTracker = factory.createNativeDisplayTracker(view, MOAT_DISPLAY_PARTNER_CODE);
+        WebAdTracker webAdTracker = factory.createWebAdTracker(view);
 
         /** track data */
-        HashMap<String, String> adIds = new HashMap<String, String>();
-        adIds.put("moatClientLevel1", "SuperAwesome");
-        adIds.put("moatClientLevel2", "" + adDetails.get("campaignId"));
-        adIds.put("moatClientLevel3", "" + adDetails.get("lineItemId"));
-        adIds.put("moatClientLevel4", "" + adDetails.get("creativeId"));
-        adIds.put("moatClientSlicer1", "" + adDetails.get("app"));
-        adIds.put("moatClientSlicer2", "" + adDetails.get("placementId"));
+        String moatQuery = "";
+        moatQuery += "moatClientLevel1=SuperAwesome";
+        moatQuery += "&moatClientLevel2=" + adDetails.get("campaignId");
+        moatQuery += "&moatClientLevel3=" + adDetails.get("lineItemId");
+        moatQuery += "&moatClientLevel4=" + adDetails.get("creativeId");
+        moatQuery += "&moatClientSlicer1=" + adDetails.get("app");
+        moatQuery += "&moatClientSlicer2=" + adDetails.get("placementId");
 
         String key = MOAT_DISPLAY_KEY + adDetails.get("placementId");
-        displayDict.put(key, moatDisplayTracker);
-        moatDisplayTracker.track(adIds);
 
         Log.d("SuperAwesome", MOAT_DISPLAY_REGISTER_MSG + key);
+
+        displayDict.put(key, webAdTracker);
+        webAdTracker.track();
+
+        return "<script src=\""+MOAT_SERVER+"/"+MOAT_DISPLAY_PARTNER_CODE+"/"+MOAT_URL+"?"+moatQuery+"\" type=\"text/javascript\"></script>";
     }
 
     /**
@@ -89,10 +96,9 @@ public class SAMoatEvents {
      */
     public void unregisterDisplayMoatEvent (int placementId) {
         String key = MOAT_DISPLAY_KEY + placementId;
-        NativeDisplayTracker tracker = displayDict.get(key);
+        WebAdTracker tracker = displayDict.get(key);
         if (tracker != null) {
             Log.d("SuperAwesome", MOAT_DISPLAY_UNREGISTER_MSG + key);
-            tracker.stopTracking();
             displayDict.remove(key);
         }
     }
@@ -105,11 +111,11 @@ public class SAMoatEvents {
      */
     public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adDetails){
 
-        Random rand  = new Random();
-        if (rand.nextInt(101) > 20) {
-            Log.d("SuperAwesome", MOAT_ERROR_MSG);
-            return;
-        }
+//        Random rand  = new Random();
+//        if (rand.nextInt(101) > 20) {
+//            Log.d("SuperAwesome", MOAT_ERROR_MSG);
+//            return;
+//        }
 
         /** create video tracker object */
         factory = MoatFactory.create(activity);

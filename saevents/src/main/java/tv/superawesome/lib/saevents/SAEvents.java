@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.VideoView;
 
 import org.json.JSONException;
@@ -74,15 +75,16 @@ public class SAEvents {
         isSATrackingEnabled = false;
     }
 
-    public static void registerDisplayMoatEvent(Activity activity, View view, HashMap<String, String> adData) {
-        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
+    public static String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adData) {
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return "";
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
             java.lang.reflect.Method method = moat.getMethod("getInstance");
             Object moatInstance = method.invoke(moat);
-            java.lang.reflect.Method method1 = moat.getMethod("registerDisplayMoatEvent", Activity.class, View.class, HashMap.class);
-            method1.invoke(moatInstance, activity, view, adData);
+            java.lang.reflect.Method method1 = moat.getMethod("registerDisplayMoatEvent", Activity.class, WebView.class, HashMap.class);
+            Object returnValue = method1.invoke(moatInstance, activity, view, adData);
+            return (String)returnValue;
         } catch (ClassNotFoundException e) {
             // failure
         } catch (NoSuchMethodException e) {
@@ -92,6 +94,8 @@ public class SAEvents {
         } catch (IllegalAccessException e) {
             // failure;
         }
+
+        return "";
     }
 
     public static void unregisterDisplayMoatEvent(int placementId) {
