@@ -6,6 +6,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
+        <receiver android:name="tv.superawesome.lib.saevents.SACPI" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
