@@ -61,11 +61,11 @@ public class SAMoatEvents {
      */
     public String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adDetails) {
 
-//        Random rand  = new Random();
-//        if (rand.nextInt(101) > 20) {
-//            Log.d("SuperAwesome", MOAT_ERROR_MSG);
-//            return "";
-//        }
+        Random rand  = new Random();
+        if (rand.nextInt(101) > 20) {
+            Log.d("SuperAwesome", MOAT_ERROR_MSG);
+            return "";
+        }
 
         /** create factory */
         factory = MoatFactory.create(activity);
@@ -111,11 +111,11 @@ public class SAMoatEvents {
      */
     public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adDetails){
 
-//        Random rand  = new Random();
-//        if (rand.nextInt(101) > 20) {
-//            Log.d("SuperAwesome", MOAT_ERROR_MSG);
-//            return;
-//        }
+        Random rand  = new Random();
+        if (rand.nextInt(101) > 20) {
+            Log.d("SuperAwesome", MOAT_ERROR_MSG);
+            return;
+        }
 
         /** create video tracker object */
         factory = MoatFactory.create(activity);
