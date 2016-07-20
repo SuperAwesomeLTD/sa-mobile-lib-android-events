@@ -79,6 +79,7 @@ public class SAMoatEvents {
         moatQuery += "&moatClientLevel4=" + adDetails.get("creativeId");
         moatQuery += "&moatClientSlicer1=" + adDetails.get("app");
         moatQuery += "&moatClientSlicer2=" + adDetails.get("placementId");
+        moatQuery += "&moatClientSlicer3=" + adDetails.get("publisherId");
 
         String key = MOAT_DISPLAY_KEY + adDetails.get("placementId");
 
@@ -129,6 +130,7 @@ public class SAMoatEvents {
         adIds.put("level4", "" + adDetails.get("creativeId"));
         adIds.put("slicer1", "" + adDetails.get("app"));
         adIds.put("slicer2", "" + adDetails.get("placementId"));
+        adIds.put("slicer3", "" + adDetails.get("publisherId"));
 
         String key = MOAT_VIDEO_KEY + adDetails.get("placementId");
         videoDict.put(key, moatVideoTracker);
