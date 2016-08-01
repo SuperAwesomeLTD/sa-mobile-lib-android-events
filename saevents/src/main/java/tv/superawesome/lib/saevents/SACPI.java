@@ -9,6 +9,7 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.SACPIData;
 import tv.superawesome.lib.sasession.SASession;
 import tv.superawesome.lib.sautils.SAApplication;
@@ -66,24 +67,19 @@ public class SACPI extends BroadcastReceiver {
             if (c != null) ct = SAUtils.getNetworkConnectivity(c);
 
             /** create the viewable impression URL */
-            JSONObject installDict1 = new JSONObject();
-            try {
-                installDict1.put("placement", cpiData.placementId);
-                installDict1.put("line_item", cpiData.lineItemId);
-                installDict1.put("creative", cpiData.creativeId);
-                installDict1.put("type", "install");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            JSONObject installDict2 = new JSONObject();
-            try {
-                installDict2.put("sdkVersion", SASession.getInstance().getVersion());
-                installDict2.put("rnd", SAUtils.getCacheBuster());
-                installDict2.put("ct", ct.ordinal());
-                installDict2.put("data", SAUtils.encodeDictAsJsonDict(installDict1));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            JSONObject installDict1 = SAJsonParser.newObject(new Object[]{
+                    "placement", cpiData.placementId,
+                    "line_item", cpiData.lineItemId,
+                    "creative", cpiData.creativeId,
+                    "type", "install"
+            });
+
+            JSONObject installDict2 = SAJsonParser.newObject(new Object[]{
+                    "sdkVersion", SASession.getInstance().getVersion(),
+                    "rnd", SAUtils.getCacheBuster(),
+                    "ct", ct.ordinal(),
+                    "data", SAUtils.encodeDictAsJsonDict(installDict1)
+            });
 
             String cpiEventURL = SASession.getInstance().getBaseUrl() + "/event?" + SAUtils.formGetQueryFromDict(installDict2);
 

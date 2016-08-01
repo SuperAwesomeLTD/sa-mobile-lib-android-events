@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.sanetwork.request.*;
 import tv.superawesome.lib.sautils.SAUtils;
 import tv.superawesome.lib.sautils.SAApplication;
@@ -45,13 +46,11 @@ public class SAEvents {
         // simple version for now
         String finalEvtUrl = url; // + "&ct=" + type.ordinal();
 
-        JSONObject header = new JSONObject();
-        try {
-            header.put("Content-Type", "application/json");
-            header.put("User-Agent", SAUtils.getUserAgent());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        // get the header
+        JSONObject header = SAJsonParser.newObject(new Object[]{
+                "Content-Type", "application/json",
+                "User-Agent", SAUtils.getUserAgent()
+        });
 
         SANetwork network = new SANetwork();
         network.sendGET(c, finalEvtUrl, new JSONObject(), header, new SANetworkInterface() {
