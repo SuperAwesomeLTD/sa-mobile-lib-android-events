@@ -27,6 +27,8 @@ public class SACPI extends BroadcastReceiver {
         // get referrer
         String referrer = intent.getStringExtra("referrer");
 
+        Log.d("SuperAwesome", "SACPI Service got referrer " + referrer);
+
         /**
          * referrer is a string that should contain the following values:
          * Campaign Source  = utm_source    = advertiser_id | ex: 1
@@ -47,6 +49,7 @@ public class SACPI extends BroadcastReceiver {
         referrer = referrer.replace("=", " : ");
         referrer = referrer.replace("%3D", " : ");
         referrer = referrer.replace("\\&", ", ");
+        referrer = referrer.replace("&", ", ");
         referrer = referrer.replace("%26", ", ");
         referrer = "{ " + referrer + " }";
         referrer = referrer.replace("utm_source", "\"utm_source\"");
