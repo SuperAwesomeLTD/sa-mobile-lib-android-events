@@ -31,7 +31,7 @@ public class SACPI extends BroadcastReceiver {
 
         /**
          * referrer is a string that should contain the following values:
-         * Campaign Source  = utm_source    = advertiser_id | ex: 1
+         * Campaign Source  = utm_source    = configuration | ex: 0, 1, 2
          * Campaign Name    = utm_campaign  = campaign_id   | ex: 114
          * Campaign Term    = utm_term      = line_item_id  | ex: 138
          * Campaign Content = utm_content   = creative_id   | ex: 114
@@ -84,10 +84,18 @@ public class SACPI extends BroadcastReceiver {
                     "data", SAUtils.encodeDictAsJsonDict(installDict1)
             });
 
+            int oldConfiguration = SASession.getInstance().getConfiguration();
+            int newConfiguration = cpiData.configuration;
             String cpiEventURL = SASession.getInstance().getBaseUrl() + "/event?" + SAUtils.formGetQueryFromDict(installDict2);
+
+            // set new configuration (sent from the event / referrer)
+            SASession.getInstance().setConfiguration(newConfiguration);
 
             // send Event
             SAEvents.sendEventToURL(cpiEventURL);
+
+            // refert to old configuration
+            SASession.getInstance().setConfiguration(oldConfiguration);
 
         } catch (JSONException e) {
             e.printStackTrace();
