@@ -86,10 +86,12 @@ public class SACPI extends BroadcastReceiver {
 
             int oldConfiguration = SASession.getInstance().getConfiguration();
             int newConfiguration = cpiData.configuration;
-            String cpiEventURL = SASession.getInstance().getBaseUrl() + "/event?" + SAUtils.formGetQueryFromDict(installDict2);
 
             // set new configuration (sent from the event / referrer)
             SASession.getInstance().setConfiguration(newConfiguration);
+
+            // new event URL
+            String cpiEventURL = SASession.getInstance().getBaseUrl() + "/event?" + SAUtils.formGetQueryFromDict(installDict2);
 
             // send Event
             SAEvents.sendEventToURL(cpiEventURL);
