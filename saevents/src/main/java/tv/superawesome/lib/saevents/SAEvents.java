@@ -55,13 +55,8 @@ public class SAEvents {
         SANetwork network = new SANetwork();
         network.sendGET(c, finalEvtUrl, new JSONObject(), header, new SANetworkInterface() {
             @Override
-            public void success(int status, String payload) {
-                Log.d("SuperAwesome", "Event response " + status + " | " + payload);
-            }
-
-            @Override
-            public void failure() {
-
+            public void response(int status, String payload, boolean success) {
+                Log.d("SuperAwesome", "[" + success + "] Event response " + status + " | " + payload);
             }
         });
     }
