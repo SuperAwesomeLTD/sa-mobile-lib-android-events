@@ -12,9 +12,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.samodelspace.SATracking;
 import tv.superawesome.lib.sanetwork.request.*;
 import tv.superawesome.lib.sautils.SAUtils;
 import tv.superawesome.lib.sautils.SAApplication;
@@ -29,11 +32,6 @@ public class SAEvents {
      */
     private static boolean isSATrackingEnabled = true;
 
-    /**
-     * Fire-and-forget event function
-     *
-     * @param url - the event url to send the data to
-     */
     public static void sendEventToURL(final String url) {
         if (!isSATrackingEnabled) return;
 
@@ -59,6 +57,20 @@ public class SAEvents {
                 Log.d("SuperAwesome", "[" + success + "] Event response " + status + " | " + payload);
             }
         });
+    }
+
+    public static void sendEventsFor(List<SATracking> events, String key) {
+        List<String> urls = new ArrayList<>();
+        for (SATracking event : events) {
+            if (event.event.equals(key)) {
+                urls.add(event.URL);
+            }
+        }
+
+        // send event
+        for (String url : urls) {
+            sendEventToURL(url);
+        }
     }
 
     public static void enableSATracking() {
