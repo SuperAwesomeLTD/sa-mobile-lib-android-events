@@ -2,10 +2,13 @@ package tv.superawesome.lib.saevents;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import org.json.JSONException;
@@ -17,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
+import tv.superawesome.lib.samodelspace.SAAd;
 import tv.superawesome.lib.samodelspace.SATracking;
 import tv.superawesome.lib.sanetwork.request.*;
 import tv.superawesome.lib.sautils.SAUtils;
@@ -27,14 +31,41 @@ import tv.superawesome.lib.sautils.SAApplication;
  */
 public class SAEvents {
 
-    /**
-     * Static functions
-     */
-    private static boolean isSATrackingEnabled = true;
+    // private consts
+    private final static short MAX_TICKS = 2;
+    private final static int DELAY = 1000;
 
-    public static void sendEventToURL(final String url) {
-        if (!isSATrackingEnabled) return;
+    // private vars
+    private short ticks = 0;
+    private short check_tick = 0;
+    private Handler handler = null;
+    private Runnable runnable = null;
 
+    // private vars w/ public inteface
+    private SAAd refAd = null;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Init
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public SAEvents () {
+        // empty init
+        handler = new Handler();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // setters & getters
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void setAd(SAAd ad) {
+        refAd = ad;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // event functions
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void sendEventToURL(final String url) {
 
         SAUtils.SAConnectionType type = SAUtils.SAConnectionType.unknown;
         Context c = SAApplication.getSAApplicationContext();
@@ -59,9 +90,13 @@ public class SAEvents {
         });
     }
 
-    public static void sendEventsFor(List<SATracking> events, String key) {
+    public void sendEventsFor(String key) {
+        // safety check
+        if (refAd == null) return;
+
+        // send events
         List<String> urls = new ArrayList<>();
-        for (SATracking event : events) {
+        for (SATracking event : refAd.creative.events) {
             if (event.event.equals(key)) {
                 urls.add(event.URL);
             }
@@ -73,15 +108,99 @@ public class SAEvents {
         }
     }
 
-    public static void enableSATracking() {
-        isSATrackingEnabled = true;
+    public void sendViewableForFullscreen () {
+        // safety check
+        if (refAd == null) return;
+
+        // call runnable
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (ticks >= MAX_TICKS) {
+                    sendEventsFor("viewable_impr");
+                } else {
+                    ticks++;
+
+                    // log
+                    Log.d("SuperAwesome", "Viewability count " + ticks + "/" + MAX_TICKS);
+
+                    // start again
+                    handler.postDelayed(runnable, DELAY);
+                }
+            }
+        };
+
+        // start
+        handler.postDelayed(runnable, DELAY);
     }
 
-    public static void disableSATracking() {
-        isSATrackingEnabled = false;
+    public void sendViewableForInScreen (final RelativeLayout child) {
+        // safety check
+        if (refAd == null) return;
+
+        // call runnable
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (ticks > MAX_TICKS) {
+                    if (check_tick == MAX_TICKS) {
+                        sendEventsFor("viewable_impr");
+                    } else {
+                        Log.d("SuperAwesome", "Could not send viewable impression since it appears view is not on screen");
+                    }
+                } else {
+                    ticks++;
+
+                    // child
+                    int[] childPos = new int[2];
+                    child.getLocationInWindow(childPos);
+                    int childX = childPos[0];
+                    int childY = childPos[1];
+                    int childW = child.getWidth();
+                    int childH = child.getHeight();
+                    Rect childRect = new Rect(childX, childY, childW, childH);
+
+                    // super
+                    View parent = (View) child.getParent();
+                    int[] parentPos = new int[2];
+                    parent.getLocationInWindow(parentPos);
+                    int parentX = parentPos[0];
+                    int parentY = parentPos[1];
+                    int parentW = parent.getWidth();
+                    int parentH = parent.getHeight();
+                    Rect parentRect = new Rect(parentX, parentY, parentW, parentH);
+
+                    // screen
+                    Activity context = (Activity) child.getContext();
+                    SAUtils.SASize screenSize = SAUtils.getRealScreenSize(context, false);
+                    int screenX = 0;
+                    int screenY = 0;
+                    int screenW = screenSize.width;
+                    int screenH = screenSize.height;
+                    Rect screenRect = new Rect(screenX, screenY, screenW, screenH);
+
+                    if (SAUtils.isTargetRectInFrameRect(childRect, parentRect) && SAUtils.isTargetRectInFrameRect(childRect, screenRect)){
+                        check_tick++;
+                    }
+
+                    // log
+                    Log.d("SuperAwesome", "Viewability count " + ticks + "/" + MAX_TICKS);
+
+                    // run again
+                    handler.postDelayed(runnable, DELAY);
+                }
+            }
+        };
+
+        // start
+        handler.postDelayed(runnable, DELAY);
     }
 
-    public static String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adData) {
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // possible Moat events
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adData) {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return "";
 
         try {
@@ -104,7 +223,7 @@ public class SAEvents {
         return "";
     }
 
-    public static void unregisterDisplayMoatEvent(int placementId) {
+    public void unregisterDisplayMoatEvent(int placementId) {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
@@ -124,7 +243,7 @@ public class SAEvents {
         }
     }
 
-    public static void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adData){
+    public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adData){
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
@@ -144,7 +263,7 @@ public class SAEvents {
         }
     }
 
-    public static void unregisterVideoMoatEvent(int placementId) {
+    public void unregisterVideoMoatEvent(int placementId) {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         try {
