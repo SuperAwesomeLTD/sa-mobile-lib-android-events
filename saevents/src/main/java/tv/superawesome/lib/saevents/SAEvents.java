@@ -142,7 +142,7 @@ public class SAEvents {
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (ticks > MAX_TICKS) {
+                if (ticks >= MAX_TICKS) {
                     if (check_tick == MAX_TICKS) {
                         sendEventsFor("viewable_impr");
                     } else {
