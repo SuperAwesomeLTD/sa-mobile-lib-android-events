@@ -200,8 +200,18 @@ public class SAEvents {
     // possible Moat events
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adData) {
+    public String registerDisplayMoatEvent(Activity activity, WebView view) {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return "";
+
+        // get the actual data needed for moat
+        HashMap<String, String> adData = new HashMap<>();
+        adData.put("advertiserId", "" + refAd.advertiserId);
+        adData.put("campaignId", "" + refAd.campaignId);
+        adData.put("lineItemId", "" + refAd.lineItemId);
+        adData.put("creativeId", "" + refAd.creative.id);
+        adData.put("app", "" + refAd.app);
+        adData.put("placementId", "" + refAd.placementId);
+        adData.put("publisherId", "" + refAd.publisherId);
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
@@ -243,8 +253,18 @@ public class SAEvents {
         }
     }
 
-    public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adData){
+    public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp){
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
+
+        // form the ad data hash map to send to moat
+        HashMap<String, String> adData = new HashMap<>();
+        adData.put("advertiserId", "" + refAd.advertiserId);
+        adData.put("campaignId", "" + refAd.campaignId);
+        adData.put("lineItemId", "" + refAd.lineItemId);
+        adData.put("creativeId", "" + refAd.creative.id);
+        adData.put("app", "" + refAd.app);
+        adData.put("placementId", "" + refAd.placementId);
+        adData.put("publisherId", "" + refAd.publisherId);
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
