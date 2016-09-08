@@ -7,8 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c9a45bd-4f4f-4cbb-8281-b9c4dcee6824" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/samodelspace_0_2_9.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/samodelspace_0_2_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/samodelspace_0_3_0.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/samodelspace_0_3_0.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/saevents/build.gradle" afterPath="$PROJECT_DIR$/saevents/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/saevents/saevents.iml" afterPath="$PROJECT_DIR$/saevents/saevents.iml" />
@@ -142,10 +142,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/saevents/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.82300884">
               <caret line="87" column="64" selection-start-line="87" selection-start-column="64" selection-end-line="87" selection-end-column="64" />
               <folding />
             </state>
@@ -176,7 +176,7 @@
         <entry file="file://$PROJECT_DIR$/samoatevents/src/main/java/tv/superawesome/lib/samoatevents/SAMoatEvents.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="60" column="7" selection-start-line="60" selection-start-column="7" selection-end-line="60" selection-end-column="7" />
+              <caret line="81" column="74" selection-start-line="75" selection-start-column="7" selection-end-line="81" selection-end-column="74" />
               <folding>
                 <marker date="1472742606000" expanded="true" signature="2419:2577" placeholder="//..." />
               </folding>
@@ -184,10 +184,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="local.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="local.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/local.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22123894">
+            <state vertical-scroll-proportion="0.0">
               <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
               <folding />
             </state>
@@ -657,14 +657,14 @@
                 <option name="name" value="prepareReleaseUnitTestDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.saevents:saevents:0.5.5" />
+                <option name="description" value="Prepare tv.superawesome.lib.saevents:saevents:0.5.7" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareTvSuperawesomeLibSaeventsSaevents055Library" />
+                <option name="name" value="prepareTvSuperawesomeLibSaeventsSaevents057Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.saevents:samoatevents:0.5.5" />
+                <option name="description" value="Prepare tv.superawesome.lib.saevents:samoatevents:0.5.7" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareTvSuperawesomeLibSaeventsSamoatevents055Library" />
+                <option name="name" value="prepareTvSuperawesomeLibSaeventsSamoatevents057Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.1" />
@@ -672,9 +672,9 @@
                 <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser021Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.3.0" />
+                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.3.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace030Library" />
+                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace031Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.superawesome.lib.sanetwork:sanetwork:0.2.0" />
@@ -1306,14 +1306,14 @@
                 <option name="name" value="prepareReleaseUnitTestDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.saevents:saevents:0.5.5" />
+                <option name="description" value="Prepare tv.superawesome.lib.saevents:saevents:0.5.7" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareTvSuperawesomeLibSaeventsSaevents055Library" />
+                <option name="name" value="prepareTvSuperawesomeLibSaeventsSaevents057Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.saevents:samoatevents:0.5.5" />
+                <option name="description" value="Prepare tv.superawesome.lib.saevents:samoatevents:0.5.7" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareTvSuperawesomeLibSaeventsSamoatevents055Library" />
+                <option name="name" value="prepareTvSuperawesomeLibSaeventsSamoatevents057Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.superawesome.lib.sajsonparser:sajsonparser:0.2.1" />
@@ -1321,9 +1321,9 @@
                 <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser021Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.3.0" />
+                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.3.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace030Library" />
+                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace031Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.superawesome.lib.sanetwork:sanetwork:0.2.0" />
@@ -1888,9 +1888,9 @@
                 <option name="name" value="prepareTvSuperawesomeLibSajsonparserSajsonparser021Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.3.0" />
+                <option name="description" value="Prepare tv.superawesome.lib.samodelspace:samodelspace:0.3.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/saevents" />
-                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace030Library" />
+                <option name="name" value="prepareTvSuperawesomeLibSamodelspaceSamodelspace031Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.superawesome.lib.sanetwork:sanetwork:0.2.0" />
@@ -2577,7 +2577,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="7338087479000" />
+        <entry key="$PROJECT_DIR$" value="7338089885000" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2968,7 +2968,7 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/intellij/annotations/12.0/annotations-12.0.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.superawesome.lib.sautils/sautils/0.2.4/2a3ad4667d65ffd63fe27d0edc7c9f725f71fbec/sautils-0.2.4.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.superawesome.lib.sanetwork/sanetwork/0.2.0/47c7da1c5a7cc63bc51937ad0041c1125ac10794/sanetwork-0.2.0.aar" />
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.superawesome.lib.samodelspace/samodelspace/0.3.0/bd458bab6b4f6cce9348b169fa0bc10729385bfc/samodelspace-0.3.0.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.superawesome.lib.samodelspace/samodelspace/0.3.1/1fbeb20831f36ee7dc48cfbb56caf4bbf03f02eb/samodelspace-0.3.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.superawesome.lib.sajsonparser/sajsonparser/0.2.1/ccbdeda3d9f000124d0c00dbde0c80cc8090cfd1/sajsonparser-0.2.1.aar" />
                           </list>
                         </option>
@@ -3230,8 +3230,8 @@
         <option value="$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SAEvents.java" />
         <option value="$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SACPI.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/tv/superawesome/lib/MainActivity.java" />
-        <option value="$PROJECT_DIR$/saevents/build.gradle" />
         <option value="$PROJECT_DIR$/local.properties" />
+        <option value="$PROJECT_DIR$/saevents/build.gradle" />
       </list>
     </option>
   </component>
@@ -3265,6 +3265,9 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -3292,26 +3295,9 @@
               <option name="myItemId" value="sa-mobile-lib-android-events" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="saevents" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sa-mobile-lib-android-events" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3322,7 +3308,7 @@
     <property name="device.picker.selection" value="07da743a0245eb47" />
     <property name="FullScreen" value="true" />
   </component>
-  <component name="RunManager" selected="Android Application.app">
+  <component name="RunManager" selected="Gradle.sa-mobile-lib-android-events [bintrayUpload]">
     <configuration default="false" name="sa-mobile-lib-android-events [install]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -3686,7 +3672,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2266289" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23344104" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23344104" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25686592" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -4105,25 +4091,25 @@
     <entry file="file://$PROJECT_DIR$/samoatevents/src/main/java/tv/superawesome/lib/samoatevents/SAMoatEvents.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="7" selection-start-line="60" selection-start-column="7" selection-end-line="60" selection-end-column="7" />
+          <caret line="81" column="74" selection-start-line="75" selection-start-column="7" selection-end-line="81" selection-end-column="74" />
           <folding>
             <marker date="1472742606000" expanded="true" signature="2419:2577" placeholder="//..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saevents/build.gradle">
+    <entry file="file://$PROJECT_DIR$/local.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="64" selection-start-line="87" selection-start-column="64" selection-end-line="87" selection-end-column="64" />
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
+    <entry file="file://$PROJECT_DIR$/saevents/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22123894">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.82300884">
+          <caret line="87" column="64" selection-start-line="87" selection-start-column="64" selection-end-line="87" selection-end-column="64" />
           <folding />
         </state>
       </provider>
