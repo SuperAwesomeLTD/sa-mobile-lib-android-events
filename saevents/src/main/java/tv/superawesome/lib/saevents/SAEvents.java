@@ -7,11 +7,11 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,9 +22,10 @@ import java.util.List;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.SAAd;
 import tv.superawesome.lib.samodelspace.SATracking;
-import tv.superawesome.lib.sanetwork.request.*;
-import tv.superawesome.lib.sautils.SAUtils;
+import tv.superawesome.lib.sanetwork.request.SANetwork;
+import tv.superawesome.lib.sanetwork.request.SANetworkInterface;
 import tv.superawesome.lib.sautils.SAApplication;
+import tv.superawesome.lib.sautils.SAUtils;
 
 /**
  * Class that sends events to the server (click, viewable impression, etc)
@@ -32,7 +33,8 @@ import tv.superawesome.lib.sautils.SAApplication;
 public class SAEvents {
 
     // private consts
-    private final static short MAX_TICKS = 2;
+    private final static short MAX_DISPLAY_TICKS = 1;
+    private final static short MAX_VIDEO_TICKS = 2;
     private final static int DELAY = 1000;
 
     // private vars
@@ -108,7 +110,7 @@ public class SAEvents {
         }
     }
 
-    public void sendViewableForFullscreen () {
+    public void sendViewableImpressionForView (final ViewGroup child, final int maxTicks) {
         // safety check
         if (refAd == null) return;
 
@@ -116,34 +118,8 @@ public class SAEvents {
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (ticks >= MAX_TICKS) {
-                    sendEventsFor("viewable_impr");
-                } else {
-                    ticks++;
-
-                    // log
-                    Log.d("SuperAwesome", "Viewability count " + ticks + "/" + MAX_TICKS);
-
-                    // start again
-                    handler.postDelayed(runnable, DELAY);
-                }
-            }
-        };
-
-        // start
-        handler.postDelayed(runnable, DELAY);
-    }
-
-    public void sendViewableForInScreen (final RelativeLayout child) {
-        // safety check
-        if (refAd == null) return;
-
-        // call runnable
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (ticks >= MAX_TICKS) {
-                    if (check_tick == MAX_TICKS) {
+                if (ticks >= maxTicks) {
+                    if (check_tick == maxTicks) {
                         sendEventsFor("viewable_impr");
                     } else {
                         Log.d("SuperAwesome", "Could not send viewable impression since it appears view is not on screen");
@@ -184,7 +160,7 @@ public class SAEvents {
                     }
 
                     // log
-                    Log.d("SuperAwesome", "Viewability count " + ticks + "/" + MAX_TICKS);
+                    Log.d("SuperAwesome", "Viewability count " + ticks + "/" + maxTicks);
 
                     // run again
                     handler.postDelayed(runnable, DELAY);
@@ -194,6 +170,14 @@ public class SAEvents {
 
         // start
         handler.postDelayed(runnable, DELAY);
+    }
+
+    public void sendViewableImpressionForDisplay (ViewGroup layout) {
+        sendViewableImpressionForView(layout, MAX_DISPLAY_TICKS);
+    }
+
+    public void sendViewableImpressionForVideo (ViewGroup layout) {
+        sendViewableImpressionForView(layout, MAX_VIDEO_TICKS);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
