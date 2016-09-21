@@ -24,7 +24,6 @@ import tv.superawesome.lib.samodelspace.SAAd;
 import tv.superawesome.lib.samodelspace.SATracking;
 import tv.superawesome.lib.sanetwork.request.SANetwork;
 import tv.superawesome.lib.sanetwork.request.SANetworkInterface;
-import tv.superawesome.lib.sautils.SAApplication;
 import tv.superawesome.lib.sautils.SAUtils;
 
 /**
@@ -42,6 +41,7 @@ public class SAEvents {
     private short check_tick = 0;
     private Handler handler = null;
     private Runnable runnable = null;
+    private Context context = null;
 
     // private vars w/ public inteface
     private SAAd refAd = null;
@@ -50,9 +50,10 @@ public class SAEvents {
     // Init
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public SAEvents () {
+    public SAEvents (Context context) {
         // empty init
         handler = new Handler();
+        this.context = context;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,21 +71,19 @@ public class SAEvents {
     public void sendEventToURL(final String url) {
 
         SAUtils.SAConnectionType type = SAUtils.SAConnectionType.unknown;
-        Context c = SAApplication.getSAApplicationContext();
-        if (c != null) {
-            type = SAUtils.getNetworkConnectivity(c);
+        if (context != null) {
+            type = SAUtils.getNetworkConnectivity(context);
         }
         // simple version for now
-        String finalEvtUrl = url; // + "&ct=" + type.ordinal();
 
         // get the header
         JSONObject header = SAJsonParser.newObject(new Object[]{
                 "Content-Type", "application/json",
-                "User-Agent", SAUtils.getUserAgent()
+                "User-Agent", SAUtils.getUserAgent(context)
         });
 
         SANetwork network = new SANetwork();
-        network.sendGET(c, finalEvtUrl, new JSONObject(), header, new SANetworkInterface() {
+        network.sendGET(context, url, new JSONObject(), header, new SANetworkInterface() {
             @Override
             public void response(int status, String payload, boolean success) {
                 Log.d("SuperAwesome", "[" + success + "] Event response " + status + " | " + payload);
