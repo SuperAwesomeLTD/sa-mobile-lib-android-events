@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class SAMoatEvents {
 
-    /** Moat tracking hardcoded constants */
+    // Moat tracking hardcoded constants
     private static final String MOAT_SERVER = "https://z.moatads.com";
     private static final String MOAT_URL = "moatad.js";
     private static final String MOAT_DISPLAY_PARTNER_CODE = "superawesomeinappdisplay731223424656";
@@ -27,27 +27,26 @@ public class SAMoatEvents {
     private final String MOAT_DISPLAY_KEY = "display_ad_tracker_";
     private final String MOAT_VIDEO_KEY = "video_ad_tracker_";
 
-    private final String MOAT_ERROR_MSG = "[AA :: Info | Moat] Did not send moat event this time";
     private final String MOAT_DISPLAY_REGISTER_MSG = "[AA :: Info | Moat] Register display event for key: ";
     private final String MOAT_DISPLAY_UNREGISTER_MSG = "[AA :: Info | Moat] Unregister display event for key: ";
     private final String MOAT_VIDEO_REGISTER_MSG = "[AA :: Info | Moat] Register video event for key: ";
     private final String MOAT_VIDEO_UNREGISTER_MSG = "[AA :: Info | Moat] Unregister video event for key: ";
 
-    /** other variables */
+    // other variables
     private MoatFactory factory = null;
     private HashMap<String, WebAdTracker> displayDict;
     private HashMap<String, NativeVideoTracker> videoDict;
 
-    /** the singleton SuperAwesome instance */
+    // the singleton SuperAwesome instance
     private static SAMoatEvents instance = new SAMoatEvents();
 
-    /** make the constructor private so that this class cannot be instantiated */
+    // make the constructor private so that this class cannot be instantiated
     private SAMoatEvents(){
         displayDict = new HashMap<>();
         videoDict = new HashMap<>();
     }
 
-    /** Get the only object available */
+    // Get the only object available
     public static SAMoatEvents getInstance(){
         return instance;
     }
@@ -55,23 +54,17 @@ public class SAMoatEvents {
     /**
      * Moat display ad
      * @param activity the activity
-     * @param view the webview
+     * @param view the WebView to register the moat event for
      * @param adDetails ad details
      * @return a moat string or an empty string
      */
     public String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adDetails) {
 
-        Random rand  = new Random();
-        if (rand.nextInt(101) > 20) {
-            Log.d("SuperAwesome", MOAT_ERROR_MSG);
-            return "";
-        }
-
-        /** create factory */
+        // create factory
         factory = MoatFactory.create(activity);
         WebAdTracker webAdTracker = factory.createWebAdTracker(view);
 
-        /** track data */
+        // track data
         String moatQuery = "";
         moatQuery += "moatClientLevel1=" + adDetails.get("advertiserId");
         moatQuery += "&moatClientLevel2=" + adDetails.get("campaignId");
@@ -93,7 +86,7 @@ public class SAMoatEvents {
 
     /**
      * Unregister display moat events
-     * @param placementId
+     * @param placementId placement id used as dict reference
      */
     public void unregisterDisplayMoatEvent (int placementId) {
         String key = MOAT_DISPLAY_KEY + placementId;
@@ -112,17 +105,11 @@ public class SAMoatEvents {
      */
     public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adDetails){
 
-        Random rand  = new Random();
-        if (rand.nextInt(101) > 20) {
-            Log.d("SuperAwesome", MOAT_ERROR_MSG);
-            return;
-        }
-
-        /** create video tracker object */
+        // create video tracker object
         factory = MoatFactory.create(activity);
         NativeVideoTracker moatVideoTracker = factory.createNativeVideoTracker(MOAT_VIDEO_PARTNER_CODE);
 
-        /** track data */
+        // track data
         HashMap<String, String> adIds = new HashMap<String, String>();
         adIds.put("level1", "" + adDetails.get("advertiserId"));
         adIds.put("level2", "" + adDetails.get("campaignId"));
@@ -141,10 +128,10 @@ public class SAMoatEvents {
 
     /**
      * Send the Video complete event and remove the tracker from the dict
-     * @param placementId
+     * @param placementId placement id used as dict reference
      */
     public void unregisterVideoMoatEvent(int placementId){
-        /** go on */
+
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("type", "AdVideoComplete");
         String key = MOAT_VIDEO_KEY + placementId;

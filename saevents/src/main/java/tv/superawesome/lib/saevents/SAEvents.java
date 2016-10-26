@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
 import org.json.JSONObject;
@@ -31,7 +30,7 @@ import tv.superawesome.lib.sautils.SAUtils;
  */
 public class SAEvents {
 
-    // private consts
+    // private constants
     private final static short MAX_DISPLAY_TICKS = 1;
     private final static short MAX_VIDEO_TICKS = 2;
     private final static int DELAY = 1000;
@@ -45,6 +44,8 @@ public class SAEvents {
 
     // private vars w/ public inteface
     private SAAd refAd = null;
+    SANetwork network = new SANetwork();
+    private boolean moatLimiting = true;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Init
@@ -64,36 +65,42 @@ public class SAEvents {
         refAd = ad;
     }
 
+    public void disableMoatLimiting () {
+        moatLimiting = false;
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // event functions
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void sendEventToURL(final String url) {
-
-        SAUtils.SAConnectionType type = SAUtils.SAConnectionType.unknown;
-        if (context != null) {
-            type = SAUtils.getNetworkConnectivity(context);
-        }
-        // simple version for now
-
+    public void sendEventToURL(final String url, final SAEventsInterface listener) {
         // get the header
         JSONObject header = SAJsonParser.newObject(new Object[]{
                 "Content-Type", "application/json",
                 "User-Agent", SAUtils.getUserAgent(context)
         });
 
-        SANetwork network = new SANetwork();
         network.sendGET(context, url, new JSONObject(), header, new SANetworkInterface() {
             @Override
             public void response(int status, String payload, boolean success) {
-                Log.d("SuperAwesome", "[" + success + "] Event response " + status + " | " + payload);
+                if (listener != null) {
+                    listener.response(success, status);
+                }
             }
         });
     }
 
-    public void sendEventsFor(String key) {
+    public void sendEventToURL(final String url) {
+        sendEventToURL(url, null);
+    }
+
+    public void sendEventsFor(String key, final SAEventsInterface listener) {
         // safety check
-        if (refAd == null) return;
+        if (refAd == null || key == null) {
+            if (listener != null) {
+                listener.response(false, 0);
+            }
+        }
 
         // send events
         List<String> urls = new ArrayList<>();
@@ -103,15 +110,47 @@ public class SAEvents {
             }
         }
 
-        // send event
-        for (String url : urls) {
-            sendEventToURL(url);
+        final int max = urls.size();
+        final int[] successful = {0};
+        final int[] current = {0};
+
+        if (max > 0) {
+            // send event
+            for (String url : urls) {
+                sendEventToURL(url, new SAEventsInterface() {
+                    @Override
+                    public void response(boolean success, int status) {
+                        // increment
+                        successful[0] += success ? 1 : 0;
+                        current[0] += 1;
+
+                        // once you reach the end
+                        if (current[0] == max && listener != null) {
+                            listener.response(current[0] == successful[0], current[0] == successful[0] ? 200 : 0);
+                        }
+                    }
+                });
+            }
+        }
+        else {
+            if (listener != null) {
+                listener.response(false, 0);
+            }
         }
     }
 
-    public void sendViewableImpressionForView (final ViewGroup child, final int maxTicks) {
+    public void sendEventsFor(String key) {
+        sendEventsFor(key, null);
+    }
+
+    public void sendViewableImpressionForView(final ViewGroup child, final int maxTicks, final SAEventsInterface listener) {
         // safety check
-        if (refAd == null) return;
+        if (refAd == null || child == null) {
+            if (listener != null) {
+                listener.response(false, 0);
+            }
+            return;
+        }
 
         // call runnable
         runnable = new Runnable() {
@@ -119,9 +158,11 @@ public class SAEvents {
             public void run() {
                 if (ticks >= maxTicks) {
                     if (check_tick == maxTicks) {
-                        sendEventsFor("viewable_impr");
+                        sendEventsFor("viewable_impr", listener);
                     } else {
-                        Log.d("SuperAwesome", "Could not send viewable impression since it appears view is not on screen");
+                        if (listener != null) {
+                            listener.response(false, 0);
+                        }
                     }
                 } else {
                     ticks++;
@@ -172,11 +213,11 @@ public class SAEvents {
     }
 
     public void sendViewableImpressionForDisplay (ViewGroup layout) {
-        sendViewableImpressionForView(layout, MAX_DISPLAY_TICKS);
+        sendViewableImpressionForView(layout, MAX_DISPLAY_TICKS, null);
     }
 
     public void sendViewableImpressionForVideo (ViewGroup layout) {
-        sendViewableImpressionForView(layout, MAX_VIDEO_TICKS);
+        sendViewableImpressionForView(layout, MAX_VIDEO_TICKS, null);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -184,7 +225,15 @@ public class SAEvents {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public String registerDisplayMoatEvent(Activity activity, WebView view) {
-        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return "";
+        // if Moat is not present then don't go forward
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) {
+            return "";
+        }
+
+        // go forward when moat limiting is not enabled and only in 1 out of 5 cases
+        if (moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) {
+            return "";
+        }
 
         // get the actual data needed for moat
         HashMap<String, String> adData = new HashMap<>();
@@ -217,7 +266,15 @@ public class SAEvents {
     }
 
     public void unregisterDisplayMoatEvent(int placementId) {
-        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
+        // if Moat is not present then don't go forward
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) {
+            return;
+        }
+
+        // go forward when moat limiting is not enabled and only in 1 out of 5 cases
+        if (moatLimiting) {
+            return;
+        }
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
@@ -237,7 +294,15 @@ public class SAEvents {
     }
 
     public void registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp){
-        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
+        // if Moat is not present then don't go forward
+        if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) {
+            return;
+        }
+
+        // go forward when moat limiting is not enabled and only in 1 out of 5 cases
+        if (moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) {
+            return;
+        }
 
         // form the ad data hash map to send to moat
         HashMap<String, String> adData = new HashMap<>();
@@ -267,7 +332,13 @@ public class SAEvents {
     }
 
     public void unregisterVideoMoatEvent(int placementId) {
+        // if Moat is not present then don't go forward
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
+
+        // go forward when moat limiting is not enabled and only in 1 out of 5 cases
+        if (moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) {
+            return;
+        }
 
         try {
             Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
