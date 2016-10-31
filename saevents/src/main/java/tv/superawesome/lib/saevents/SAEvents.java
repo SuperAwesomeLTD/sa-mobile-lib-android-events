@@ -231,7 +231,7 @@ public class SAEvents {
         }
 
         // go forward when moat limiting is not enabled and only in 1 out of 5 cases
-        if (moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) {
+        if ((moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) || refAd == null) {
             return "";
         }
 
@@ -300,7 +300,7 @@ public class SAEvents {
         }
 
         // go forward when moat limiting is not enabled and only in 1 out of 5 cases
-        if (moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) {
+        if ((moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) || refAd == null) {
             return;
         }
 
