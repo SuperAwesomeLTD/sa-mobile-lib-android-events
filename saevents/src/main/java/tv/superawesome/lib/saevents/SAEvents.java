@@ -167,6 +167,25 @@ public class SAEvents {
                 } else {
                     ticks++;
 
+                    // do one check to see if the child is null - useful if somebody coses
+                    if (child == null) {
+                        if (listener != null) {
+                            listener.response(false, 0);
+                        }
+                        return;
+                    }
+
+                    // get the parent
+                    View parent = (View) child.getParent();
+
+                    // do one check to see if the parent is null - useful if somebody coses
+                    if (parent == null) {
+                        if (listener != null) {
+                            listener.response(false, 0);
+                        }
+                        return;
+                    }
+
                     // child
                     int[] childPos = new int[2];
                     child.getLocationInWindow(childPos);
@@ -177,7 +196,6 @@ public class SAEvents {
                     Rect childRect = new Rect(childX, childY, childW, childH);
 
                     // super
-                    View parent = (View) child.getParent();
                     int[] parentPos = new int[2];
                     parent.getLocationInWindow(parentPos);
                     int parentX = parentPos[0];
