@@ -248,8 +248,12 @@ public class SAEvents {
             return "";
         }
 
+        // here calc if moat should be displayed
+        int moatIntRand = SAUtils.randomNumberBetween(0, 100);
+        double moatRand = moatIntRand / 100.0;
+
         // go forward when moat limiting is not enabled and only in 1 out of 5 cases
-        if ((moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) || refAd == null) {
+        if (refAd == null || (moatLimiting && moatRand > refAd.moat)) {
             return "";
         }
 
@@ -317,8 +321,12 @@ public class SAEvents {
             return;
         }
 
+        // here calc if moat should be displayed
+        int moatIntRand = SAUtils.randomNumberBetween(0, 100);
+        double moatRand = moatIntRand / 100.0;
+
         // go forward when moat limiting is not enabled and only in 1 out of 5 cases
-        if ((moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) || refAd == null) {
+        if (refAd == null || (moatLimiting && moatRand > refAd.moat)) {
             return;
         }
 
@@ -354,7 +362,7 @@ public class SAEvents {
         if (!SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) return;
 
         // go forward when moat limiting is not enabled and only in 1 out of 5 cases
-        if (moatLimiting && SAUtils.randomNumberBetween(0, 100) >= 80) {
+        if (moatLimiting) {
             return;
         }
 
