@@ -17,6 +17,7 @@ import android.widget.VideoView;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,24 +37,26 @@ public class SAEvents {
 
     // constants
     private final static short MAX_DISPLAY_TICKS = 1;
-    private final static short MAX_VIDEO_TICKS = 2;
-    private final static int DELAY = 1000;
+    private final static short MAX_VIDEO_TICKS   = 2;
+    private final static int   DELAY             = 1000;
 
     // member variables (internal)
-    private short ticks = 0;
-    private short check_tick = 0;
-    private Handler handler = null;
-    private Runnable runnable = null;
-    private Context context = null;
+    private short     ticks        = 0;
+    private short     check_tick   = 0;
+    private Handler   handler      = null;
+    private Runnable  runnable     = null;
+    private Context   context      = null;
 
     // the ad that will be used to check for events and fire them
-    private SAAd refAd = null;
+    private SAAd      refAd        = null;
 
     // an instance of SANetwork
-    private SANetwork network = new SANetwork();
+    private SANetwork network      = new SANetwork();
 
     // boolean mostly used for tests, in order to not limit moat at all
-    private boolean moatLimiting = true;
+    private boolean   moatLimiting = true;
+    // a moat object
+    private Object    moatInstance = null;
 
     /**
      * Basic constructor with a context
@@ -61,7 +64,6 @@ public class SAEvents {
      * @param context current context (activity or fragment)
      */
     public SAEvents (Context context) {
-        handler = new Handler();
         this.context = context;
     }
 
@@ -204,6 +206,11 @@ public class SAEvents {
             return;
         }
 
+        // create handler
+        if (handler == null) {
+            handler = new Handler();
+        }
+
         // create a new runnable
         runnable = new Runnable() {
             @Override
@@ -339,8 +346,7 @@ public class SAEvents {
      */
     public String registerDisplayMoatEvent(Activity activity, WebView view) {
 
-        // if the SAMoatEvents class exists and if Moat is allowd, proceed
-        if (SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents") && isMoatAllowed()) {
+        if (SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents") && isMoatAllowed()) try {
 
             HashMap<String, String> adData = new HashMap<>();
             adData.put("advertiserId", "" + refAd.advertiserId);
@@ -351,22 +357,19 @@ public class SAEvents {
             adData.put("placementId", "" + refAd.placementId);
             adData.put("publisherId", "" + refAd.publisherId);
 
-            try {
-                Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
-                java.lang.reflect.Method method = moat.getMethod("getInstance");
-                Object moatInstance = method.invoke(moat);
-                java.lang.reflect.Method method1 = moat.getMethod("registerDisplayMoatEvent", Activity.class, WebView.class, int.class, HashMap.class);
-                Object returnValue = method1.invoke(moatInstance, activity, view, refAd.placementId, adData);
-                return (String)returnValue;
-            } catch (Exception e) {
-                return "";
-            }
+            Class<?> moatClass = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
+            Constructor<?> moatConstructor = moatClass.getConstructor();
+            moatInstance = moatConstructor.newInstance();
 
-        }
-        // else just return nothing
-        else {
+            java.lang.reflect.Method method = moatClass.getMethod("registerDisplayMoatEvent", Activity.class, WebView.class, HashMap.class);
+            Object returnValue = method.invoke(moatInstance, activity, view, adData);
+            return (String) returnValue;
+
+        } catch (Exception e) {
             return "";
         }
+
+        return "";
     }
 
     /**
@@ -376,22 +379,18 @@ public class SAEvents {
      */
     public boolean unregisterDisplayMoatEvent() {
 
-        // if the SAMoatEvents class is available, try to remove a moat event
-        if (refAd != null && SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) {
+        if (SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents") && moatInstance != null) try {
 
-            try {
-                Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
-                java.lang.reflect.Method method = moat.getMethod("getInstance");
-                Object moatInstance = method.invoke(moat);
-                java.lang.reflect.Method method1 = moat.getMethod("unregisterDisplayMoatEvent", int.class);
-                Object returnValue = method1.invoke(moatInstance, refAd.placementId);
-                return (Boolean)returnValue;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
+            Class<?> moatClass = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
+            java.lang.reflect.Method method = moatClass.getMethod("unregisterDisplayMoatEvent");
+            Object returnValue = method.invoke(moatInstance);
+            return (Boolean) returnValue;
+
+        } catch (Exception e) {
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -404,8 +403,7 @@ public class SAEvents {
      */
     public boolean registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp){
 
-        // if Moat is allowed the SAMoatEvents class is available
-        if (SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents") && isMoatAllowed()) {
+        if (SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents") && isMoatAllowed()) try {
 
             HashMap<String, String> adData = new HashMap<>();
             adData.put("advertiserId", "" + refAd.advertiserId);
@@ -416,43 +414,39 @@ public class SAEvents {
             adData.put("placementId", "" + refAd.placementId);
             adData.put("publisherId", "" + refAd.publisherId);
 
-            try {
-                Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
-                java.lang.reflect.Method method = moat.getMethod("getInstance");
-                Object moatInstance = method.invoke(moat);
-                java.lang.reflect.Method method1 = moat.getMethod("registerVideoMoatEvent", Activity.class, VideoView.class, MediaPlayer.class, int.class, HashMap.class);
-                Object returnValue = method1.invoke(moatInstance, activity, video, mp, refAd.placementId, adData);
-                return (Boolean) returnValue;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
+            Class<?> moatClass = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
+            Constructor<?> moatConstructor = moatClass.getConstructor();
+            moatInstance = moatConstructor.newInstance();
+
+            java.lang.reflect.Method method = moatClass.getMethod("registerVideoMoatEvent", Activity.class, VideoView.class, MediaPlayer.class, HashMap.class);
+            Object returnValue = method.invoke(moatInstance, activity, video, mp, adData);
+            return (Boolean) returnValue;
+
+        } catch (Exception e) {
             return false;
         }
+
+        return false;
     }
 
     /**
      * Method to unregister a Moat event for video
      *
-     * @return            whether the video moat event was killed off OK
+     * @return whether the video moat event was killed off OK
      */
     public boolean unregisterVideoMoatEvent() {
 
-        // if the SAMoatEvents class is available, try to remove a moat event
-        if (SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents")) {
+        if (SAUtils.isClassAvailable("tv.superawesome.lib.samoatevents.SAMoatEvents") && moatInstance != null) try {
 
-            try {
-                Class<?> moat = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
-                java.lang.reflect.Method method = moat.getMethod("getInstance");
-                Object moatInstance = method.invoke(moat);
-                java.lang.reflect.Method method1 = moat.getMethod("unregisterVideoMoatEvent", int.class);
-                Object returnValue = method1.invoke(moatInstance, refAd.placementId);
-                return (Boolean) returnValue;
-            } catch (Exception e) {
-                return false;
-            }
-        } else {
+            Class<?> moatClass = Class.forName("tv.superawesome.lib.samoatevents.SAMoatEvents");
+            java.lang.reflect.Method method = moatClass.getMethod("unregisterVideoMoatEvent");
+            Object returnValue = method.invoke(moatInstance);
+            return (Boolean) returnValue;
+
+        } catch (Exception e) {
             return false;
         }
+
+        return true;
     }
 }
