@@ -17,7 +17,6 @@ import android.widget.VideoView;
 
 import org.json.JSONObject;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,7 +76,6 @@ public class SAEvents {
 
     /**
      * Method by which Moat can be fully enforced by disabling any limiting applied to it
-     *
      */
     public void disableMoatLimiting () {
         moatLimiting = false;
@@ -92,7 +90,7 @@ public class SAEvents {
     public void sendEventToURL(final String url, SAEventsInterface listener1) {
 
         // create local listener
-        final SAEventsInterface listener = listener1 != null ? listener1 : new SAEventsInterface() {@Override public void response(boolean success, int status) {}};
+        final SAEventsInterface listener = listener1 != null ? listener1 : new SAEventsInterface() {@Override public void saDidGetEventResponse(boolean success, int status) {}};
 
         // create the header
         JSONObject header = SAJsonParser.newObject(new Object[]{
@@ -110,8 +108,8 @@ public class SAEvents {
              * @param success   general success status
              */
             @Override
-            public void response(int status, String payload, boolean success) {
-                listener.response(success, status);
+            public void saDidGetResponse(int status, String payload, boolean success) {
+                listener.saDidGetEventResponse(success, status);
             }
         });
     }
@@ -134,11 +132,11 @@ public class SAEvents {
     public void sendEventsFor(String key, SAEventsInterface listener1) {
 
         // create local listener
-        final SAEventsInterface listener = listener1 != null ? listener1 : new SAEventsInterface() {@Override public void response(boolean success, int status) {}};
+        final SAEventsInterface listener = listener1 != null ? listener1 : new SAEventsInterface() {@Override public void saDidGetEventResponse(boolean success, int status) {}};
 
         // safety check
         if (refAd == null || key == null) {
-            listener.response(false, 0);
+            listener.saDidGetEventResponse(false, 0);
         }
 
         // add all events matching "key" to a new List
@@ -159,15 +157,15 @@ public class SAEvents {
             for (String url : urls) {
                 sendEventToURL(url, new SAEventsInterface() {
                     @Override
-                    public void response(boolean success, int status) {
+                    public void saDidGetEventResponse(boolean success, int status) {
                         // increment
                         successful[0] += success ? 1 : 0;
                         current[0] += 1;
 
-                        // once you reach the end of all events, just send one listener response
+                        // once you reach the end of all events, just send one listener saDidGetEventResponse
                         // to the library user
                         if (current[0] == max) {
-                            listener.response(current[0] == successful[0], current[0] == successful[0] ? 200 : 0);
+                            listener.saDidGetEventResponse(current[0] == successful[0], current[0] == successful[0] ? 200 : 0);
                         }
                     }
                 });
@@ -175,7 +173,7 @@ public class SAEvents {
         }
         // in case of failure, just return the error listener
         else {
-            listener.response(false, 0);
+            listener.saDidGetEventResponse(false, 0);
         }
     }
 
@@ -201,7 +199,7 @@ public class SAEvents {
         // safety check
         if (refAd == null || child == null) {
             if (listener != null) {
-                listener.response(false, 0);
+                listener.saDidGetEventResponse(false, 0);
             }
             return;
         }
@@ -218,7 +216,7 @@ public class SAEvents {
                         sendEventsFor("viewable_impr", listener);
                     } else {
                         if (listener != null) {
-                            listener.response(false, 0);
+                            listener.saDidGetEventResponse(false, 0);
                         }
                     }
                 }
@@ -231,7 +229,7 @@ public class SAEvents {
                     // viewable impression)
                     if (child == null) {
                         if (listener != null) {
-                            listener.response(false, 0);
+                            listener.saDidGetEventResponse(false, 0);
                         }
                         return;
                     }
@@ -244,7 +242,7 @@ public class SAEvents {
                     // if that's the case, just kill it all and don't send a viewable impression
                     if (parent == null) {
                         if (listener != null) {
-                            listener.response(false, 0);
+                            listener.saDidGetEventResponse(false, 0);
                         }
                         return;
                     }

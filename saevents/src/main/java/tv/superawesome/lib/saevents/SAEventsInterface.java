@@ -15,5 +15,5 @@ public interface SAEventsInterface {
      * @param success   success state of the event request
      * @param status    status of the event request
      */
-    void response (boolean success, int status);
+    void saDidGetEventResponse(boolean success, int status);
 }
