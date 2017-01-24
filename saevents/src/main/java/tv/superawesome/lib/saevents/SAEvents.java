@@ -139,6 +139,7 @@ public class SAEvents {
         // safety check
         if (refAd == null || key == null) {
             listener.saDidGetEventResponse(false, 0);
+            return;
         }
 
         // add all events matching "key" to a new List
