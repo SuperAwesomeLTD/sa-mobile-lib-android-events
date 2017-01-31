@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="tv.superawesome.lib.MainActivity">
+
+    <WebView
+        android:id="@+id/MyWebView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="tv.superawesome.lib.savideoplayer.SAVideoPlayer"
+        android:id="@+id/sa_videoplayer_id" />
+
+</LinearLayout>
