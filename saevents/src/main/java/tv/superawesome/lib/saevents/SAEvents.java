@@ -221,7 +221,7 @@ public class SAEvents {
                 // method, then trigger the viewable impression
                 if (ticks >= maxTicks) {
                     if (check_tick == maxTicks) {
-                        sendEventsFor("viewable_impr", listener);
+                        sendEventsFor("superawesome_viewable_impression", listener);
                     } else {
                         if (listener != null) {
                             listener.saDidGetEventResponse(false, 0);
