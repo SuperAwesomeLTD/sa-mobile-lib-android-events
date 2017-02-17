@@ -354,7 +354,7 @@ public class SAEvents {
             adData.put("campaignId", "" + refAd.campaignId);
             adData.put("lineItemId", "" + refAd.lineItemId);
             adData.put("creativeId", "" + refAd.creative.id);
-            adData.put("app", "" + refAd.app);
+            adData.put("app", "" + refAd.appId);
             adData.put("placementId", "" + refAd.placementId);
             adData.put("publisherId", "" + refAd.publisherId);
 
@@ -411,7 +411,7 @@ public class SAEvents {
             adData.put("campaignId", "" + refAd.campaignId);
             adData.put("lineItemId", "" + refAd.lineItemId);
             adData.put("creativeId", "" + refAd.creative.id);
-            adData.put("app", "" + refAd.app);
+            adData.put("app", "" + refAd.appId);
             adData.put("placementId", "" + refAd.placementId);
             adData.put("publisherId", "" + refAd.publisherId);
 
