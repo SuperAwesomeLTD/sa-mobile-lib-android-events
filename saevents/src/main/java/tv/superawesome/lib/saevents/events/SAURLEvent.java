@@ -1,12 +1,12 @@
-package tv.superawesome.lib.saevents;
+package tv.superawesome.lib.saevents.events;
 
 import android.content.Context;
 
-public class SAVASTEvent extends SAServerEvent {
+public class SAURLEvent extends SAServerEvent {
 
     protected String vastUrl = null;
 
-    public SAVASTEvent (Context context, String vastUrl) {
+    public SAURLEvent(Context context, String vastUrl) {
         super(context, null, null);
         this.vastUrl = vastUrl;
     }

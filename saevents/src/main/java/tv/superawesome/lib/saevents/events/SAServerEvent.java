@@ -1,11 +1,11 @@
-package tv.superawesome.lib.saevents;
+package tv.superawesome.lib.saevents.events;
 
 import android.content.Context;
 
 import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
-import tv.superawesome.lib.samodelspace.SAAd;
+import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sanetwork.request.SANetwork;
 import tv.superawesome.lib.sanetwork.request.SANetworkInterface;
 import tv.superawesome.lib.sasession.SASession;
@@ -28,7 +28,11 @@ public class SAServerEvent {
     }
 
     public String getUrl () {
-        return session.getBaseUrl();
+        try {
+            return session.getBaseUrl();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String getEndpoint () {
