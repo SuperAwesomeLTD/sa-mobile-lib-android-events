@@ -153,7 +153,7 @@ public class SAMoatModule {
             return false;
         }
 
-        return true;
+        return false;
     }
 
     public void disableMoatLimiting () {

@@ -15,7 +15,10 @@ import org.junit.runners.Suite;
         SAEvents_SAURLEvent_Tests.class,
         SAEvents_SAViewableImpressionEvent_Tests.class,
         SAEvents_SAServerModule_Tests.class,
-        SAEvents_SAVASTModule_Tests.class
+        SAEvents_SAVASTModule_Tests.class,
+        SAEvents_SAViewableModule_Tests.class,
+        SAEvents_SAMoatModule_Tests.class,
+        SAEvents_SAEvents_Tests.class
 })
 public class TestSuite {
 }

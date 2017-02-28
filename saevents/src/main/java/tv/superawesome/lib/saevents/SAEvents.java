@@ -165,4 +165,20 @@ public class SAEvents {
             moatModule.disableMoatLimiting();
         }
     }
+
+    public SAServerModule getServerModule() {
+        return serverModule;
+    }
+
+    public SAVASTModule getVastModule() {
+        return vastModule;
+    }
+
+    public SAMoatModule getMoatModule() {
+        return moatModule;
+    }
+
+    public SAViewableModule getViewableModule() {
+        return viewableModule;
+    }
 }

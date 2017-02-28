@@ -3,10 +3,14 @@ package tv.superawesome.lib;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.CountDownLatch;
+
 import tv.superawesome.lib.saevents.events.SAImpressionEvent;
+import tv.superawesome.lib.saevents.events.SAServerEvent;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sasession.SASession;
 import tv.superawesome.lib.sautils.SAUtils;
@@ -162,6 +166,104 @@ public class SAEvents_SAImpressionEvent_Tests extends ActivityInstrumentationTes
         assertFalse(query.has("sdkVersion"));
         assertFalse(query.has("no_image"));
         assertFalse(query.has("rnd"));
+
+    }
+
+    @LargeTest
+    public void test5 () throws Throwable {
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        Activity context = getActivity();
+        SAAd ad = SAEvents_Aux.getTestAd();
+        SASession session = new SASession(context);
+        session.setConfigurationStaging();
+
+        final SAImpressionEvent event = new SAImpressionEvent(context, ad, session);
+
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                event.triggerEvent(new SAServerEvent.Listener() {
+                    @Override
+                    public void didTriggerEvent(boolean success) {
+
+                        assertTrue(success);
+                        signal.countDown();
+
+                    }
+                });
+
+            }
+        });
+
+        signal.await();
+
+    }
+
+    @LargeTest
+    public void test6 () throws Throwable {
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        Activity context = null;
+        SAAd ad = SAEvents_Aux.getTestAd();
+        SASession session = new SASession(context);
+        session.setConfigurationStaging();
+
+        final SAImpressionEvent event = new SAImpressionEvent(context, ad, session);
+
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                event.triggerEvent(new SAServerEvent.Listener() {
+                    @Override
+                    public void didTriggerEvent(boolean success) {
+
+                        assertFalse(success);
+                        signal.countDown();
+
+                    }
+                });
+
+            }
+        });
+
+        signal.await();
+
+    }
+
+    @LargeTest
+    public void test7 () throws Throwable {
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        Activity context = null;
+        SAAd ad = SAEvents_Aux.getTestAd();
+        SASession session = null;
+
+        final SAImpressionEvent event = new SAImpressionEvent(context, ad, session);
+
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                event.triggerEvent(new SAServerEvent.Listener() {
+                    @Override
+                    public void didTriggerEvent(boolean success) {
+
+                        assertFalse(success);
+                        signal.countDown();
+
+                    }
+                });
+
+            }
+        });
+
+        signal.await();
 
     }
 }

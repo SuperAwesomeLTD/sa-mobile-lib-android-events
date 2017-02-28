@@ -6,7 +6,11 @@ import android.test.suitebuilder.annotation.LargeTest;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.CountDownLatch;
+
+import tv.superawesome.lib.saevents.events.SAImpressionEvent;
 import tv.superawesome.lib.saevents.events.SAPGSuccessEvent;
+import tv.superawesome.lib.saevents.events.SAServerEvent;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sasession.SASession;
 import tv.superawesome.lib.sautils.SAUtils;
@@ -48,9 +52,9 @@ public class SAEvents_SAPGSuccessEvent_Tests extends ActivityInstrumentationTest
         assertEquals(query.opt("sdkVersion"), session.getVersion());
         assertTrue(query.has("rnd"));
         assertTrue(query.has("data"));
-        assertTrue(query.opt("data").toString().contains("placement%22%3A100"));
-        assertTrue(query.opt("data").toString().contains("line_item%22%3A8921"));
-        assertTrue(query.opt("data").toString().contains("creative%22%3A2432"));
+        assertTrue(query.opt("data").toString().contains("placement%22%3A" + ad.placementId));
+        assertTrue(query.opt("data").toString().contains("line_item%22%3A" + ad.lineItemId));
+        assertTrue(query.opt("data").toString().contains("creative%22%3A" + ad.creative.id));
         assertTrue(query.opt("data").toString().contains("type%22%3A%22parentalGateSuccess"));
 
     }
@@ -86,9 +90,9 @@ public class SAEvents_SAPGSuccessEvent_Tests extends ActivityInstrumentationTest
         assertEquals(query.opt("sdkVersion"), session.getVersion());
         assertTrue(query.has("rnd"));
         assertTrue(query.has("data"));
-        assertTrue(query.opt("data").toString().contains("placement%22%3A100"));
-        assertTrue(query.opt("data").toString().contains("line_item%22%3A8921"));
-        assertTrue(query.opt("data").toString().contains("creative%22%3A2432"));
+        assertTrue(query.opt("data").toString().contains("placement%22%3A" + ad.placementId));
+        assertTrue(query.opt("data").toString().contains("line_item%22%3A" + ad.lineItemId));
+        assertTrue(query.opt("data").toString().contains("creative%22%3A" + ad.creative.id));
         assertTrue(query.opt("data").toString().contains("type%22%3A%22parentalGateSuccess"));
 
     }
@@ -150,6 +154,104 @@ public class SAEvents_SAPGSuccessEvent_Tests extends ActivityInstrumentationTest
         assertFalse(query.has("sdkVersion"));
         assertFalse(query.has("rnd"));
         assertFalse(query.has("data"));
+
+    }
+
+    @LargeTest
+    public void test5 () throws Throwable {
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        Activity context = getActivity();
+        SAAd ad = SAEvents_Aux.getTestAd();
+        SASession session = new SASession(context);
+        session.setConfigurationStaging();
+
+        final SAPGSuccessEvent event = new SAPGSuccessEvent(context, ad, session);
+
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                event.triggerEvent(new SAServerEvent.Listener() {
+                    @Override
+                    public void didTriggerEvent(boolean success) {
+
+                        assertTrue(success);
+                        signal.countDown();
+
+                    }
+                });
+
+            }
+        });
+
+        signal.await();
+
+    }
+
+    @LargeTest
+    public void test6 () throws Throwable {
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        Activity context = null;
+        SAAd ad = SAEvents_Aux.getTestAd();
+        SASession session = new SASession(context);
+        session.setConfigurationStaging();
+
+        final SAPGSuccessEvent event = new SAPGSuccessEvent(context, ad, session);
+
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                event.triggerEvent(new SAServerEvent.Listener() {
+                    @Override
+                    public void didTriggerEvent(boolean success) {
+
+                        assertFalse(success);
+                        signal.countDown();
+
+                    }
+                });
+
+            }
+        });
+
+        signal.await();
+
+    }
+
+    @LargeTest
+    public void test7 () throws Throwable {
+
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        Activity context = null;
+        SAAd ad = SAEvents_Aux.getTestAd();
+        SASession session = null;
+
+        final SAPGSuccessEvent event = new SAPGSuccessEvent(context, ad, session);
+
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                event.triggerEvent(new SAServerEvent.Listener() {
+                    @Override
+                    public void didTriggerEvent(boolean success) {
+
+                        assertFalse(success);
+                        signal.countDown();
+
+                    }
+                });
+
+            }
+        });
+
+        signal.await();
 
     }
 }

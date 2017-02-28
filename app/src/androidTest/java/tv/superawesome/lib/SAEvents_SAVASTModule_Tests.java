@@ -16,7 +16,6 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         super("tv.superawesome.lib", MainActivity.class);
     }
 
-
     @SmallTest
     public void test1 () {
 
@@ -28,11 +27,11 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = module.getVastClickThrough();
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/click_through");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/click?placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=8439823&device=web&country=GB");
 
         String eventUrl = module.getVASTClickThroughEvent();
         assertNotNull(eventUrl);
-        assertEquals(eventUrl, "https://ads.staging.superawesome/v2/2432/click_through");
+        assertEquals(eventUrl, "https://ads.staging.superawesome.tv/v2/video/click?placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=8439823&device=web&country=GB");
 
     }
 
@@ -52,7 +51,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/error");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/error?placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=1176843&device=web&country=GB&code=[ERRORCODE]");
 
     }
 
@@ -72,7 +71,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/impression");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/impression?placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=1956493&device=web&country=GB");
 
     }
 
@@ -112,7 +111,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/creativeView");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/tracking?event=creativeView&placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=431411&device=web&country=GB");
 
     }
 
@@ -132,7 +131,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/start");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/tracking?event=start&placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=88060&device=web&country=GB");
 
     }
 
@@ -152,7 +151,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/firstQuartile");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/tracking?event=firstQuartile&placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=8852120&device=web&country=GB");
 
     }
 
@@ -172,7 +171,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/midpoint");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/tracking?event=midpoint&placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=9188166&device=web&country=GB");
 
     }
 
@@ -192,7 +191,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/thirdQuartile");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/tracking?event=thirdQuartile&placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=3030429&device=web&country=GB");
 
     }
 
@@ -212,7 +211,7 @@ public class SAEvents_SAVASTModule_Tests extends ActivityInstrumentationTestCase
         SAURLEvent event = list.get(0);
 
         assertNotNull(event);
-        assertEquals(event.getUrl(), "https://ads.staging.superawesome/v2/2432/complete");
+        assertEquals(event.getUrl(), "https://ads.staging.superawesome.tv/v2/video/tracking?event=complete&placement=628&creative=5879&line_item=1137&sdkVersion=unknown&rnd=3260747&device=web&country=GB");
 
     }
 

@@ -41,6 +41,9 @@ public class SAViewableModule {
     public void checkViewableStatusForView (final ViewGroup child, final int maxTicks, final Listener listener) {
         // safety check
         if (ad == null || child == null) {
+            if (listener != null) {
+                listener.saDidFindViewOnScreen(false);
+            }
             return;
         }
 
@@ -57,8 +60,14 @@ public class SAViewableModule {
                 // End: if this view has been visible for the number of ticks specified by the
                 // method, then trigger the viewable impression
                 if (ticks >= maxTicks) {
-                    if (check_tick == maxTicks && listener != null) {
-                        listener.saDidFindViewOnScreen();
+                    if (check_tick == maxTicks) {
+                        if (listener != null) {
+                            listener.saDidFindViewOnScreen(true);
+                        }
+                    } else {
+                        if (listener != null) {
+                            listener.saDidFindViewOnScreen(false);
+                        }
                     }
                 }
                 // In progress: else just continue ticking
@@ -149,6 +158,6 @@ public class SAViewableModule {
     }
 
     public interface Listener {
-        void saDidFindViewOnScreen ();
+        void saDidFindViewOnScreen (boolean success);
     }
 }

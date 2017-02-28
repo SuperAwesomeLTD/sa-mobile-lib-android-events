@@ -16,14 +16,12 @@ public class SAServerEvent {
     protected Context     context = null;
     protected SAAd        ad = null;
     protected SASession   session = null;
-
     private   SANetwork   network = null;
 
     public SAServerEvent(Context context, SAAd ad, SASession session) {
         this.context = context;
         this.ad = ad;
         this.session = session;
-
         this.network = new SANetwork();
     }
 
@@ -55,10 +53,34 @@ public class SAServerEvent {
         network.sendGET(context, getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
-
+                // do nothing
             }
         });
 
+    }
+
+    public void triggerEvent (final Listener listener) {
+
+        network.sendGET(context, getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
+            @Override
+            public void saDidGetResponse(int status, String payload, boolean success) {
+
+                if ((status == 200 || status == 302) && success) {
+                    if (listener != null) {
+                        listener.didTriggerEvent(true);
+                    }
+                } else {
+                    if (listener != null) {
+                        listener.didTriggerEvent(false);
+                    }
+                }
+            }
+        });
+
+    }
+
+    public interface Listener {
+        void didTriggerEvent (boolean success);
     }
 
 }
