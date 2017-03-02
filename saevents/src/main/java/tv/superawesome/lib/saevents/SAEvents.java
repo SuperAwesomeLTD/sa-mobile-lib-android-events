@@ -77,6 +77,12 @@ public class SAEvents {
         return vastModule != null ? vastModule.getVASTClickThroughEvent() : "";
     }
 
+    public void triggerVASTClickThroughEvent () {
+        if (vastModule != null) {
+            vastModule.triggerVastClickThroughEvent();
+        }
+    }
+
     public void triggerVASTErrorEvent () {
         if (vastModule != null) {
             vastModule.triggerVASTErrorEvent();
