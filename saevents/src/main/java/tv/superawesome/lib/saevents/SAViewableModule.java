@@ -23,12 +23,6 @@ public class SAViewableModule {
     private Handler             handler      = null;
     private Runnable            runnable     = null;
 
-    private SAAd ad;
-
-    public SAViewableModule (SAAd ad) {
-        this.ad = ad;
-    }
-
     /**
      * Method that sends a viewable impression for a view. SuperAwesome calculates viewable
      * impression conditions for banner, interstitial, etc, ads using IAB standards
@@ -40,7 +34,7 @@ public class SAViewableModule {
      */
     public void checkViewableStatusForView (final ViewGroup child, final int maxTicks, final Listener listener) {
         // safety check
-        if (ad == null || child == null) {
+        if (child == null) {
             if (listener != null) {
                 listener.saDidFindViewOnScreen(false);
             }

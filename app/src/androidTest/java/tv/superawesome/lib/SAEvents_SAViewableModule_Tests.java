@@ -8,7 +8,6 @@ import android.widget.RelativeLayout;
 import java.util.concurrent.CountDownLatch;
 
 import tv.superawesome.lib.saevents.SAViewableModule;
-import tv.superawesome.lib.samodelspace.saad.SAAd;
 
 public class SAEvents_SAViewableModule_Tests extends ActivityInstrumentationTestCase2<MainActivity> {
 
@@ -23,8 +22,7 @@ public class SAEvents_SAViewableModule_Tests extends ActivityInstrumentationTest
 
         final WebView webView = (WebView) getActivity().findViewById(R.id.TestWebView);
 
-        SAAd ad = SAEvents_Aux.getTestAd();
-        final SAViewableModule module = new SAViewableModule(ad);
+        final SAViewableModule module = new SAViewableModule();
 
         runTestOnUiThread(new Runnable() {
             @Override
@@ -51,8 +49,7 @@ public class SAEvents_SAViewableModule_Tests extends ActivityInstrumentationTest
 
         final RelativeLayout playerHolder = (RelativeLayout) getActivity().findViewById(R.id.TestVideoPlayerHolder);
 
-        SAAd ad = SAEvents_Aux.getTestAd();
-        final SAViewableModule module = new SAViewableModule(ad);
+        final SAViewableModule module = new SAViewableModule();
 
         runTestOnUiThread(new Runnable() {
             @Override
@@ -77,19 +74,18 @@ public class SAEvents_SAViewableModule_Tests extends ActivityInstrumentationTest
 
         final CountDownLatch signal = new CountDownLatch(1);
 
-        final WebView webView = null;
+        final WebView webView = (WebView) getActivity().findViewById(R.id.TestWebView);
 
-        SAAd ad = SAEvents_Aux.getTestAd();
-        final SAViewableModule module = new SAViewableModule(ad);
+        final SAViewableModule module = new SAViewableModule();
 
         runTestOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                module.checkViewableStatusForView(webView, 2, new SAViewableModule.Listener() {
+                module.checkViewableStatusForView(webView, 10, new SAViewableModule.Listener() {
                     @Override
                     public void saDidFindViewOnScreen(boolean success) {
-                        assertFalse(success);
+                        assertTrue(success);
                         signal.countDown();
                     }
                 });
@@ -106,8 +102,7 @@ public class SAEvents_SAViewableModule_Tests extends ActivityInstrumentationTest
         final CountDownLatch signal = new CountDownLatch(1);
 
         final WebView webView = null;
-        SAAd ad = null;
-        final SAViewableModule module = new SAViewableModule(ad);
+        final SAViewableModule module = new SAViewableModule();
 
         runTestOnUiThread(new Runnable() {
             @Override
@@ -120,29 +115,6 @@ public class SAEvents_SAViewableModule_Tests extends ActivityInstrumentationTest
                         signal.countDown();
                     }
                 });
-
-            }
-        });
-
-        signal.await();
-    }
-
-    @LargeTest
-    public void test5 () throws Throwable {
-
-        final CountDownLatch signal = new CountDownLatch(1);
-
-        final WebView webView = null;
-        SAAd ad = null;
-        final SAViewableModule module = new SAViewableModule(ad);
-
-        runTestOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                module.checkViewableStatusForView(webView, 2, null);
-                assertFalse(false);
-                signal.countDown();
 
             }
         });

@@ -71,6 +71,10 @@ public class SAVASTModule {
         }
     }
 
+    public SAURLEvent getVastClickThrough() {
+        return vastClickThrough;
+    }
+
     public void triggerVASTErrorEvent () {
         for (SAURLEvent event : vastError) {
             event.triggerEvent();
@@ -123,10 +127,6 @@ public class SAVASTModule {
         for (SAURLEvent event : vastClickTracking) {
             event.triggerEvent();
         }
-    }
-
-    public SAURLEvent getVastClickThrough() {
-        return vastClickThrough;
     }
 
     public List<SAURLEvent> getVastError() {
