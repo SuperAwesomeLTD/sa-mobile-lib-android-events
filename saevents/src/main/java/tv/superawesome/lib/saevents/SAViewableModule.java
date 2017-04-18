@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sautils.SAUtils;
@@ -71,58 +72,71 @@ public class SAViewableModule {
                     // if the child becomes invalidated (e.g. view disappears from the screen
                     // while this runner works, then just kill it all and don't send a
                     // viewable impression)
-                    if (child == null) {
-                        return;
+                    if (child != null) {
+
+                        ViewParent vgparent = child.getParent();
+
+                        // do one check to see if the parent is null - also useful if the
+                        // view's parent disappears from the screen (and thus the view as well)
+                        // if that's the case, just kill it all and don't send a viewable impression
+                         if (vgparent != null && vgparent instanceof View) {
+                            View parent = (View) vgparent;
+
+                             // now get the child position
+                             int[] childPos = {0, 0};
+                             Rect childRect = new Rect(0, 0, 0, 0);
+                             try {
+                                 child.getLocationInWindow(childPos);
+                                 int childX = childPos[0];
+                                 int childY = childPos[1];
+                                 int childW = child.getWidth();
+                                 int childH = child.getHeight();
+                                 childRect = new Rect(childX, childY, childW, childH);
+                             } catch (Exception e) {
+                                 // do nothing
+                             }
+
+                             // and the parent position
+                             int[] parentPos = {0, 0};
+                             Rect parentRect = new Rect(0, 0, 0, 0);
+                             try {
+                                 parent.getLocationInWindow(parentPos);
+                                 int parentX = parentPos[0];
+                                 int parentY = parentPos[1];
+                                 int parentW = parent.getWidth();
+                                 int parentH = parent.getHeight();
+                                 parentRect = new Rect(parentX, parentY, parentW, parentH);
+                             } catch (Exception e) {
+                                 // do nothing
+                             }
+
+                             // and the whole screen position
+                             Activity context = (Activity) child.getContext();
+                             Rect screenRect = new Rect(0, 0, 0, 0);
+                             try {
+                                 SAUtils.SASize screenSize = SAUtils.getRealScreenSize(context, false);
+                                 int screenX = 0;
+                                 int screenY = 0;
+                                 int screenW = screenSize.width;
+                                 int screenH = screenSize.height;
+                                 screenRect = new Rect(screenX, screenY, screenW, screenH);
+                             } catch (Exception e) {
+                                 // do nothing
+                             }
+
+                             // if the child is in the parent and the child is also on screen,
+                             // increment the counter that verifies for how long a view has been visible
+                             if (SAUtils.isTargetRectInFrameRect(childRect, parentRect) && SAUtils.isTargetRectInFrameRect(childRect, screenRect)){
+                                check_tick++;
+                             }
+
+                             // log
+                             Log.d("SuperAwesome", "Viewability count " + ticks + "/" + maxTicks);
+
+                             // run again
+                             handler.postDelayed(runnable, DELAY);
+                        }
                     }
-
-                    // get the parent
-                    View parent = (View) child.getParent();
-
-                    // do one check to see if the parent is null - also useful if the
-                    // view's parent disappears from the screen (and thus the view as well)
-                    // if that's the case, just kill it all and don't send a viewable impression
-                    if (parent == null) {
-                        return;
-                    }
-
-                    // now get the child position
-                    int[] childPos = new int[2];
-                    child.getLocationInWindow(childPos);
-                    int childX = childPos[0];
-                    int childY = childPos[1];
-                    int childW = child.getWidth();
-                    int childH = child.getHeight();
-                    Rect childRect = new Rect(childX, childY, childW, childH);
-
-                    // and the parent position
-                    int[] parentPos = new int[2];
-                    parent.getLocationInWindow(parentPos);
-                    int parentX = parentPos[0];
-                    int parentY = parentPos[1];
-                    int parentW = parent.getWidth();
-                    int parentH = parent.getHeight();
-                    Rect parentRect = new Rect(parentX, parentY, parentW, parentH);
-
-                    // and the whole screen position
-                    Activity context = (Activity) child.getContext();
-                    SAUtils.SASize screenSize = SAUtils.getRealScreenSize(context, false);
-                    int screenX = 0;
-                    int screenY = 0;
-                    int screenW = screenSize.width;
-                    int screenH = screenSize.height;
-                    Rect screenRect = new Rect(screenX, screenY, screenW, screenH);
-
-                    // if the child is in the parent and the child is also on screen,
-                    // increment the counter that verifies for how long a view has been visible
-                    if (SAUtils.isTargetRectInFrameRect(childRect, parentRect) && SAUtils.isTargetRectInFrameRect(childRect, screenRect)){
-                        check_tick++;
-                    }
-
-                    // log
-                    Log.d("SuperAwesome", "Viewability count " + ticks + "/" + maxTicks);
-
-                    // run again
-                    handler.postDelayed(runnable, DELAY);
                 }
             }
         };

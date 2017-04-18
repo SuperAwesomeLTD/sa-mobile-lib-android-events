@@ -17,7 +17,7 @@ public class SAClickEvent extends SAServerEvent {
 
     @Override
     public String getEndpoint() {
-        return ad != null ? ad.creative.format == SACreativeFormat.video ? "/video/click" : "/click" : "";
+        return ad != null && ad.creative != null ? ad.creative.format == SACreativeFormat.video ? "/video/click" : "/click" : "";
     }
 
     @Override

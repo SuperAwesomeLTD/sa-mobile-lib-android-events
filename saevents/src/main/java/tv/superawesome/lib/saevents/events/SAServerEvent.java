@@ -14,7 +14,7 @@ import tv.superawesome.lib.sautils.SAUtils;
 public class SAServerEvent {
 
     protected Context     context = null;
-    protected SAAd        ad = null;
+    protected SAAd        ad      = null;
     protected SASession   session = null;
     private   SANetwork   network = null;
 
