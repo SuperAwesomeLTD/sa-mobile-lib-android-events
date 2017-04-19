@@ -135,9 +135,9 @@
     <orderEntry type="module" module-name="samoatevents" exported="" />
     <orderEntry type="module" module-name="saevents" exported="" />
     <orderEntry type="library" exported="" name="moatlib" level="project" />
+    <orderEntry type="library" exported="" name="sajsonparser-0.2.7" level="project" />
     <orderEntry type="library" exported="" name="sanetwork-0.3.7" level="project" />
-    <orderEntry type="library" exported="" name="sajsonparser-0.2.6" level="project" />
-    <orderEntry type="library" exported="" name="samodelspace-0.6.7" level="project" />
+    <orderEntry type="library" exported="" name="samodelspace-0.6.8" level="project" />
     <orderEntry type="library" exported="" name="sasession-0.3.0" level="project" />
   </component>
 </module>

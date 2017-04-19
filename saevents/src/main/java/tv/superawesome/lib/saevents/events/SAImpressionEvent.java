@@ -22,7 +22,7 @@ public class SAImpressionEvent extends SAServerEvent {
     @Override
     public JSONObject getQuery() {
         try {
-            return SAJsonParser.newObject(new Object[]{
+            return SAJsonParser.newObject(
                     "placement", ad.placementId,
                     "creative", ad.creative.id,
                     "line_item", ad.lineItemId,
@@ -30,8 +30,7 @@ public class SAImpressionEvent extends SAServerEvent {
                     "bundle", session.getPackageName(),
                     "ct", session.getConnectionType(),
                     "no_image", true,
-                    "rnd", session.getCachebuster()
-            });
+                    "rnd", session.getCachebuster());
         } catch (Exception e) {
             return new JSONObject();
         }

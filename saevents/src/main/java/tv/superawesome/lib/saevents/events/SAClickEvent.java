@@ -23,15 +23,14 @@ public class SAClickEvent extends SAServerEvent {
     @Override
     public JSONObject getQuery () {
         try {
-            return SAJsonParser.newObject(new Object[]{
+            return SAJsonParser.newObject(
                     "placement", ad.placementId,
                     "bundle", session.getPackageName(),
                     "creative", ad.creative.id,
                     "line_item", ad.lineItemId,
                     "ct", session.getConnectionType(),
                     "sdkVersion", session.getVersion(),
-                    "rnd", session.getCachebuster()
-            });
+                    "rnd", session.getCachebuster());
         } catch (Exception e) {
             return new JSONObject();
         }
