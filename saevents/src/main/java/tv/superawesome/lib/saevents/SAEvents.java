@@ -24,7 +24,7 @@ public class SAEvents {
     public void setAd (Context context, SASession session, SAAd ad) {
         serverModule = new SAServerModule(context, ad, session);
         vastModule = new SAVASTModule(context, ad);
-        moatModule = new SAMoatModule(ad);
+        moatModule = new SAMoatModule((Activity)context, ad);
         viewableModule = new SAViewableModule();
     }
 
@@ -174,16 +174,16 @@ public class SAEvents {
     // MOAT
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public String registerDisplayMoatEvent(Activity activity, WebView view) {
-        return moatModule != null ? moatModule.registerDisplayMoatEvent(activity, view) : "";
+    public String registerDisplayMoatEvent(WebView view) {
+        return moatModule != null ? moatModule.registerDisplayMoatEvent(view) : "";
     }
 
     public boolean unregisterDisplayMoatEvent() {
         return moatModule == null || moatModule.unregisterDisplayMoatEvent();
     }
 
-    public boolean registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp){
-        return moatModule == null || moatModule.registerVideoMoatEvent(activity, video, mp);
+    public boolean registerVideoMoatEvent(VideoView video, MediaPlayer mp){
+        return moatModule == null || moatModule.registerVideoMoatEvent(video, mp);
     }
 
     public boolean unregisterVideoMoatEvent() {

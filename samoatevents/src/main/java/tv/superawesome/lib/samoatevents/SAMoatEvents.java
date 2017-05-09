@@ -30,30 +30,25 @@ public class SAMoatEvents {
 
     // Moat factory
     private MoatFactory         factory             = null;
-    // the web ad tracker & native video tracker
     private WebAdTracker        webAdTracker        = null;
     private NativeVideoTracker  nativeVideoTracker  = null;
 
     /**
      * Public default contructor
      */
-    public SAMoatEvents () {
-        // do nothing
+    public SAMoatEvents (Activity activity) {
+        factory = MoatFactory.create(activity);
     }
 
     /**
      * Method that takes a view and some details and starts the Moat tracking process
      *
-     * @param activity      the current activity
      * @param view          the WebView to register the moat event for
      * @param adDetails     ad details (placement id, campaign id, etc)
      * @return              a string containing the proper Moat javascript code to execute in the
      *                      web view, or an empty string if there was an error
      */
-    public String registerDisplayMoatEvent(Activity activity, WebView view, HashMap<String, String> adDetails) {
-
-        // create the Moat factory for each activity
-        factory = MoatFactory.create(activity);
+    public String registerDisplayMoatEvent(WebView view, HashMap<String, String> adDetails) {
 
         // create a web ad tracker for the view
         webAdTracker = factory.createWebAdTracker(view);
@@ -78,6 +73,11 @@ public class SAMoatEvents {
         return "<script src=\""+MOAT_SERVER+"/"+MOAT_DISPLAY_PARTNER_CODE+"/"+MOAT_URL+"?"+moatQuery+"\" type=\"text/javascript\"></script>";
     }
 
+    public boolean startDisplayTracking () {
+//        webTracker.startTracking();
+        return true;
+    }
+
     /**
      * Method that destroys the web ad tracker and always returns true
      *
@@ -96,10 +96,7 @@ public class SAMoatEvents {
      * @param adDetails ad data to send
      * @return          true or false, depending if the tracker is OK
      */
-    public boolean registerVideoMoatEvent(Activity activity, VideoView video, MediaPlayer mp, HashMap<String, String> adDetails){
-
-        // create the factory
-        factory = MoatFactory.create(activity);
+    public boolean registerVideoMoatEvent(VideoView video, MediaPlayer mp, HashMap<String, String> adDetails){
 
         // create the native video tracker
         nativeVideoTracker = factory.createNativeVideoTracker(MOAT_VIDEO_PARTNER_CODE);

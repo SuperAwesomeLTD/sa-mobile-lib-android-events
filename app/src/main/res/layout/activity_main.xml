@@ -8,8 +8,13 @@
     android:orientation="vertical"
     tools:context="tv.superawesome.lib.MainActivity">
 
-    <WebView
-        android:id="@+id/TestWebView"
+    <RelativeLayout
+        android:id="@+id/WebViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+
+    <RelativeLayout
+        android:id="@+id/MyCustomVideo"
         android:layout_width="match_parent"
         android:layout_height="250dp"/>
 
