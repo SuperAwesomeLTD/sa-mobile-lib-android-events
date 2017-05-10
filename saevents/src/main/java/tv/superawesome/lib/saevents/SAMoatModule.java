@@ -1,6 +1,7 @@
 package tv.superawesome.lib.saevents;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.webkit.WebView;
@@ -26,7 +27,7 @@ public class SAMoatModule {
     // the ad object
     private SAAd      ad;
 
-    public SAMoatModule (Activity activity, SAAd ad) {
+    public SAMoatModule (Context activity, SAAd ad) {
 
         // save the ad
         this.ad = ad;
@@ -35,7 +36,7 @@ public class SAMoatModule {
         if (SAUtils.isClassAvailable(kMoatClass)) try {
 
             moatClass = Class.forName(kMoatClass);
-            Constructor<?> moatConstructor = moatClass.getConstructor(Activity.class);
+            Constructor<?> moatConstructor = moatClass.getConstructor(Context.class);
             moatInstance = moatConstructor.newInstance(activity);
 
         } catch (Exception e) {

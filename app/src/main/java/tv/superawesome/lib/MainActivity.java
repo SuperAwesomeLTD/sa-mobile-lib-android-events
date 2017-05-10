@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         final android.app.FragmentManager manager = getFragmentManager();
 
-        final SAMoatModule module = new SAMoatModule(MainActivity.this, ad);
+        final SAMoatModule module = new SAMoatModule(this, ad);
         module.disableMoatLimiting();
 
         player = new SAVideoPlayer();

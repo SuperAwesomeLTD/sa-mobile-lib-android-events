@@ -1,6 +1,7 @@
 package tv.superawesome.lib.samoatevents;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.webkit.WebView;
 import android.widget.VideoView;
@@ -27,13 +28,13 @@ public class SAMoatEvents {
     private WebAdTracker webTracker;
     private NativeVideoTracker videoTracker;
 
-    public SAMoatEvents(Activity activity) {
+    public SAMoatEvents(Context activity) {
 
         MoatOptions options = new MoatOptions();
         options.disableAdIdCollection = true;
         options.disableLocationServices = true;
         options.loggingEnabled = true;
-        MoatAnalytics.getInstance().start(options, activity.getApplication());
+        MoatAnalytics.getInstance().start(options, ((Activity)activity).getApplication());
 
         factory = MoatFactory.create();
     }
