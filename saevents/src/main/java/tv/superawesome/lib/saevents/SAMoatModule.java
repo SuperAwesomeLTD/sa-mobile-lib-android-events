@@ -14,7 +14,7 @@ import tv.superawesome.lib.sautils.SAUtils;
 
 public class SAMoatModule {
 
-    private static final String kMoatClass = "tv.superawesome.lib.samoatevents.SAMoatEvents2";
+    private static final String kMoatClass = "tv.superawesome.lib.samoatevents.SAMoatEvents";
 
     // boolean mostly used for tests, in order to not limit moat at all
     private boolean   moatLimiting = true;
@@ -68,7 +68,7 @@ public class SAMoatModule {
      * @return          returns a MOAT specific string that will need to be inserted in the
      *                  web view so that the JS moat stuff works
      */
-    public String registerDisplayMoatEvent(WebView view) {
+    public String startMoatTrackingForDisplay(WebView view) {
 
         if (moatInstance != null && isMoatAllowed()) try {
 
@@ -81,7 +81,7 @@ public class SAMoatModule {
             adData.put("placementId", "" + ad.placementId);
             adData.put("publisherId", "" + ad.publisherId);
 
-            java.lang.reflect.Method method = moatClass.getMethod("registerDisplayMoatEvent", WebView.class, HashMap.class);
+            java.lang.reflect.Method method = moatClass.getMethod("startMoatTrackingForDisplay", WebView.class, HashMap.class);
             Object returnValue = method.invoke(moatInstance, view, adData);
             return (String) returnValue;
 
@@ -92,28 +92,16 @@ public class SAMoatModule {
         }
     }
 
-    public boolean startDisplayTracking () {
-        if (moatInstance != null && isMoatAllowed()) try {
-            java.lang.reflect.Method method = moatClass.getMethod("startDisplayTracking");
-            Object returnValue = method.invoke(moatInstance);
-            return (Boolean) returnValue;
-        } catch (Exception e) {
-            return false;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Unregister moat events for Display
      *
      * @return whether the removal was successful or not
      */
-    public boolean unregisterDisplayMoatEvent() {
+    public boolean stopMoatTrackingForDisplay() {
 
         if (moatInstance != null && isMoatAllowed()) try {
 
-            java.lang.reflect.Method method = moatClass.getMethod("unregisterDisplayMoatEvent");
+            java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForDisplay");
             Object returnValue = method.invoke(moatInstance);
             return (Boolean) returnValue;
 
@@ -131,7 +119,7 @@ public class SAMoatModule {
      * @param mp        the current MediaPlayer associated with the video view
      * @return          whether the video moat event started OK
      */
-    public boolean registerVideoMoatEvent(VideoView video, MediaPlayer mp){
+    public boolean startMoatTrackingForVideoPlayer(VideoView video, MediaPlayer mp){
 
         if (moatInstance != null && isMoatAllowed()) try {
 
@@ -144,7 +132,7 @@ public class SAMoatModule {
             adData.put("placementId", "" + ad.placementId);
             adData.put("publisherId", "" + ad.publisherId);
 
-            java.lang.reflect.Method method = moatClass.getMethod("registerVideoMoatEvent", VideoView.class, MediaPlayer.class, HashMap.class);
+            java.lang.reflect.Method method = moatClass.getMethod("startMoatTrackingForVideoPlayer", VideoView.class, MediaPlayer.class, HashMap.class);
             Object returnValue = method.invoke(moatInstance, video, mp, adData);
             return (Boolean) returnValue;
 
@@ -160,11 +148,11 @@ public class SAMoatModule {
      *
      * @return whether the video moat event was killed off OK
      */
-    public boolean unregisterVideoMoatEvent() {
+    public boolean stopMoatTrackingForVideoPlayer() {
 
         if (moatInstance != null && isMoatAllowed()) try {
 
-            java.lang.reflect.Method method = moatClass.getMethod("unregisterVideoMoatEvent");
+            java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForVideoPlayer");
             Object returnValue = method.invoke(moatInstance);
             return (Boolean) returnValue;
 

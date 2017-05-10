@@ -1,12 +1,10 @@
 package tv.superawesome.lib;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 
 import tv.superawesome.lib.saevents.SAMoatModule;
@@ -53,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_Start) {
-                    boolean op1 = module.registerVideoMoatEvent(player.getVideoPlayer(), player.getMediaPlayer());
+                    boolean op1 = module.startMoatTrackingForVideoPlayer(player.getVideoPlayer(), player.getMediaPlayer());
                     Log.d("SuperAwesome", "OP1 " + op1);
                 }
                 if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_End) {
-                    boolean op2 = module.unregisterVideoMoatEvent();
+                    boolean op2 = module.stopMoatTrackingForVideoPlayer();
                     Log.d("SuperAwesome", "OP2 " + op2);
                 }
             }
@@ -72,20 +70,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         webView = new WebView(this);
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.WebViewLayout);
         layout.addView(webView);
 
-        String display = module.registerDisplayMoatEvent(webView);
+        String display = module.startMoatTrackingForDisplay(webView);
         String html = "<html><body><img src='https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/YkKgkIQYOiwV7WmbHK7jArBjHOrU3Bcn.jpg' width='100%' height='100%'>_MOAT_</body></html>"
                         .replace("_MOAT_", display);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                module.startDisplayTracking();
-            }
-        });
         webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
     }
 
