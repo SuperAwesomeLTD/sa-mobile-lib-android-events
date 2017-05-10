@@ -40,6 +40,7 @@ public class SAMoatModule {
             moatInstance = moatConstructor.newInstance(activity);
 
         } catch (Exception e) {
+            e.printStackTrace();
             Log.w("SuperAwesome", "Could not create Moat instance because " + e.getMessage());
         }
     }
