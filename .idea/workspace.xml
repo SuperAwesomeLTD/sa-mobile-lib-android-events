@@ -12,9 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c9a45bd-4f4f-4cbb-8281-b9c4dcee6824" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SAEvents.java" afterPath="$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SAEvents.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SAMoatModule.java" afterPath="$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SAMoatModule.java" />
     </list>
     <ignored path="sa-mobile-lib-android-events.iws" />
@@ -153,8 +151,8 @@
       <file leaf-file-name="SAMoatEvents.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/samoatevents/src/main/java/tv/superawesome/lib/samoatevents/SAMoatEvents.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+            <state relative-caret-position="105">
+              <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -173,8 +171,8 @@
       <file leaf-file-name="SAMoatModule.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SAMoatModule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+            <state relative-caret-position="448">
+              <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -3983,7 +3981,7 @@
       <recent name="tv.superawesome.lib.saevents" />
     </key>
   </component>
-  <component name="RunManager" selected="Android App.app">
+  <component name="RunManager" selected="Gradle.sa-mobile-lib-android-events [bintrayUpload]">
     <configuration default="false" name="SAEvents_SAMoatModul... (1)" type="AndroidTestRunConfigurationType" factoryName="Android Tests" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="TESTING_TYPE" value="2" />
@@ -4607,7 +4605,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="0" width="1600" height="900" extended-state="0" />
+    <frame x="1440" y="0" width="1600" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -4905,14 +4903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/samoatevents/src/main/java/tv/superawesome/lib/samoatevents/SAMoatEvents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/tv/superawesome/lib/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -4931,10 +4921,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/samoatevents/src/main/java/tv/superawesome/lib/samoatevents/SAMoatEvents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/saevents/src/main/java/tv/superawesome/lib/saevents/SAMoatModule.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="42" column="32" selection-start-line="42" selection-start-column="32" selection-end-line="42" selection-end-column="32" />
+        <state relative-caret-position="448">
+          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
           <folding />
         </state>
       </provider>

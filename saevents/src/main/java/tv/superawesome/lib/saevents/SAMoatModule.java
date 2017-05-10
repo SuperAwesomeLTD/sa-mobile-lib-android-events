@@ -101,7 +101,7 @@ public class SAMoatModule {
      */
     public boolean stopMoatTrackingForDisplay() {
 
-        if (moatInstance != null && isMoatAllowed()) try {
+        if (moatInstance != null) try {
 
             java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForDisplay");
             Object returnValue = method.invoke(moatInstance);
@@ -152,7 +152,7 @@ public class SAMoatModule {
      */
     public boolean stopMoatTrackingForVideoPlayer() {
 
-        if (moatInstance != null && isMoatAllowed()) try {
+        if (moatInstance != null) try {
 
             java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForVideoPlayer");
             Object returnValue = method.invoke(moatInstance);
