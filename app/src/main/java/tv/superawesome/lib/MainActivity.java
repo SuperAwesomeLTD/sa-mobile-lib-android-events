@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         player.setEventListener(new SAVideoPlayerEventInterface() {
             @Override
             public void saVideoPlayerDidReceiveEvent(SAVideoPlayerEvent saVideoPlayerEvent) {
+
+                int pos = player.getVideoPlayer().getCurrentPosition();
+
                 if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_Prepared) {
                     Log.d("SuperAwesome", player + ", " + player.getVideoPlayer() + ", " + player.getMediaPlayer());
 
@@ -51,12 +54,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_Start) {
-                    boolean op1 = module.startMoatTrackingForVideoPlayer(player.getVideoPlayer(), player.getMediaPlayer());
-                    Log.d("SuperAwesome", "OP1 " + op1);
+                    boolean op1 = module.startMoatTrackingForVideoPlayer(player.getVideoPlayer());
+                    boolean op2 = module.sendPlayingEvent(pos);
+                    boolean op3 = module.sendStartEvent(pos);
+                    Log.d("SuperAwesome", "Setup: " + op1 + " / Playing: " + op2 + " / Start:" + op3);
+                }
+                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_1_4) {
+                    boolean op4 = module.sendFirstQuartileEvent(pos);
+                    Log.d("SuperAwesome", "1/4: " + op4);
+                }
+                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_1_2) {
+                    boolean op5 = module.sendMidpointEvent(pos);
+                    Log.d("SuperAwesome", "1/2: " + op5);
+                }
+                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_3_4) {
+                    boolean op6 = module.sendThirdQuartileEvent(pos);
+                    Log.d("SuperAwesome", "3/4: " + op6);
                 }
                 if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_End) {
-                    boolean op2 = module.stopMoatTrackingForVideoPlayer();
-                    Log.d("SuperAwesome", "OP2 " + op2);
+                    boolean op7 = module.stopMoatTrackingForVideoPlayer();
+                    Log.d("SuperAwesome", "End: " + op7);
                 }
             }
         });

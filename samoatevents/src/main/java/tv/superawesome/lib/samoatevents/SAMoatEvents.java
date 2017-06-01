@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.VideoView;
 
 import com.moat.analytics.mobile.sup.MoatAdEvent;
@@ -12,6 +13,8 @@ import com.moat.analytics.mobile.sup.MoatAnalytics;
 import com.moat.analytics.mobile.sup.MoatFactory;
 import com.moat.analytics.mobile.sup.MoatOptions;
 import com.moat.analytics.mobile.sup.NativeVideoTracker;
+import com.moat.analytics.mobile.sup.ReactiveVideoTracker;
+import com.moat.analytics.mobile.sup.ReactiveVideoTrackerPlugin;
 import com.moat.analytics.mobile.sup.WebAdTracker;
 
 import java.util.HashMap;
@@ -26,7 +29,7 @@ public class SAMoatEvents {
 
     private MoatFactory factory;
     private WebAdTracker webTracker;
-    private NativeVideoTracker videoTracker;
+    private ReactiveVideoTracker videoTracker;
 
     public SAMoatEvents(Context activity) {
 
@@ -57,7 +60,7 @@ public class SAMoatEvents {
         webTracker.startTracking();
 
         // and return the special moat javascript tag to be loaded in a web view
-        return "<script src=\""+MOAT_SERVER+"/"+MOAT_DISPLAY_PARTNER_CODE+"/"+MOAT_URL+"?"+moatQuery+"\" type=\"text/javascript\"/>";
+        return "<script src=\""+MOAT_SERVER+"/"+MOAT_DISPLAY_PARTNER_CODE+"/"+MOAT_URL+"?"+moatQuery+"\" type=\"text/javascript\"></script>";
     }
 
     public boolean stopMoatTrackingForDisplay() {
@@ -70,9 +73,9 @@ public class SAMoatEvents {
         }
     }
 
-    public boolean startMoatTrackingForVideoPlayer(VideoView videoView, MediaPlayer mediaPlayer, HashMap<String, String> adDetails) {
+    public boolean startMoatTrackingForVideoPlayer(VideoView videoView, HashMap<String, String> adDetails) {
 
-        videoTracker = factory.createNativeVideoTracker(MOAT_VIDEO_PARTNER_CODE);
+        videoTracker = factory.createCustomTracker(new ReactiveVideoTrackerPlugin(MOAT_VIDEO_PARTNER_CODE));
 
         if (videoTracker == null) return false;
 
@@ -85,13 +88,42 @@ public class SAMoatEvents {
         adIds.put("slicer2", "" + adDetails.get("placementId"));
         adIds.put("slicer3", "" + adDetails.get("publisherId"));
 
-        return videoTracker.trackVideoAd(adIds, mediaPlayer, videoView);
+        return videoTracker.trackVideoAd(adIds, 30, videoView);
+    }
+
+    public boolean sendPlayingEvent (int position) {
+        if (videoTracker == null) return false;
+        videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_PLAYING, position));
+        return true;
+    }
+
+    public boolean sendStartEvent (int position) {
+        if (videoTracker == null) return false;
+        videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_START, position));
+        return true;
+    }
+
+    public boolean sendFirstQuartileEvent (int position) {
+        if (videoTracker == null) return false;
+        videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_FIRST_QUARTILE, position));
+        return true;
+    }
+
+    public boolean sendMidpointEvent (int position) {
+        if (videoTracker == null) return false;
+        videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_MID_POINT, position));
+        return true;
+    }
+
+    public boolean sendThirdQuartileEvent (int position) {
+        if (videoTracker == null) return false;
+        videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_THIRD_QUARTILE, position));
+        return true;
     }
 
     public boolean stopMoatTrackingForVideoPlayer() {
-        MoatAdEvent event = new MoatAdEvent(MoatAdEventType.AD_EVT_COMPLETE);
         if (videoTracker != null) {
-            videoTracker.dispatchEvent(event);
+            videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_COMPLETE));
             videoTracker.stopTracking();
             return true;
         } else {

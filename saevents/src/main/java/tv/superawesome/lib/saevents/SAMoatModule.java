@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.VideoView;
 
 import java.lang.reflect.Constructor;
@@ -114,14 +115,7 @@ public class SAMoatModule {
         }
     }
 
-    /**
-     * Method that registers a Video Moat event
-     *
-     * @param video     the current Video View needed by Moat to do video tracking
-     * @param mp        the current MediaPlayer associated with the video view
-     * @return          whether the video moat event started OK
-     */
-    public boolean startMoatTrackingForVideoPlayer(VideoView video, MediaPlayer mp){
+    public boolean startMoatTrackingForVideoPlayer(VideoView videoView){
 
         if (moatInstance != null && isMoatAllowed()) try {
 
@@ -134,10 +128,71 @@ public class SAMoatModule {
             adData.put("placementId", "" + ad.placementId);
             adData.put("publisherId", "" + ad.publisherId);
 
-            java.lang.reflect.Method method = moatClass.getMethod("startMoatTrackingForVideoPlayer", VideoView.class, MediaPlayer.class, HashMap.class);
-            Object returnValue = method.invoke(moatInstance, video, mp, adData);
+            java.lang.reflect.Method method = moatClass.getMethod("startMoatTrackingForVideoPlayer", VideoView.class, HashMap.class);
+            Object returnValue = method.invoke(moatInstance, videoView, adData);
             return (Boolean) returnValue;
 
+        } catch (Exception e) {
+            Log.d("SuperAwesome", "Exception: " + e.getMessage());
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean sendPlayingEvent (int position) {
+        if (moatInstance != null) try {
+            java.lang.reflect.Method method = moatClass.getMethod("sendPlayingEvent", int.class);
+            Object returnValue = method.invoke(moatInstance, position);
+            return (Boolean) returnValue;
+        } catch (Exception e) {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean sendStartEvent (int position) {
+        if (moatInstance != null) try {
+            java.lang.reflect.Method method = moatClass.getMethod("sendStartEvent", int.class);
+            Object returnValue = method.invoke(moatInstance, position);
+            return (Boolean) returnValue;
+        } catch (Exception e) {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean sendFirstQuartileEvent (int position) {
+        if (moatInstance != null) try {
+            java.lang.reflect.Method method = moatClass.getMethod("sendFirstQuartileEvent", int.class);
+            Object returnValue = method.invoke(moatInstance, position);
+            return (Boolean) returnValue;
+        } catch (Exception e) {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean sendMidpointEvent (int position) {
+        if (moatInstance != null) try {
+            java.lang.reflect.Method method = moatClass.getMethod("sendMidpointEvent", int.class);
+            Object returnValue = method.invoke(moatInstance, position);
+            return (Boolean) returnValue;
+        } catch (Exception e) {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean sendThirdQuartileEvent (int position) {
+        if (moatInstance != null) try {
+            java.lang.reflect.Method method = moatClass.getMethod("sendThirdQuartileEvent", int.class);
+            Object returnValue = method.invoke(moatInstance, position);
+            return (Boolean) returnValue;
         } catch (Exception e) {
             return false;
         } else {

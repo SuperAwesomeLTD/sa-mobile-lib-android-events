@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.VideoView;
 
 import tv.superawesome.lib.samodelspace.saad.SAAd;
@@ -182,8 +183,28 @@ public class SAEvents {
         return moatModule == null || moatModule.stopMoatTrackingForDisplay();
     }
 
-    public boolean startMoatTrackingForVideoPlayer(VideoView video, MediaPlayer mp){
-        return moatModule == null || moatModule.startMoatTrackingForVideoPlayer(video, mp);
+    public boolean startMoatTrackingForVideoPlayer(VideoView videoView){
+        return moatModule == null || moatModule.startMoatTrackingForVideoPlayer(videoView);
+    }
+
+    public boolean sendPlayingEvent (int position) {
+        return moatModule == null || moatModule.sendPlayingEvent(position);
+    }
+
+    public boolean sendStartEvent (int position) {
+        return moatModule == null || moatModule.sendStartEvent(position);
+    }
+
+    public boolean sendFirstQuartileEvent (int position) {
+        return moatModule == null || moatModule.sendFirstQuartileEvent(position);
+    }
+
+    public boolean sendMidpointEvent (int position) {
+        return moatModule == null || moatModule.sendMidpointEvent(position);
+    }
+
+    public boolean sendThirdQuartileEvent (int position) {
+        return moatModule == null || moatModule.sendThirdQuartileEvent(position);
     }
 
     public boolean stopMoatTrackingForVideoPlayer() {
