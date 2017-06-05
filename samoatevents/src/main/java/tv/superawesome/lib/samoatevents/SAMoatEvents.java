@@ -88,7 +88,7 @@ public class SAMoatEvents {
         adIds.put("slicer2", "" + adDetails.get("placementId"));
         adIds.put("slicer3", "" + adDetails.get("publisherId"));
 
-        return videoTracker.trackVideoAd(adIds, 30, videoView);
+        return videoTracker.trackVideoAd(adIds, 30000, videoView);
     }
 
     public boolean sendPlayingEvent (int position) {

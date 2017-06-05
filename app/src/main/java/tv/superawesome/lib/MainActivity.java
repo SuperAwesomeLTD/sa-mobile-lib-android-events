@@ -1,11 +1,23 @@
 package tv.superawesome.lib;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
+
+import com.moat.analytics.mobile.sup.MoatAdEvent;
+import com.moat.analytics.mobile.sup.MoatAdEventType;
+import com.moat.analytics.mobile.sup.MoatAnalytics;
+import com.moat.analytics.mobile.sup.MoatFactory;
+import com.moat.analytics.mobile.sup.MoatOptions;
+import com.moat.analytics.mobile.sup.ReactiveVideoTracker;
+import com.moat.analytics.mobile.sup.ReactiveVideoTrackerPlugin;
+import com.moat.analytics.mobile.sup.WebAdTracker;
+
+import java.util.HashMap;
 
 import tv.superawesome.lib.saevents.SAMoatModule;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
@@ -30,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final SAAd ad = getTestAd();
-
         final android.app.FragmentManager manager = getFragmentManager();
+
+        final SAAd ad = getTestAd();
 
         final SAMoatModule module = new SAMoatModule(this, ad);
         module.disableMoatLimiting();
@@ -42,38 +54,56 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void saVideoPlayerDidReceiveEvent(SAVideoPlayerEvent saVideoPlayerEvent) {
 
+                int len = player.getVideoPlayer().getDuration();
                 int pos = player.getVideoPlayer().getCurrentPosition();
 
-                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_Prepared) {
-                    Log.d("SuperAwesome", player + ", " + player.getVideoPlayer() + ", " + player.getMediaPlayer());
+                switch (saVideoPlayerEvent) {
+                    case Video_Prepared: {
 
-                    try {
-                        player.play(path);
-                    } catch (Throwable throwable) {
-                        throwable.printStackTrace();
+                        try {
+                            player.play(path);
+                        } catch (Throwable throwable) {
+                            throwable.printStackTrace();
+                        }
+
+                        boolean start = module.startMoatTrackingForVideoPlayer(player.getVideoPlayer());
+
+                        Log.d("MoatAnalytics", "Start tracking:  " + start);
+                        break;
                     }
-                }
-                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_Start) {
-                    boolean op1 = module.startMoatTrackingForVideoPlayer(player.getVideoPlayer());
-                    boolean op2 = module.sendPlayingEvent(pos);
-                    boolean op3 = module.sendStartEvent(pos);
-                    Log.d("SuperAwesome", "Setup: " + op1 + " / Playing: " + op2 + " / Start:" + op3);
-                }
-                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_1_4) {
-                    boolean op4 = module.sendFirstQuartileEvent(pos);
-                    Log.d("SuperAwesome", "1/4: " + op4);
-                }
-                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_1_2) {
-                    boolean op5 = module.sendMidpointEvent(pos);
-                    Log.d("SuperAwesome", "1/2: " + op5);
-                }
-                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_3_4) {
-                    boolean op6 = module.sendThirdQuartileEvent(pos);
-                    Log.d("SuperAwesome", "3/4: " + op6);
-                }
-                if (saVideoPlayerEvent == SAVideoPlayerEvent.Video_End) {
-                    boolean op7 = module.stopMoatTrackingForVideoPlayer();
-                    Log.d("SuperAwesome", "End: " + op7);
+                    case Video_Start: {
+                        boolean start = module.sendStartEvent(pos);
+                        Log.d("MoatAnalytics", "Send start: " + start);
+                        boolean playing = module.sendPlayingEvent(pos);
+                        Log.d("MoatAnalytics", "Send playing: " + playing);
+                        break;
+                    }
+                    case Video_1_4: {
+                        boolean event = module.sendFirstQuartileEvent(pos);
+                        Log.d("MoatAnalytics", "Send 1/4: " + event);
+                        break;
+                    }
+                    case Video_1_2: {
+                        boolean event = module.sendMidpointEvent(pos);
+                        Log.d("MoatAnalytics", "Send 1/2: " + event);
+                        break;
+                    }
+                    case Video_3_4: {
+                        boolean event = module.sendThirdQuartileEvent(pos);
+                        Log.d("MoatAnalytics", "Send 3/4: " + event);
+                        break;
+                    }
+                    case Video_End: {
+                        boolean event = module.stopMoatTrackingForVideoPlayer();
+                        Log.d("MoatAnalytics", "Stop tracking: " + event);
+                        break;
+                    }
+                    case Video_15s: {
+                        break;
+                    }
+                    case Video_Error: {
+                        break;
+                    }
                 }
             }
         });
@@ -93,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(webView);
 
         String display = module.startMoatTrackingForDisplay(webView);
+        Log.d("MoatAnalytics", "Moat tag is " + display);
         String html = "<html><body><img src='https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/YkKgkIQYOiwV7WmbHK7jArBjHOrU3Bcn.jpg' width='100%' height='100%'>_MOAT_</body></html>"
                         .replace("_MOAT_", display);
         webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
