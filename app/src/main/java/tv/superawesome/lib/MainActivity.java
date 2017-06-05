@@ -19,6 +19,7 @@ import com.moat.analytics.mobile.sup.WebAdTracker;
 
 import java.util.HashMap;
 
+import tv.superawesome.lib.saevents.SAEvents;
 import tv.superawesome.lib.saevents.SAMoatModule;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.samodelspace.saad.SACampaignType;
@@ -26,6 +27,7 @@ import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
 import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
 import tv.superawesome.lib.sanetwork.file.SAFileDownloader;
 import tv.superawesome.lib.sanetwork.file.SAFileDownloaderInterface;
+import tv.superawesome.lib.sasession.SASession;
 import tv.superawesome.lib.savideoplayer.SAVideoPlayer;
 import tv.superawesome.lib.savideoplayer.SAVideoPlayerEvent;
 import tv.superawesome.lib.savideoplayer.SAVideoPlayerEventInterface;
@@ -46,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         final SAAd ad = getTestAd();
 
-        final SAMoatModule module = new SAMoatModule(this, ad);
-        module.disableMoatLimiting();
+        final SAEvents events = new SAEvents();
+        events.setAd(this, new SASession(this), ad);
+        events.disableMoatLimiting();
 
         player = new SAVideoPlayer();
         player.setEventListener(new SAVideoPlayerEventInterface() {
@@ -66,35 +69,35 @@ public class MainActivity extends AppCompatActivity {
                             throwable.printStackTrace();
                         }
 
-                        boolean start = module.startMoatTrackingForVideoPlayer(player.getVideoPlayer());
+                        boolean start = events.startMoatTrackingForVideoPlayer(player.getVideoPlayer());
 
                         Log.d("MoatAnalytics", "Start tracking:  " + start);
                         break;
                     }
                     case Video_Start: {
-                        boolean start = module.sendStartEvent(pos);
+                        boolean start = events.sendMoatStartEvent(pos);
                         Log.d("MoatAnalytics", "Send start: " + start);
-                        boolean playing = module.sendPlayingEvent(pos);
+                        boolean playing = events.sendMoatPlayingEvent(pos);
                         Log.d("MoatAnalytics", "Send playing: " + playing);
                         break;
                     }
                     case Video_1_4: {
-                        boolean event = module.sendFirstQuartileEvent(pos);
+                        boolean event = events.sendMoatFirstQuartileEvent(pos);
                         Log.d("MoatAnalytics", "Send 1/4: " + event);
                         break;
                     }
                     case Video_1_2: {
-                        boolean event = module.sendMidpointEvent(pos);
+                        boolean event = events.sendMoatMidpointEvent(pos);
                         Log.d("MoatAnalytics", "Send 1/2: " + event);
                         break;
                     }
                     case Video_3_4: {
-                        boolean event = module.sendThirdQuartileEvent(pos);
+                        boolean event = events.sendMoatThirdQuartileEvent(pos);
                         Log.d("MoatAnalytics", "Send 3/4: " + event);
                         break;
                     }
                     case Video_End: {
-                        boolean event = module.stopMoatTrackingForVideoPlayer();
+                        boolean event = events.stopMoatTrackingForVideoPlayer();
                         Log.d("MoatAnalytics", "Stop tracking: " + event);
                         break;
                     }
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.WebViewLayout);
         layout.addView(webView);
 
-        String display = module.startMoatTrackingForDisplay(webView);
+        String display = events.startMoatTrackingForDisplay(webView);
         Log.d("MoatAnalytics", "Moat tag is " + display);
         String html = "<html><body><img src='https://s3-eu-west-1.amazonaws.com/sb-ads-uploads/images/YkKgkIQYOiwV7WmbHK7jArBjHOrU3Bcn.jpg' width='100%' height='100%'>_MOAT_</body></html>"
                         .replace("_MOAT_", display);

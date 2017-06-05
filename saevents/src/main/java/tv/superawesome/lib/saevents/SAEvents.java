@@ -187,23 +187,23 @@ public class SAEvents {
         return moatModule == null || moatModule.startMoatTrackingForVideoPlayer(videoView);
     }
 
-    public boolean sendPlayingEvent (int position) {
+    public boolean sendMoatPlayingEvent (int position) {
         return moatModule == null || moatModule.sendPlayingEvent(position);
     }
 
-    public boolean sendStartEvent (int position) {
+    public boolean sendMoatStartEvent (int position) {
         return moatModule == null || moatModule.sendStartEvent(position);
     }
 
-    public boolean sendFirstQuartileEvent (int position) {
+    public boolean sendMoatFirstQuartileEvent (int position) {
         return moatModule == null || moatModule.sendFirstQuartileEvent(position);
     }
 
-    public boolean sendMidpointEvent (int position) {
+    public boolean sendMoatMidpointEvent (int position) {
         return moatModule == null || moatModule.sendMidpointEvent(position);
     }
 
-    public boolean sendThirdQuartileEvent (int position) {
+    public boolean sendMoatThirdQuartileEvent (int position) {
         return moatModule == null || moatModule.sendThirdQuartileEvent(position);
     }
 
