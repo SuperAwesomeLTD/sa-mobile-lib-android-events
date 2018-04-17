@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case Video_End: {
-                        boolean event = events.stopMoatTrackingForVideoPlayer();
+                        boolean event = events.stopMoatTrackingForVideoPlayer(duration);
                         Log.d("MoatAnalytics", "Stop tracking: " + event);
                         break;
                     }

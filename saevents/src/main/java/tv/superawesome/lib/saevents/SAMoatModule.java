@@ -205,12 +205,12 @@ public class SAMoatModule {
      *
      * @return whether the video moat event was killed off OK
      */
-    public boolean stopMoatTrackingForVideoPlayer() {
+    public boolean stopMoatTrackingForVideoPlayer(int position) {
 
         if (moatInstance != null) try {
 
-            java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForVideoPlayer");
-            Object returnValue = method.invoke(moatInstance);
+            java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForVideoPlayer", int.class);
+            Object returnValue = method.invoke(moatInstance, position);
             return (Boolean) returnValue;
 
         } catch (Exception e) {

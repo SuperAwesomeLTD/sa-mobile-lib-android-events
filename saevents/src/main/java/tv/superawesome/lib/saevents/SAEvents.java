@@ -211,8 +211,8 @@ public class SAEvents {
         return moatModule == null || moatModule.sendThirdQuartileEvent(position);
     }
 
-    public boolean stopMoatTrackingForVideoPlayer() {
-        return moatModule == null || moatModule.stopMoatTrackingForVideoPlayer();
+    public boolean stopMoatTrackingForVideoPlayer(int position) {
+        return moatModule == null || moatModule.stopMoatTrackingForVideoPlayer(position);
     }
 
     public void disableMoatLimiting () {
