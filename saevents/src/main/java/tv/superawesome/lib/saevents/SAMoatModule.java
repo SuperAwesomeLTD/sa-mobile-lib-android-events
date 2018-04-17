@@ -115,7 +115,7 @@ public class SAMoatModule {
         }
     }
 
-    public boolean startMoatTrackingForVideoPlayer(VideoView videoView){
+    public boolean startMoatTrackingForVideoPlayer(VideoView videoView, int duration){
 
         if (moatInstance != null && isMoatAllowed()) try {
 
@@ -128,8 +128,8 @@ public class SAMoatModule {
             adData.put("placementId", "" + ad.placementId);
             adData.put("publisherId", "" + ad.publisherId);
 
-            java.lang.reflect.Method method = moatClass.getMethod("startMoatTrackingForVideoPlayer", VideoView.class, HashMap.class);
-            Object returnValue = method.invoke(moatInstance, videoView, adData);
+            java.lang.reflect.Method method = moatClass.getMethod("startMoatTrackingForVideoPlayer", VideoView.class, HashMap.class, int.class);
+            Object returnValue = method.invoke(moatInstance, videoView, adData, duration);
             return (Boolean) returnValue;
 
         } catch (Exception e) {

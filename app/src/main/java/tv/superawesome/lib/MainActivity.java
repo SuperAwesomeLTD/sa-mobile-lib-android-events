@@ -55,10 +55,7 @@ public class MainActivity extends AppCompatActivity {
         player = new SAVideoPlayer();
         player.setEventListener(new SAVideoPlayerEventInterface() {
             @Override
-            public void saVideoPlayerDidReceiveEvent(SAVideoPlayerEvent saVideoPlayerEvent) {
-
-                int len = player.getVideoPlayer().getDuration();
-                int pos = player.getVideoPlayer().getCurrentPosition();
+            public void saVideoPlayerDidReceiveEvent(SAVideoPlayerEvent saVideoPlayerEvent, int time, int duration) {
 
                 switch (saVideoPlayerEvent) {
                     case Video_Prepared: {
@@ -69,30 +66,35 @@ public class MainActivity extends AppCompatActivity {
                             throwable.printStackTrace();
                         }
 
-                        boolean start = events.startMoatTrackingForVideoPlayer(player.getVideoPlayer());
 
-                        Log.d("MoatAnalytics", "Start tracking:  " + start);
                         break;
                     }
+
                     case Video_Start: {
-                        boolean start = events.sendMoatStartEvent(pos);
+                        boolean create = events.startMoatTrackingForVideoPlayer(player.getVideoPlayer(), duration);
+                        Log.d("MoatAnalytics", "Create tracking:  " + create);
+
+                        boolean start = events.sendMoatStartEvent(time);
                         Log.d("MoatAnalytics", "Send start: " + start);
-                        boolean playing = events.sendMoatPlayingEvent(pos);
+                        boolean playing = events.sendMoatPlayingEvent(time);
                         Log.d("MoatAnalytics", "Send playing: " + playing);
                         break;
                     }
+                    case Video_2s: {
+                        break;
+                    }
                     case Video_1_4: {
-                        boolean event = events.sendMoatFirstQuartileEvent(pos);
+                        boolean event = events.sendMoatFirstQuartileEvent(time);
                         Log.d("MoatAnalytics", "Send 1/4: " + event);
                         break;
                     }
                     case Video_1_2: {
-                        boolean event = events.sendMoatMidpointEvent(pos);
+                        boolean event = events.sendMoatMidpointEvent(time);
                         Log.d("MoatAnalytics", "Send 1/2: " + event);
                         break;
                     }
                     case Video_3_4: {
-                        boolean event = events.sendMoatThirdQuartileEvent(pos);
+                        boolean event = events.sendMoatThirdQuartileEvent(time);
                         Log.d("MoatAnalytics", "Send 3/4: " + event);
                         break;
                     }

@@ -183,8 +183,8 @@ public class SAEvents {
         return moatModule == null || moatModule.stopMoatTrackingForDisplay();
     }
 
-    public boolean startMoatTrackingForVideoPlayer(VideoView videoView){
-        return moatModule == null || moatModule.startMoatTrackingForVideoPlayer(videoView);
+    public boolean startMoatTrackingForVideoPlayer(VideoView videoView, int duration){
+        return moatModule == null || moatModule.startMoatTrackingForVideoPlayer(videoView, duration);
     }
 
     public boolean sendMoatPlayingEvent (int position) {

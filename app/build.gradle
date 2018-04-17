@@ -39,6 +39,6 @@ dependencies {
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2.2'){
         exclude group: 'com.android.support', module: 'support-annotations'
     }
-    compile 'tv.superawesome.lib.sawebplayer:sawebplayer:0.3.1'
-    compile 'tv.superawesome.lib.savideoplayer:savideoplayer:0.3.7'
+    compile 'tv.superawesome.lib.sawebplayer:sawebplayer:0.5.3'
+    compile 'tv.superawesome.lib.savideoplayer:savideoplayer:0.4.2'
 }

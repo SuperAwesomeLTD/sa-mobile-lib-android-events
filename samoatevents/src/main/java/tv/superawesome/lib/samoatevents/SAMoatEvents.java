@@ -3,6 +3,7 @@ package tv.superawesome.lib.samoatevents;
 import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.VideoView;
@@ -73,9 +74,11 @@ public class SAMoatEvents {
         }
     }
 
-    public boolean startMoatTrackingForVideoPlayer(VideoView videoView, HashMap<String, String> adDetails) {
+    public boolean startMoatTrackingForVideoPlayer(VideoView videoView, HashMap<String, String> adDetails, int duration) {
 
         videoTracker = factory.createCustomTracker(new ReactiveVideoTrackerPlugin(MOAT_VIDEO_PARTNER_CODE));
+
+        Log.d("SuperAwesome", "Starting Moat video for duration " + duration);
 
         if (videoTracker == null) return false;
 
@@ -88,7 +91,7 @@ public class SAMoatEvents {
         adIds.put("slicer2", "" + adDetails.get("placementId"));
         adIds.put("slicer3", "" + adDetails.get("publisherId"));
 
-        return videoTracker.trackVideoAd(adIds, 30000, videoView);
+        return videoTracker.trackVideoAd(adIds, duration, videoView);
     }
 
     public boolean sendPlayingEvent (int position) {
