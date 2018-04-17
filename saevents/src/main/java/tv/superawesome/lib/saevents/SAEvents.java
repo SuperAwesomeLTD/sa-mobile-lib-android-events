@@ -158,6 +158,10 @@ public class SAEvents {
     // Viewable impression
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public boolean isChildInRect (ViewGroup layout) {
+        return viewableModule != null && viewableModule.isChildInRect(layout);
+    }
+
     public void checkViewableStatusForDisplay (ViewGroup layout, SAViewableModule.Listener listener) {
         if (viewableModule != null) {
             viewableModule.checkViewableStatusForDisplay (layout, listener);

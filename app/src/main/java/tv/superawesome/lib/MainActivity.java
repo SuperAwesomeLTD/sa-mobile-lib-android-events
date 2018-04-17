@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case Video_2s: {
+                        boolean isViewable = events.isChildInRect(player.getVideoHolder());
+                        if (isViewable) {
+                            events.triggerViewableImpressionEvent();
+                        }
+
                         break;
                     }
                     case Video_1_4: {

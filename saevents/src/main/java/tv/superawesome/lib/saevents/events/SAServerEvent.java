@@ -1,6 +1,7 @@
 package tv.superawesome.lib.saevents.events;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -52,7 +53,7 @@ public class SAServerEvent {
         network.sendGET(context, getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
-                // do nothing
+                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success);
             }
         });
 
@@ -63,6 +64,8 @@ public class SAServerEvent {
         network.sendGET(context, getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
+
+                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success);
 
                 if ((status == 200 || status == 302) && success) {
                     if (listener != null) {
