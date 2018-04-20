@@ -124,9 +124,14 @@ public class SAMoatEvents {
         return true;
     }
 
-    public boolean stopMoatTrackingForVideoPlayer(int position) {
+    public boolean sendCompleteEvent (int position) {
+        if (videoTracker == null) return false;
+        videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_COMPLETE, position));
+        return true;
+    }
+
+    public boolean stopMoatTrackingForVideoPlayer() {
         if (videoTracker != null) {
-            videoTracker.dispatchEvent(new MoatAdEvent(MoatAdEventType.AD_EVT_COMPLETE, position));
             videoTracker.stopTracking();
             return true;
         } else {

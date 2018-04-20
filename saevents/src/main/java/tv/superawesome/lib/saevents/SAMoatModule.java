@@ -200,17 +200,29 @@ public class SAMoatModule {
         }
     }
 
+    public boolean sendCompleteEvent (int position) {
+        if (moatInstance != null) try {
+            java.lang.reflect.Method method = moatClass.getMethod("sendCompleteEvent", int.class);
+            Object returnValue = method.invoke(moatInstance, position);
+            return (Boolean) returnValue;
+        } catch (Exception e) {
+            return false;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Method to unregister a Moat event for video
      *
      * @return whether the video moat event was killed off OK
      */
-    public boolean stopMoatTrackingForVideoPlayer(int position) {
+    public boolean stopMoatTrackingForVideoPlayer() {
 
         if (moatInstance != null) try {
 
-            java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForVideoPlayer", int.class);
-            Object returnValue = method.invoke(moatInstance, position);
+            java.lang.reflect.Method method = moatClass.getMethod("stopMoatTrackingForVideoPlayer");
+            Object returnValue = method.invoke(moatInstance);
             return (Boolean) returnValue;
 
         } catch (Exception e) {
