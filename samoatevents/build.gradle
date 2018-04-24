@@ -13,7 +13,7 @@ def gitUrl = 'https://github.com/SuperAwesomeLTD/sa-mobile-lib-android-events.gi
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         minSdkVersion 14
@@ -77,5 +77,5 @@ install {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/moatlib.jar')
-    compile 'com.google.android.gms:play-services-ads:[9,10.+]'
+    compile 'com.google.android.gms:play-services-ads:15.0.0'
 }

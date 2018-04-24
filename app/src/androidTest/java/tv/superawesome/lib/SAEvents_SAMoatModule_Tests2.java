@@ -34,7 +34,7 @@ public class SAEvents_SAMoatModule_Tests2 extends ActivityInstrumentationTestCas
 
         videoPlayer.setEventListener(new SAVideoPlayerEventInterface() {
             @Override
-            public void saVideoPlayerDidReceiveEvent(SAVideoPlayerEvent event) {
+            public void saVideoPlayerDidReceiveEvent(SAVideoPlayerEvent event, int i, int i1) {
                 if (event == SAVideoPlayerEvent.Video_Prepared) {
                     try {
                         videoPlayer.play(path[0]);
