@@ -16,6 +16,8 @@ import com.moat.analytics.mobile.sup.MoatOptions;
 import com.moat.analytics.mobile.sup.NativeVideoTracker;
 import com.moat.analytics.mobile.sup.ReactiveVideoTracker;
 import com.moat.analytics.mobile.sup.ReactiveVideoTrackerPlugin;
+import com.moat.analytics.mobile.sup.TrackerListener;
+import com.moat.analytics.mobile.sup.VideoTrackerListener;
 import com.moat.analytics.mobile.sup.WebAdTracker;
 
 import java.util.HashMap;
@@ -45,6 +47,22 @@ public class SAMoatEvents {
 
     public String startMoatTrackingForDisplay(WebView webView, HashMap<String, String> adDetails) {
         webTracker = factory.createWebAdTracker(webView);
+        webTracker.setListener(new TrackerListener() {
+            @Override
+            public void onTrackingStarted(String s) {
+                Log.d("SuperAwesome", "Started tracking web view ad " + s);
+            }
+
+            @Override
+            public void onTrackingFailedToStart(String s) {
+                Log.e("SuperAwesome", "Faield to start tracking web view ad " + s);
+            }
+
+            @Override
+            public void onTrackingStopped(String s) {
+                Log.d("SuperAwesome", "Stopped tracking web view ad " + s);
+            }
+        });
 
         if (webTracker == null) return "";
 
@@ -77,6 +95,28 @@ public class SAMoatEvents {
     public boolean startMoatTrackingForVideoPlayer(VideoView videoView, HashMap<String, String> adDetails, int duration) {
 
         videoTracker = factory.createCustomTracker(new ReactiveVideoTrackerPlugin(MOAT_VIDEO_PARTNER_CODE));
+        videoTracker.setListener(new TrackerListener() {
+            @Override
+            public void onTrackingStarted(String s) {
+                Log.d("SuperAwesome", "Started to track video ad " + s);
+            }
+
+            @Override
+            public void onTrackingFailedToStart(String s) {
+                Log.e("SuperAwesome", "Failed to start tracking video ad " + s);
+            }
+
+            @Override
+            public void onTrackingStopped(String s) {
+                Log.d("SuperAwesome", "Stopped tracking video ad " + s);
+            }
+        });
+        videoTracker.setVideoListener(new VideoTrackerListener() {
+            @Override
+            public void onVideoEventReported(MoatAdEventType moatAdEventType) {
+                Log.d("SuperAwesome", "Got MOAT event " + moatAdEventType);
+            }
+        });
 
         Log.d("SuperAwesome", "Starting Moat video for duration " + duration);
 

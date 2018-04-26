@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "tv.superawesome.lib"
         minSdkVersion 18
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -28,16 +28,23 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+
     compile 'com.android.support:design:26.1.0'
+
     compile project(':saevents')
     compile project(':samoatevents')
+
     testCompile 'junit:junit:4.12'
+
     androidTestCompile ('com.android.support.test:runner:0.5'){
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+
     androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2.2'){
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+
     compile 'tv.superawesome.lib.sawebplayer:sawebplayer:0.5.3'
     compile 'tv.superawesome.lib.savideoplayer:savideoplayer:0.4.2'
 }
