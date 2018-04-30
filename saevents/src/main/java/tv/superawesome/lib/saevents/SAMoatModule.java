@@ -27,7 +27,7 @@ public class SAMoatModule {
     // the ad object
     private SAAd      ad;
 
-    public SAMoatModule (SAAd ad) {
+    public SAMoatModule (Context context, SAAd ad) {
 
         // save the ad
         this.ad = ad;
@@ -36,8 +36,8 @@ public class SAMoatModule {
         if (SAUtils.isClassAvailable(kMoatClass)) try {
 
             moatClass = Class.forName(kMoatClass);
-            Constructor<?> moatConstructor = moatClass.getConstructor();
-            moatInstance = moatConstructor.newInstance();
+            Constructor<?> moatConstructor = moatClass.getConstructor(Context.class);
+            moatInstance = moatConstructor.newInstance(context);
 
         } catch (Exception e) {
             e.printStackTrace();

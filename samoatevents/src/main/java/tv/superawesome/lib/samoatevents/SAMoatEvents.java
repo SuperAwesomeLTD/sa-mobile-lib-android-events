@@ -31,11 +31,20 @@ public class SAMoatEvents {
     private static final String MOAT_DISPLAY_PARTNER_CODE   = "superawesomeinappdisplay731223424656";
     private static final String MOAT_VIDEO_PARTNER_CODE     = "superawesomeinappvideo467548716573";
 
+    private static boolean moatStarted = false;
+
     private MoatFactory factory;
     private WebAdTracker webTracker;
     private ReactiveVideoTracker videoTracker;
 
-    public SAMoatEvents() {
+    public SAMoatEvents(Context context) {
+
+        if (!moatStarted) {
+            startMoatTracking(((Activity)context).getApplication());
+        } else {
+            Log.d("SuperAwesome", "Moat already started, good!");
+        }
+
         factory = MoatFactory.create();
     }
 
@@ -45,6 +54,7 @@ public class SAMoatEvents {
         options.disableLocationServices = true;
         options.loggingEnabled = true;
         MoatAnalytics.getInstance().start(options, application);
+        moatStarted = true;
     }
 
     public String startMoatTrackingForDisplay(WebView webView, HashMap<String, String> adDetails) {

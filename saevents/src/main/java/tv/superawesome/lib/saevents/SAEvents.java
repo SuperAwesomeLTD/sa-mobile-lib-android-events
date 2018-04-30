@@ -26,7 +26,7 @@ public class SAEvents {
     public void setAd (Context context, SASession session, SAAd ad) {
         serverModule = new SAServerModule(context, ad, session);
         vastModule = new SAVASTModule(context, ad);
-        moatModule = new SAMoatModule(ad);
+        moatModule = new SAMoatModule(context, ad);
         viewableModule = new SAViewableModule();
     }
 
