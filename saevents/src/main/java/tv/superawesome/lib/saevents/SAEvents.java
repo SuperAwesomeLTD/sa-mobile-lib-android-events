@@ -1,6 +1,7 @@
 package tv.superawesome.lib.saevents;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class SAEvents {
     public void setAd (Context context, SASession session, SAAd ad) {
         serverModule = new SAServerModule(context, ad, session);
         vastModule = new SAVASTModule(context, ad);
-        moatModule = new SAMoatModule(context, ad);
+        moatModule = new SAMoatModule(ad);
         viewableModule = new SAViewableModule();
     }
 
@@ -178,6 +179,10 @@ public class SAEvents {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // MOAT
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static void startMoatTracking (Application application) {
+        SAMoatModule.startMoatTracking(application);
+    }
 
     public String startMoatTrackingForDisplay(WebView view) {
         return moatModule != null ? moatModule.startMoatTrackingForDisplay(view) : "";

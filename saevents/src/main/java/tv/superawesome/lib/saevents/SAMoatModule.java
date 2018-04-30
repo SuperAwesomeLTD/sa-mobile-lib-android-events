@@ -1,16 +1,15 @@
 package tv.superawesome.lib.saevents;
 
-import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.VideoView;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
+import tv.superawesome.lib.saevents.events.SAURLEvent;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sautils.SAUtils;
 
@@ -28,7 +27,7 @@ public class SAMoatModule {
     // the ad object
     private SAAd      ad;
 
-    public SAMoatModule (Context activity, SAAd ad) {
+    public SAMoatModule (SAAd ad) {
 
         // save the ad
         this.ad = ad;
@@ -37,12 +36,23 @@ public class SAMoatModule {
         if (SAUtils.isClassAvailable(kMoatClass)) try {
 
             moatClass = Class.forName(kMoatClass);
-            Constructor<?> moatConstructor = moatClass.getConstructor(Context.class);
-            moatInstance = moatConstructor.newInstance(activity);
+            Constructor<?> moatConstructor = moatClass.getConstructor();
+            moatInstance = moatConstructor.newInstance();
 
         } catch (Exception e) {
             e.printStackTrace();
             Log.w("SuperAwesome", "Could not create Moat instance because " + e.getMessage());
+        }
+    }
+
+    public static void startMoatTracking (Application application) {
+        if (SAUtils.isClassAvailable(kMoatClass)) try {
+            Class<?> moatCls = Class.forName(kMoatClass);
+            java.lang.reflect.Method method = moatCls.getMethod("startMoatTracking", Application.class);
+            method.invoke(moatCls, application);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.w("SuperAwesome", "Could not init Moat instance becase " + e.getMessage());
         }
     }
 
