@@ -45,6 +45,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 
-    compile 'tv.superawesome.lib.sawebplayer:sawebplayer:0.5.3'
-    compile 'tv.superawesome.lib.savideoplayer:savideoplayer:0.4.2'
+    compile 'tv.superawesome.lib.sawebplayer:sawebplayer:1.0.1'
+    compile 'tv.superawesome.lib.savideoplayer:savideoplayer:1.0.0'
 }
