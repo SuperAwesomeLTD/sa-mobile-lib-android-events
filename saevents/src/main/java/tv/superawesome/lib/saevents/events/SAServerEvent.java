@@ -53,7 +53,8 @@ public class SAServerEvent {
         network.sendGET(getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
-                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success);
+                String url = getUrl() + getEndpoint() + SAUtils.formGetQueryFromDict(getQuery());
+                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success + " to " + url);
             }
         });
 
@@ -65,7 +66,8 @@ public class SAServerEvent {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
 
-                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success);
+                String url = getUrl() + getEndpoint() + SAUtils.formGetQueryFromDict(getQuery());
+                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success + " to " + url);
 
                 if ((status == 200 || status == 302) && success) {
                     if (listener != null) {
@@ -84,5 +86,4 @@ public class SAServerEvent {
     public interface Listener {
         void didTriggerEvent (boolean success);
     }
-
 }
