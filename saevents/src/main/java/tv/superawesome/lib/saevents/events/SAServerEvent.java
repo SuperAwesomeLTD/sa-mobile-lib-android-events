@@ -50,7 +50,7 @@ public class SAServerEvent {
 
     public void triggerEvent () {
 
-        network.sendGET(context, getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
+        network.sendGET(getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
                 Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success);
@@ -61,7 +61,7 @@ public class SAServerEvent {
 
     public void triggerEvent (final Listener listener) {
 
-        network.sendGET(context, getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
+        network.sendGET(getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
 
