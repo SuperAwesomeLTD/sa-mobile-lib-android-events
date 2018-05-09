@@ -4,6 +4,8 @@ import android.content.Context;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.Executor;
+
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
@@ -13,6 +15,10 @@ public class SAClickEvent extends SAServerEvent {
 
     public SAClickEvent(Context context, SAAd ad, SASession session) {
         super(context, ad, session);
+    }
+
+    public SAClickEvent(Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+        super(context, ad, session, executor, timeout);
     }
 
     @Override
@@ -28,7 +34,7 @@ public class SAClickEvent extends SAServerEvent {
                     "bundle", session.getPackageName(),
                     "creative", ad.creative.id,
                     "line_item", ad.lineItemId,
-                    "ct", session.getConnectionType(),
+                    "ct", session.getConnectionType().ordinal(),
                     "sdkVersion", session.getVersion(),
                     "rnd", session.getCachebuster());
         } catch (Exception e) {

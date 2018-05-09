@@ -73,7 +73,6 @@ public class SAServerEvent {
             public void saDidGetResponse(int status, String payload, boolean success) {
 
                 String url = getUrl() + getEndpoint() + "?" + SAUtils.formGetQueryFromDict(getQuery());
-                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success + " to " + url);
 
                 if ((status == 200 || status == 302) && success) {
                     if (listener != null) {

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.Executor;
+
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sasession.session.SASession;
@@ -12,6 +14,10 @@ public class SAImpressionEvent extends SAServerEvent {
 
     public SAImpressionEvent(Context context, SAAd ad, SASession session) {
         super(context, ad, session);
+    }
+
+    public SAImpressionEvent(Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+        super(context, ad, session, executor, timeout);
     }
 
     @Override
@@ -28,7 +34,7 @@ public class SAImpressionEvent extends SAServerEvent {
                     "line_item", ad.lineItemId,
                     "sdkVersion", session.getVersion(),
                     "bundle", session.getPackageName(),
-                    "ct", session.getConnectionType(),
+                    "ct", session.getConnectionType().ordinal(),
                     "no_image", true,
                     "rnd", session.getCachebuster());
         } catch (Exception e) {
