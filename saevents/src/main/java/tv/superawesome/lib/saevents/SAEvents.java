@@ -40,19 +40,19 @@ public class SAEvents {
 
     public void triggerClickEvent () {
         if (serverModule != null) {
-            serverModule.triggerClickEvent();
+            serverModule.triggerClickEvent(null);
         }
     }
 
     public void triggerImpressionEvent () {
         if (serverModule != null) {
-            serverModule.triggerImpressionEvent();
+            serverModule.triggerImpressionEvent(null);
         }
     }
 
     public void triggerViewableImpressionEvent () {
         if (serverModule != null) {
-            serverModule.triggerViewableImpressionEvent();
+            serverModule.triggerViewableImpressionEvent(null);
         }
     }
 
@@ -62,25 +62,25 @@ public class SAEvents {
 
     public void triggerPgOpenEvent () {
         if (serverModule != null) {
-            serverModule.triggerPgOpenEvent();
+            serverModule.triggerPgOpenEvent(null);
         }
     }
 
     public void triggerPgCloseEvent () {
         if (serverModule != null) {
-            serverModule.triggerPgCloseEvent();
+            serverModule.triggerPgCloseEvent(null);
         }
     }
 
     public void triggerPgFailEvent () {
         if (serverModule != null) {
-            serverModule.triggerPgFailEvent();
+            serverModule.triggerPgFailEvent(null);
         }
     }
 
     public void triggerPgSuccessEvent () {
         if (serverModule != null) {
-            serverModule.triggerPgSuccessEvent();
+            serverModule.triggerPgSuccessEvent(null);
         }
     }
 
@@ -94,61 +94,61 @@ public class SAEvents {
 
     public void triggerVASTClickThroughEvent () {
         if (vastModule != null) {
-            vastModule.triggerVastClickThroughEvent();
+            vastModule.triggerVastClickThroughEvent(null);
         }
     }
 
     public void triggerVASTErrorEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTErrorEvent();
+            vastModule.triggerVASTErrorEvent(null);
         }
     }
 
     public void triggerVASTImpressionEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTImpressionEvent();
+            vastModule.triggerVASTImpressionEvent(null);
         }
     }
 
     public void triggerVASTCreativeViewEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTCreativeViewEvent();
+            vastModule.triggerVASTCreativeViewEvent(null);
         }
     }
 
     public void triggerVASTStartEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTStartEvent();
+            vastModule.triggerVASTStartEvent(null);
         }
     }
 
     public void triggerVASTFirstQuartileEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTFirstQuartileEvent();
+            vastModule.triggerVASTFirstQuartileEvent(null);
         }
     }
 
     public void triggerVASTMidpointEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTMidpointEvent();
+            vastModule.triggerVASTMidpointEvent(null);
         }
     }
 
     public void triggerVASTThirdQuartileEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTThirdQuartileEvent();
+            vastModule.triggerVASTThirdQuartileEvent(null);
         }
     }
 
     public void triggerVASTCompleteEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTCompleteEvent();
+            vastModule.triggerVASTCompleteEvent(null);
         }
     }
 
     public void triggerVASTClickTrackingEvent () {
         if (vastModule != null) {
-            vastModule.triggerVASTClickTrackingEvent();
+            vastModule.triggerVASTClickTrackingEvent(null);
         }
     }
 

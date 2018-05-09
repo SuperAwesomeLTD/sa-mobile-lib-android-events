@@ -4,6 +4,8 @@ import android.content.Context;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.Executor;
+
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sasession.session.SASession;
@@ -13,6 +15,10 @@ public class SAPGOpenEvent extends SAServerEvent {
 
     public SAPGOpenEvent(Context context, SAAd ad, SASession session) {
         super(context, ad, session);
+    }
+
+    public SAPGOpenEvent(Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+        super(context, ad, session, executor, timeout);
     }
 
     @Override

@@ -11,6 +11,8 @@ import tv.superawesome.lib.saevents.events.setup.TestViewableImpressionEventSetu
 import tv.superawesome.lib.saevents.events.trigger.TestSAClickEventTrigger;
 import tv.superawesome.lib.saevents.events.trigger.TestSAImpressionEventTrigger;
 import tv.superawesome.lib.saevents.events.trigger.TestViewableImpressionEventTrigger;
+import tv.superawesome.lib.saevents.modules.TestMoatModule;
+import tv.superawesome.lib.saevents.modules.TestSAVASTModule;
 
 /**
  * Created by gabriel.coman on 09/05/2018.
@@ -27,7 +29,13 @@ import tv.superawesome.lib.saevents.events.trigger.TestViewableImpressionEventTr
         // triggers
         TestSAClickEventTrigger.class,
         TestSAImpressionEventTrigger.class,
-        TestViewableImpressionEventTrigger.class
+        TestViewableImpressionEventTrigger.class,
+        TestSAURLEventSetup.class,
+
+        // modules
+        TestMoatModule.class,
+        TestSAVASTModule.class,
+        TestMoatModule.class
 })
 public class TestSuite {
 }

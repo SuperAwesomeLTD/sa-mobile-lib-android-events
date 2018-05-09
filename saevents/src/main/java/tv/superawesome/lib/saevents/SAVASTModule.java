@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import tv.superawesome.lib.saevents.events.SAURLEvent;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
@@ -23,39 +25,42 @@ public class SAVASTModule {
     private List<SAURLEvent>            vastClickTracking = new ArrayList<>();
 
     public SAVASTModule (Context context, SAAd ad) {
+        this(context, ad, Executors.newSingleThreadExecutor(), 15000);
+    }
 
+    public SAVASTModule (Context context, SAAd ad, Executor executor, int timeout) {
         try {
 
             for (SAVASTEvent event : ad.creative.details.media.vastAd.events) {
                 if (event.event.contains("vast_click_through")) {
-                    vastClickThrough = new SAURLEvent(context, event.URL);
+                    vastClickThrough = new SAURLEvent(context, event.URL, executor, timeout);
                 }
                 if (event.event.contains("vast_error")) {
-                    vastError.add(new SAURLEvent(context, event.URL));
+                    vastError.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_impression")) {
-                    vastImpression.add(new SAURLEvent(context, event.URL));
+                    vastImpression.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_creativeView")) {
-                    vastCreativeView.add(new SAURLEvent(context, event.URL));
+                    vastCreativeView.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_start")) {
-                    vastStart.add(new SAURLEvent(context, event.URL));
+                    vastStart.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_firstQuartile")) {
-                    vastFirstQuartile.add(new SAURLEvent(context, event.URL));
+                    vastFirstQuartile.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_midpoint")) {
-                    vastMidpoint.add(new SAURLEvent(context, event.URL));
+                    vastMidpoint.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_thirdQuartile")) {
-                    vastThirdQuartile.add(new SAURLEvent(context, event.URL));
+                    vastThirdQuartile.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_complete")) {
-                    vastComplete.add(new SAURLEvent(context, event.URL));
+                    vastComplete.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
                 if (event.event.contains("vast_click_tracking")) {
-                    vastClickTracking.add(new SAURLEvent(context, event.URL));
+                    vastClickTracking.add(new SAURLEvent(context, event.URL, executor, timeout));
                 }
             }
         } catch (Exception e) {
@@ -71,63 +76,63 @@ public class SAVASTModule {
         }
     }
 
-    public void triggerVastClickThroughEvent () {
+    public void triggerVastClickThroughEvent (SAURLEvent.Listener listener) {
         if (vastClickThrough != null) {
-            vastClickThrough.triggerEvent();
+            vastClickThrough.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTErrorEvent () {
+    public void triggerVASTErrorEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastError) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTImpressionEvent () {
+    public void triggerVASTImpressionEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastImpression) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTCreativeViewEvent () {
+    public void triggerVASTCreativeViewEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastCreativeView) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTStartEvent () {
+    public void triggerVASTStartEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastStart) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTFirstQuartileEvent () {
+    public void triggerVASTFirstQuartileEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastFirstQuartile) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTMidpointEvent () {
+    public void triggerVASTMidpointEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastMidpoint) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTThirdQuartileEvent () {
+    public void triggerVASTThirdQuartileEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastThirdQuartile) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTCompleteEvent () {
+    public void triggerVASTCompleteEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastComplete) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 
-    public void triggerVASTClickTrackingEvent () {
+    public void triggerVASTClickTrackingEvent (SAURLEvent.Listener listener) {
         for (SAURLEvent event : vastClickTracking) {
-            event.triggerEvent();
+            event.triggerEvent(listener);
         }
     }
 

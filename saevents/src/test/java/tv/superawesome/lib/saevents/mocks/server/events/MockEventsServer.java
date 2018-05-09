@@ -45,20 +45,41 @@ public class MockEventsServer extends MockAbstractWebServer {
             }
         }
         /*
-         * Viewable impression event
+         * Any type of URL event
          */
-        else if (line.contains("/event")) {
-            if (line.contains("placement%22%3A1000")) {
+        else if (line.contains("/api/url")) {
+            if (line.contains("placement=1000")) {
                 return ResponseFactory.successResponse();
             } else {
                 return ResponseFactory.timeoutResponse();
             }
         }
         /*
-         * Any type of URL event
+         * Series of VAST events
          */
-        else if (line.contains("/vast/event")) {
-            if (line.contains("placement=1000")) {
+        else if (line.contains("/vast/event/vast_impression?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_click_through?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_creativeView?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_start?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_firstQuartile?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_midpoint?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_thirdQuartile?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_complete?placement=1000"))
+            return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_click_tracking?placement=1000"))
+            return ResponseFactory.successResponse();
+        /*
+         * Viewable impression event
+         */
+        else if (line.contains("/event")) {
+            if (line.contains("placement%22%3A1000")) {
                 return ResponseFactory.successResponse();
             } else {
                 return ResponseFactory.timeoutResponse();

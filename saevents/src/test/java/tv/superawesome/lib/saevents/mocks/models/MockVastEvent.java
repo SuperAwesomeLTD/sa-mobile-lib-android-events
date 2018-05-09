@@ -8,8 +8,8 @@ import tv.superawesome.lib.samodelspace.vastad.SAVASTEvent;
 
 public class MockVastEvent extends SAVASTEvent {
 
-    public MockVastEvent (String event) {
+    public MockVastEvent (String event, int placementId) {
         this.event = event;
-        this.URL = "http://localhost:64000/vast/" + event;
+        this.URL = "http://localhost:64000/vast/event/" + event + "?placement="+ placementId;
     }
 }

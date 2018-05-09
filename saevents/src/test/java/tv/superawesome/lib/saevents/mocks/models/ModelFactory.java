@@ -20,7 +20,7 @@ public class ModelFactory {
     }
 
     public static SAAd createVideoAd (int placementId) {
-        SAVASTAd savastAd = new MockVastAd();
+        SAVASTAd savastAd = new MockVastAd(placementId);
         SAMedia media = new MockMedia(savastAd, "");
         SADetails details = new MockDetails(media);
         SACreative creative = new MockCreative(SACreativeFormat.video, details);
