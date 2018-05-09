@@ -49,7 +49,6 @@ public class TestSAVASTModule extends TestModule {
             }
         });
 
-
         module.triggerVASTFirstQuartileEvent(new SAServerEvent.Listener() {
             @Override
             public void didTriggerEvent(boolean success) {
@@ -128,7 +127,6 @@ public class TestSAVASTModule extends TestModule {
                 Assert.assertFalse(success);
             }
         });
-
 
         module.triggerVASTFirstQuartileEvent(new SAServerEvent.Listener() {
             @Override

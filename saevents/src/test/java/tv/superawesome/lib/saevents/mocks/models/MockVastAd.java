@@ -26,5 +26,6 @@ public class MockVastAd extends SAVASTAd {
         this.events.add(new MockVastEvent("vast_thirdQuartile", placementId));
         this.events.add(new MockVastEvent("vast_complete", placementId));
         this.events.add(new MockVastEvent("vast_click_tracking", placementId));
+        this.events.add(new MockVastEvent("vast_error", placementId));
     }
 }

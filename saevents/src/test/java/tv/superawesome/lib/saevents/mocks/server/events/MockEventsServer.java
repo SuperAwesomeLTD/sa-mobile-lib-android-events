@@ -75,6 +75,8 @@ public class MockEventsServer extends MockAbstractWebServer {
             return ResponseFactory.successResponse();
         else if (line.contains("/vast/event/vast_click_tracking?placement=1000"))
             return ResponseFactory.successResponse();
+        else if (line.contains("/vast/event/vast_error?placement=1000"))
+            return ResponseFactory.successResponse();
         /*
          * Viewable impression event
          */
