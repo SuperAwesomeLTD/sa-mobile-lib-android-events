@@ -10,9 +10,9 @@ import tv.superawesome.lib.sasession.defines.SAConfiguration;
  * Created by gabriel.coman on 09/05/2018.
  */
 
-public class MockDisplayAd extends SAAd {
+public class MockAd extends SAAd {
 
-    public MockDisplayAd (int placementId, SACreative creative) {
+    public MockAd(int placementId, SACreative creative) {
         this.error = 0;
         this.advertiserId = 1001;
         this.publisherId = 501;

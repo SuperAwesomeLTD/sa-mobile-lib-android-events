@@ -72,8 +72,6 @@ public class SAServerEvent {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
 
-                String url = getUrl() + getEndpoint() + "?" + SAUtils.formGetQueryFromDict(getQuery());
-
                 if ((status == 200 || status == 302) && success) {
                     if (listener != null) {
                         listener.didTriggerEvent(true);

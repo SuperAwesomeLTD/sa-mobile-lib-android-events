@@ -10,6 +10,6 @@ public class MockVastEvent extends SAVASTEvent {
 
     public MockVastEvent (String event) {
         this.event = event;
-        this.URL = "https://event.api.com/vast/" + event;
+        this.URL = "http://localhost:64000/vast/" + event;
     }
 }

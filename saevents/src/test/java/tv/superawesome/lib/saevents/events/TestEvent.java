@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
 import tv.superawesome.lib.saevents.mocks.executors.MockExecutor;
 import tv.superawesome.lib.saevents.mocks.models.MockCreative;
 import tv.superawesome.lib.saevents.mocks.models.MockDetails;
-import tv.superawesome.lib.saevents.mocks.models.MockDisplayAd;
+import tv.superawesome.lib.saevents.mocks.models.MockAd;
 import tv.superawesome.lib.saevents.mocks.models.MockMedia;
 import tv.superawesome.lib.saevents.mocks.models.MockVastAd;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
@@ -36,7 +36,6 @@ import static org.mockito.Mockito.when;
 
 public class TestEvent {
 
-    protected SAAd ad = null;
     protected Context context   = null;
     protected Executor executor = null;
     protected SASession session = null;
@@ -66,12 +65,6 @@ public class TestEvent {
         when(session.getInstl()).thenReturn(SARTBInstl.FULLSCREEN);
         when(session.getWidth()).thenReturn(320);
         when(session.getHeight()).thenReturn(240);
-
-        SAVASTAd savastAd = new MockVastAd();
-        SAMedia media = new MockMedia(savastAd);
-        SADetails details = new MockDetails(media);
-        SACreative creative = new MockCreative(details);
-        ad = new MockDisplayAd(1000, creative);
     }
 
     @After

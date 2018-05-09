@@ -2,34 +2,31 @@ package tv.superawesome.lib.saevents.events.setup;
 
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import tv.superawesome.lib.saevents.events.SAImpressionEvent;
+import tv.superawesome.lib.saevents.mocks.models.ModelFactory;
+import tv.superawesome.lib.samodelspace.saad.SAAd;
 
 /**
  * Created by gabriel.coman on 09/05/2018.
  */
 
-public class TestSAImpressionEvent extends TestEventSetup {
-
-    private SAImpressionEvent event = null;
-
-    @Override
-    @Before
-    public void setUp () throws Throwable {
-        super.setUp();
-        event = new SAImpressionEvent(null, super.ad, super.session, super.executor, 1000);
-    }
+public class TestSAImpressionEventSetup extends TestEventSetup {
 
     @Test
-    public void test_SAImpression_GetEndpoint () {
+    public void test_SAImpression_Init () throws Exception {
+        // given
+        SAAd ad = ModelFactory.createDisplayAd(1000);
+
+        // when
+        SAImpressionEvent event = new SAImpressionEvent(null, ad, super.session, super.executor, 1000);
+
+        // then - endpoint
         Assert.assertNotNull(event.getEndpoint());
         Assert.assertEquals("/impression", event.getEndpoint());
-    }
 
-    @Test
-    public void test_SAImpression_GetQuery () throws Exception {
+        // then - query
         Assert.assertNotNull(event.getQuery());
 
         JSONObject query = event.getQuery();

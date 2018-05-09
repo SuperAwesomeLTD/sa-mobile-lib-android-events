@@ -48,7 +48,7 @@ public class MockEventsServer extends MockAbstractWebServer {
          * Viewable impression event
          */
         else if (line.contains("/event")) {
-            if (line.contains("placement:1000")) {
+            if (line.contains("placement%22%3A1000")) {
                 return ResponseFactory.successResponse();
             } else {
                 return ResponseFactory.timeoutResponse();

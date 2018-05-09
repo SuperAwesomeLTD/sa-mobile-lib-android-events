@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import tv.superawesome.lib.saevents.events.SAViewableImpressionEvent;
+import tv.superawesome.lib.saevents.mocks.models.ModelFactory;
+import tv.superawesome.lib.samodelspace.saad.SAAd;
 
 /**
  * Created by gabriel.coman on 09/05/2018.
@@ -13,23 +15,19 @@ import tv.superawesome.lib.saevents.events.SAViewableImpressionEvent;
 
 public class TestViewableImpressionEventSetup extends TestEventSetup {
 
-    private SAViewableImpressionEvent event = null;
-
-    @Override
-    @Before
-    public void setUp () throws Throwable {
-        super.setUp();
-        event = new SAViewableImpressionEvent(null, super.ad, super.session, super.executor, 1000);
-    }
-
     @Test
-    public void test_ClickEvent_GetEndpoint () {
+    public void test_ViewableImpression_Init () throws Exception {
+        // given
+        SAAd ad = ModelFactory.createDisplayAd(1000);
+
+        // when
+        SAViewableImpressionEvent event = new SAViewableImpressionEvent(null, ad, super.session, super.executor, 1000);
+
+        // then - endpoint
         Assert.assertNotNull(event.getEndpoint());
         Assert.assertEquals("/event", event.getEndpoint());
-    }
 
-    @Test
-    public void test_ClickEvent_GetQuery () throws Exception {
+        // then - query
         Assert.assertNotNull(event.getQuery());
 
         JSONObject query = event.getQuery();
@@ -40,6 +38,7 @@ public class TestViewableImpressionEventSetup extends TestEventSetup {
         Assert.assertEquals("superawesome.tv.saadloaderdemo", query.get("bundle"));
 
         String stringData = query.getString("data");
+
         String result = java.net.URLDecoder.decode(stringData, "UTF-8");
         JSONObject data = new JSONObject(result);
 

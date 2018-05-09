@@ -12,11 +12,11 @@ import tv.superawesome.lib.samodelspace.saad.SADetails;
 
 public class MockCreative extends SACreative {
 
-    public MockCreative (SADetails details) {
+    public MockCreative (SACreativeFormat format, SADetails details) {
         this.id = 5001;
         this.name = "ad-name";
         this.cpm = 3;
-        this.format = SACreativeFormat.image;
+        this.format = format;
         this.live = true;
         this.approved = true;
         this.bumper = false;
