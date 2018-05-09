@@ -9,14 +9,14 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sanetwork.request.SANetwork;
 import tv.superawesome.lib.sanetwork.request.SANetworkInterface;
-import tv.superawesome.lib.sasession.SASession;
+import tv.superawesome.lib.sasession.session.SASession;
 import tv.superawesome.lib.sautils.SAUtils;
 
 public class SAServerEvent {
 
     protected Context     context = null;
     protected SAAd        ad      = null;
-    protected SASession   session = null;
+    protected SASession session = null;
     private   SANetwork   network = null;
 
     public SAServerEvent(Context context, SAAd ad, SASession session) {

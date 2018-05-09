@@ -10,7 +10,7 @@ import tv.superawesome.lib.saevents.events.SAPGOpenEvent;
 import tv.superawesome.lib.saevents.events.SAPGSuccessEvent;
 import tv.superawesome.lib.saevents.events.SAViewableImpressionEvent;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.sasession.SASession;
+import tv.superawesome.lib.sasession.session.SASession;
 
 public class SAServerModule {
 

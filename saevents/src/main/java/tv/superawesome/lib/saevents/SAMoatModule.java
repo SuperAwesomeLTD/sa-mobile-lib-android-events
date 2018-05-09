@@ -9,7 +9,6 @@ import android.widget.VideoView;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
-import tv.superawesome.lib.saevents.events.SAURLEvent;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sautils.SAUtils;
 

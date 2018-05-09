@@ -1,16 +1,13 @@
 package tv.superawesome.lib.saevents;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.VideoView;
 
 import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.sasession.SASession;
+import tv.superawesome.lib.sasession.session.SASession;
 
 public class SAEvents {
 

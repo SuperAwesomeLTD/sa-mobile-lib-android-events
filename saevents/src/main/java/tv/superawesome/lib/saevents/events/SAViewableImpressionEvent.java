@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.sasession.SASession;
+import tv.superawesome.lib.sasession.session.SASession;
 import tv.superawesome.lib.sautils.SAUtils;
 
 public class SAViewableImpressionEvent extends SAServerEvent {
