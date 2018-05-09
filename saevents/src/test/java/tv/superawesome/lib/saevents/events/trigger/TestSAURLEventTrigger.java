@@ -13,7 +13,7 @@ import tv.superawesome.lib.samodelspace.saad.SAAd;
  * Created by gabriel.coman on 09/05/2018.
  */
 
-public class TestSAURLEventSetup extends TestEventTrigger {
+public class TestSAURLEventTrigger extends TestEventTrigger {
 
     @Test
     public void test_URLEvent_triggerEvent_WithSuccess () {

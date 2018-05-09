@@ -46,9 +46,14 @@ public class SAServerEvent {
     }
 
     public JSONObject getHeader () {
-        return SAJsonParser.newObject(
-                "Content-Type", "application/json",
-                "User-Agent", SAUtils.getUserAgent(context));
+        if (session != null) {
+            return SAJsonParser.newObject(
+                    "Content-Type", "application/json",
+                    "User-Agent", session.getUserAgent());
+        }
+        else {
+            return SAJsonParser.newObject("Content-Type", "application/json");
+        }
     }
 
     public JSONObject getQuery () {

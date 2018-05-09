@@ -1,7 +1,5 @@
 package tv.superawesome.lib.saevents.mocks.models;
 
-import junit.framework.Test;
-
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.samodelspace.saad.SACreative;
 import tv.superawesome.lib.sasession.defines.SAConfiguration;
