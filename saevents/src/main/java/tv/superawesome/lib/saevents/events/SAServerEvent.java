@@ -12,21 +12,21 @@ import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.sanetwork.request.SANetwork;
 import tv.superawesome.lib.sanetwork.request.SANetworkInterface;
-import tv.superawesome.lib.sasession.session.SASession;
+import tv.superawesome.lib.sasession.session.ISASession;
 import tv.superawesome.lib.sautils.SAUtils;
 
 public class SAServerEvent {
 
     protected Context     context  = null;
     protected SAAd        ad       = null;
-    protected SASession   session  = null;
+    protected ISASession  session  = null;
     private   SANetwork   network  = null;
 
-    public SAServerEvent(Context context, SAAd ad, SASession session) {
+    public SAServerEvent(Context context, SAAd ad, ISASession session) {
         this(context, ad, session, Executors.newSingleThreadExecutor(), 15000);
     }
 
-    public SAServerEvent(Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+    public SAServerEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
         this.context = context;
         this.ad = ad;
         this.session = session;

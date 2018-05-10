@@ -5,6 +5,7 @@ import org.junit.Before;
 
 import tv.superawesome.lib.saevents.events.TestEvent;
 import tv.superawesome.lib.saevents.mocks.server.events.MockEventsServer;
+import tv.superawesome.lib.saevents.mocks.session.MockSession;
 
 /**
  * Created by gabriel.coman on 09/05/2018.
@@ -19,6 +20,7 @@ public class TestEventTrigger extends TestEvent {
         super.setUp();
         server = new MockEventsServer();
         server.start();
+        super.session = new MockSession(server.url());
     }
 
     @After

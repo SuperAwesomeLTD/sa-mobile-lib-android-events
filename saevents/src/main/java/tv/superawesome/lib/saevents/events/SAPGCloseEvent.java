@@ -8,16 +8,16 @@ import java.util.concurrent.Executor;
 
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.sasession.session.SASession;
+import tv.superawesome.lib.sasession.session.ISASession;
 import tv.superawesome.lib.sautils.SAUtils;
 
 public class SAPGCloseEvent extends SAServerEvent {
 
-    public SAPGCloseEvent(Context context, SAAd ad, SASession session) {
+    public SAPGCloseEvent(Context context, SAAd ad, ISASession session) {
         super(context, ad, session);
     }
 
-    public SAPGCloseEvent(Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+    public SAPGCloseEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
         super(context, ad, session, executor, timeout);
     }
 

@@ -14,7 +14,7 @@ import tv.superawesome.lib.saevents.events.SAPGSuccessEvent;
 import tv.superawesome.lib.saevents.events.SAURLEvent;
 import tv.superawesome.lib.saevents.events.SAViewableImpressionEvent;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.sasession.session.SASession;
+import tv.superawesome.lib.sasession.session.ISASession;
 
 public class SAServerModule {
 
@@ -26,11 +26,11 @@ public class SAServerModule {
     private SAPGFailEvent               sapgFailEvent = null;
     private SAPGSuccessEvent            sapgSuccessEvent = null;
 
-    public SAServerModule (Context context, SAAd ad, SASession session) {
+    public SAServerModule (Context context, SAAd ad, ISASession session) {
         this(context, ad, session, Executors.newSingleThreadExecutor(), 15000);
     }
 
-    public SAServerModule (Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+    public SAServerModule (Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
         clickEvent = new SAClickEvent(context, ad, session, executor, timeout);
         impressionEvent = new SAImpressionEvent(context, ad, session, executor, timeout);
         viewableImpressionEvent = new SAViewableImpressionEvent(context, ad, session, executor, timeout);

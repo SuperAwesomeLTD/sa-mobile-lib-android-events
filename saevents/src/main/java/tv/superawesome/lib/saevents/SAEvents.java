@@ -7,7 +7,7 @@ import android.webkit.WebView;
 import android.widget.VideoView;
 
 import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.sasession.session.SASession;
+import tv.superawesome.lib.sasession.session.ISASession;
 
 public class SAEvents {
 
@@ -20,7 +20,7 @@ public class SAEvents {
     // Set & unset the ad needed for triggering events
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void setAd (Context context, SASession session, SAAd ad) {
+    public void setAd (Context context, ISASession session, SAAd ad) {
         serverModule = new SAServerModule(context, ad, session);
         vastModule = new SAVASTModule(context, ad);
         moatModule = new SAMoatModule(context, ad);

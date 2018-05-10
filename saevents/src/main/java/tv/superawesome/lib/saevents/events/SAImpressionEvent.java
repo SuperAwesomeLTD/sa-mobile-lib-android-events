@@ -8,15 +8,15 @@ import java.util.concurrent.Executor;
 
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
-import tv.superawesome.lib.sasession.session.SASession;
+import tv.superawesome.lib.sasession.session.ISASession;
 
 public class SAImpressionEvent extends SAServerEvent {
 
-    public SAImpressionEvent(Context context, SAAd ad, SASession session) {
+    public SAImpressionEvent(Context context, SAAd ad, ISASession session) {
         super(context, ad, session);
     }
 
-    public SAImpressionEvent(Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+    public SAImpressionEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
         super(context, ad, session, executor, timeout);
     }
 

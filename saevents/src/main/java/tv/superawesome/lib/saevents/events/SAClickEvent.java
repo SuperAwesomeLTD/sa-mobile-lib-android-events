@@ -9,15 +9,15 @@ import java.util.concurrent.Executor;
 import tv.superawesome.lib.sajsonparser.SAJsonParser;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
-import tv.superawesome.lib.sasession.session.SASession;
+import tv.superawesome.lib.sasession.session.ISASession;
 
 public class SAClickEvent extends SAServerEvent {
 
-    public SAClickEvent(Context context, SAAd ad, SASession session) {
+    public SAClickEvent(Context context, SAAd ad, ISASession session) {
         super(context, ad, session);
     }
 
-    public SAClickEvent(Context context, SAAd ad, SASession session, Executor executor, int timeout) {
+    public SAClickEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
         super(context, ad, session, executor, timeout);
     }
 
