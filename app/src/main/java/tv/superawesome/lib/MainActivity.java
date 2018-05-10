@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         final SAAd ad = getTestAd();
 
         final SAEvents events = new SAEvents();
-        events.setAd(this, new SASession(this), ad);
+        events.setAd(this, new SASession(this), ad, true);
         events.disableMoatLimiting();
 
         player = new SAVideoPlayer();

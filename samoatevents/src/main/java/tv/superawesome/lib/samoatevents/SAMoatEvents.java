@@ -3,10 +3,8 @@ package tv.superawesome.lib.samoatevents;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.VideoView;
 
 import com.moat.analytics.mobile.sup.MoatAdEvent;
@@ -14,7 +12,6 @@ import com.moat.analytics.mobile.sup.MoatAdEventType;
 import com.moat.analytics.mobile.sup.MoatAnalytics;
 import com.moat.analytics.mobile.sup.MoatFactory;
 import com.moat.analytics.mobile.sup.MoatOptions;
-import com.moat.analytics.mobile.sup.NativeVideoTracker;
 import com.moat.analytics.mobile.sup.ReactiveVideoTracker;
 import com.moat.analytics.mobile.sup.ReactiveVideoTrackerPlugin;
 import com.moat.analytics.mobile.sup.TrackerListener;
@@ -37,10 +34,10 @@ public class SAMoatEvents {
     private WebAdTracker webTracker;
     private ReactiveVideoTracker videoTracker;
 
-    public SAMoatEvents(Context context) {
+    public SAMoatEvents(Context context, boolean loggingEnabled) {
 
         if (!moatStarted) {
-            startMoatTracking(((Activity)context).getApplication());
+            startMoatTracking(((Activity)context).getApplication(), loggingEnabled);
         } else {
             Log.d("SuperAwesome", "Moat already started, good!");
         }
@@ -48,11 +45,11 @@ public class SAMoatEvents {
         factory = MoatFactory.create();
     }
 
-    public static void startMoatTracking (Application application) {
+    public static void startMoatTracking (Application application, boolean loggingEnabled) {
         MoatOptions options = new MoatOptions();
         options.disableAdIdCollection = true;
         options.disableLocationServices = true;
-        options.loggingEnabled = true;
+        options.loggingEnabled = loggingEnabled;
         MoatAnalytics.getInstance().start(options, application);
         moatStarted = true;
     }

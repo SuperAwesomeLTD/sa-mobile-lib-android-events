@@ -15,6 +15,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d("SuperAwesome", "On Create / MyApplication");
-        SAEvents.startMoatTracking(this);
+        SAEvents.startMoatTracking(this, true);
     }
 }

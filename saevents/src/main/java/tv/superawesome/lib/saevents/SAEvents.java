@@ -20,10 +20,10 @@ public class SAEvents {
     // Set & unset the ad needed for triggering events
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void setAd (Context context, ISASession session, SAAd ad) {
+    public void setAd (Context context, ISASession session, SAAd ad, boolean loggingEnabled) {
         serverModule = new SAServerModule(context, ad, session);
         vastModule = new SAVASTModule(context, ad);
-        moatModule = new SAMoatModule(context, ad);
+        moatModule = new SAMoatModule(context, ad, loggingEnabled);
         viewableModule = new SAViewableModule();
     }
 
@@ -177,8 +177,8 @@ public class SAEvents {
     // MOAT
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static void startMoatTracking (Application application) {
-        SAMoatModule.startMoatTracking(application);
+    public static void startMoatTracking (Application application, boolean loggingEnabled) {
+        SAMoatModule.startMoatTracking(application, loggingEnabled);
     }
 
     public String startMoatTrackingForDisplay(WebView view) {

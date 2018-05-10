@@ -26,7 +26,7 @@ public class SAMoatModule {
     // the ad object
     private SAAd      ad;
 
-    public SAMoatModule (Context context, SAAd ad) {
+    public SAMoatModule (Context context, SAAd ad, boolean loggingEnabled) {
 
         // save the ad
         this.ad = ad;
@@ -35,8 +35,8 @@ public class SAMoatModule {
         if (SAUtils.isClassAvailable(kMoatClass)) try {
 
             moatClass = Class.forName(kMoatClass);
-            Constructor<?> moatConstructor = moatClass.getConstructor(Context.class);
-            moatInstance = moatConstructor.newInstance(context);
+            Constructor<?> moatConstructor = moatClass.getConstructor(Context.class, boolean.class);
+            moatInstance = moatConstructor.newInstance(context, loggingEnabled);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,11 +44,11 @@ public class SAMoatModule {
         }
     }
 
-    public static void startMoatTracking (Application application) {
+    public static void startMoatTracking (Application application, boolean loggingEnabled) {
         if (SAUtils.isClassAvailable(kMoatClass)) try {
             Class<?> moatCls = Class.forName(kMoatClass);
-            java.lang.reflect.Method method = moatCls.getMethod("startMoatTracking", Application.class);
-            method.invoke(moatCls, application);
+            java.lang.reflect.Method method = moatCls.getMethod("startMoatTracking", Application.class, boolean.class);
+            method.invoke(moatCls, application, loggingEnabled);
         } catch (Exception e) {
             e.printStackTrace();
             Log.w("SuperAwesome", "Could not init Moat instance becase " + e.getMessage());

@@ -20,7 +20,7 @@ public class TestMoatModule extends TestModule {
         SAAd ad = ModelFactory.createDisplayAd(1000);
 
         // when
-        SAMoatModule module = new SAMoatModule(null, ad);
+        SAMoatModule module = new SAMoatModule(null, ad, true);
         module.disableMoatLimiting();
 
         boolean isAllowed1 = module.isMoatAllowed();
