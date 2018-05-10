@@ -1,8 +1,6 @@
 package tv.superawesome.lib.samoatevents;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.VideoView;
@@ -28,33 +26,28 @@ public class SAMoatEvents {
     private static final String MOAT_DISPLAY_PARTNER_CODE   = "superawesomeinappdisplay731223424656";
     private static final String MOAT_VIDEO_PARTNER_CODE     = "superawesomeinappvideo467548716573";
 
-    private static boolean moatStarted = false;
-
     private MoatFactory factory;
     private WebAdTracker webTracker;
     private ReactiveVideoTracker videoTracker;
 
-    public SAMoatEvents(Context context, boolean loggingEnabled) {
-
-        if (!moatStarted) {
-            startMoatTracking(((Activity)context).getApplication(), loggingEnabled);
-        } else {
-            Log.d("SuperAwesome", "Moat already started, good!");
-        }
-
-        factory = MoatFactory.create();
+    public SAMoatEvents () {
+        // do nothing
     }
 
-    public static void startMoatTracking (Application application, boolean loggingEnabled) {
+    public static void initMoat (Application application, boolean loggingEnabled) {
         MoatOptions options = new MoatOptions();
         options.disableAdIdCollection = true;
         options.disableLocationServices = true;
         options.loggingEnabled = loggingEnabled;
         MoatAnalytics.getInstance().start(options, application);
-        moatStarted = true;
     }
 
     public String startMoatTrackingForDisplay(WebView webView, HashMap<String, String> adDetails) {
+
+        if (factory == null) {
+            factory = MoatFactory.create();
+        }
+
         webTracker = factory.createWebAdTracker(webView);
         webTracker.setListener(new TrackerListener() {
             @Override
@@ -102,6 +95,10 @@ public class SAMoatEvents {
     }
 
     public boolean startMoatTrackingForVideoPlayer(VideoView videoView, HashMap<String, String> adDetails, int duration) {
+
+        if (factory == null) {
+            factory = MoatFactory.create();
+        }
 
         videoTracker = factory.createCustomTracker(new ReactiveVideoTrackerPlugin(MOAT_VIDEO_PARTNER_CODE));
         videoTracker.setListener(new TrackerListener() {
