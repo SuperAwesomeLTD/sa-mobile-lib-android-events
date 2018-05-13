@@ -20,7 +20,7 @@ public class TestSAURLEventTrigger extends TestEventTrigger {
 
         // given
         String url = "http://localhost:64000/api/url?placement=1000";
-        SAURLEvent event = new SAURLEvent(null, url, super.executor, 1000);
+        SAURLEvent event = new SAURLEvent(null, url, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {
@@ -38,7 +38,7 @@ public class TestSAURLEventTrigger extends TestEventTrigger {
 
         // given
         String url = "http://localhost:64000/api/url?placement=1001";
-        SAURLEvent event = new SAURLEvent(null, url, super.executor, 1000);
+        SAURLEvent event = new SAURLEvent(null, url, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {

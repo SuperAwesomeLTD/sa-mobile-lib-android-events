@@ -17,8 +17,8 @@ public class SAPGFailEvent extends SAServerEvent {
         super(context, ad, session);
     }
 
-    public SAPGFailEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
-        super(context, ad, session, executor, timeout);
+    public SAPGFailEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
+        super(context, ad, session, executor, timeout, isDebug);
     }
 
     @Override

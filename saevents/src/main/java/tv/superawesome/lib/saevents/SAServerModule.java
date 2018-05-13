@@ -27,17 +27,17 @@ public class SAServerModule {
     private SAPGSuccessEvent            sapgSuccessEvent = null;
 
     public SAServerModule (Context context, SAAd ad, ISASession session) {
-        this(context, ad, session, Executors.newSingleThreadExecutor(), 15000);
+        this(context, ad, session, Executors.newSingleThreadExecutor(), 15000, false);
     }
 
-    public SAServerModule (Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
-        clickEvent = new SAClickEvent(context, ad, session, executor, timeout);
-        impressionEvent = new SAImpressionEvent(context, ad, session, executor, timeout);
-        viewableImpressionEvent = new SAViewableImpressionEvent(context, ad, session, executor, timeout);
-        sapgOpenEvent = new SAPGOpenEvent(context, ad, session, executor, timeout);
-        sapgCloseEvent = new SAPGCloseEvent(context, ad, session, executor, timeout);
-        sapgFailEvent = new SAPGFailEvent(context, ad, session, executor, timeout);
-        sapgSuccessEvent = new SAPGSuccessEvent(context, ad, session, executor, timeout);
+    public SAServerModule (Context context, SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
+        clickEvent = new SAClickEvent(context, ad, session, executor, timeout, isDebug);
+        impressionEvent = new SAImpressionEvent(context, ad, session, executor, timeout, isDebug);
+        viewableImpressionEvent = new SAViewableImpressionEvent(context, ad, session, executor, timeout, isDebug);
+        sapgOpenEvent = new SAPGOpenEvent(context, ad, session, executor, timeout, isDebug);
+        sapgCloseEvent = new SAPGCloseEvent(context, ad, session, executor, timeout, isDebug);
+        sapgFailEvent = new SAPGFailEvent(context, ad, session, executor, timeout, isDebug);
+        sapgSuccessEvent = new SAPGSuccessEvent(context, ad, session, executor, timeout, isDebug);
     }
 
     public void triggerClickEvent (SAURLEvent.Listener listener) {

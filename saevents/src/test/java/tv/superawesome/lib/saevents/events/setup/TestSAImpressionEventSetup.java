@@ -20,7 +20,7 @@ public class TestSAImpressionEventSetup extends TestEventSetup {
         SAAd ad = ModelFactory.createDisplayAd(1000);
 
         // when
-        SAImpressionEvent event = new SAImpressionEvent(null, ad, super.session, super.executor, 1000);
+        SAImpressionEvent event = new SAImpressionEvent(null, ad, super.session, super.executor, 1000, true);
 
         // then - endpoint
         Assert.assertNotNull(event.getEndpoint());

@@ -25,42 +25,42 @@ public class SAVASTModule {
     private List<SAURLEvent>            vastClickTracking = new ArrayList<>();
 
     public SAVASTModule (Context context, SAAd ad) {
-        this(context, ad, Executors.newSingleThreadExecutor(), 15000);
+        this(context, ad, Executors.newSingleThreadExecutor(), 15000, false);
     }
 
-    public SAVASTModule (Context context, SAAd ad, Executor executor, int timeout) {
+    public SAVASTModule (Context context, SAAd ad, Executor executor, int timeout, boolean isDebug) {
         try {
 
             for (SAVASTEvent event : ad.creative.details.media.vastAd.events) {
                 if (event.event.contains("vast_click_through")) {
-                    vastClickThrough = new SAURLEvent(context, event.URL, executor, timeout);
+                    vastClickThrough = new SAURLEvent(context, event.URL, executor, timeout, isDebug);
                 }
                 if (event.event.contains("vast_error")) {
-                    vastError.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastError.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_impression")) {
-                    vastImpression.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastImpression.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_creativeView")) {
-                    vastCreativeView.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastCreativeView.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_start")) {
-                    vastStart.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastStart.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_firstQuartile")) {
-                    vastFirstQuartile.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastFirstQuartile.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_midpoint")) {
-                    vastMidpoint.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastMidpoint.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_thirdQuartile")) {
-                    vastThirdQuartile.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastThirdQuartile.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_complete")) {
-                    vastComplete.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastComplete.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
                 if (event.event.contains("vast_click_tracking")) {
-                    vastClickTracking.add(new SAURLEvent(context, event.URL, executor, timeout));
+                    vastClickTracking.add(new SAURLEvent(context, event.URL, executor, timeout, isDebug));
                 }
             }
         } catch (Exception e) {

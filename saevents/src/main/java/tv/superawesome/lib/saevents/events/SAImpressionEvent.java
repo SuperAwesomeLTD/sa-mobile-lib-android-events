@@ -16,8 +16,8 @@ public class SAImpressionEvent extends SAServerEvent {
         super(context, ad, session);
     }
 
-    public SAImpressionEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
-        super(context, ad, session, executor, timeout);
+    public SAImpressionEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
+        super(context, ad, session, executor, timeout, isDebug);
     }
 
     @Override

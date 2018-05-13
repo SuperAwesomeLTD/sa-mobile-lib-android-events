@@ -20,7 +20,7 @@ public class TestSAImpressionEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createDisplayAd(1000);
-        SAImpressionEvent event = new SAImpressionEvent(null, ad, super.session, super.executor, 1000);
+        SAImpressionEvent event = new SAImpressionEvent(null, ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {
@@ -38,7 +38,7 @@ public class TestSAImpressionEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createDisplayAd(1001);
-        SAImpressionEvent event = new SAImpressionEvent(null, ad, super.session, super.executor, 1000);
+        SAImpressionEvent event = new SAImpressionEvent(null, ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {

@@ -21,15 +21,17 @@ public class SAServerEvent {
     protected SAAd        ad       = null;
     protected ISASession  session  = null;
     private   SANetwork   network  = null;
+    private   boolean     isDebug  = false;
 
     public SAServerEvent(Context context, SAAd ad, ISASession session) {
-        this(context, ad, session, Executors.newSingleThreadExecutor(), 15000);
+        this(context, ad, session, Executors.newSingleThreadExecutor(), 15000, false);
     }
 
-    public SAServerEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
+    public SAServerEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
         this.context = context;
         this.ad = ad;
         this.session = session;
+        this.isDebug = isDebug;
         this.network = new SANetwork(executor, timeout);
     }
 
@@ -60,22 +62,16 @@ public class SAServerEvent {
         return new JSONObject();
     }
 
-    public void triggerEvent () {
-
-        network.sendGET(getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
-            @Override
-            public void saDidGetResponse(int status, String payload, boolean success) {
-                String url = getUrl() + getEndpoint() + "?" + SAUtils.formGetQueryFromDict(getQuery());
-                Log.d("SuperAwesome", "Sent event: " + status + " | Success: " + success + " to " + url);
-            }
-        });
-    }
-
     public void triggerEvent (final Listener listener) {
 
         network.sendGET(getUrl() + getEndpoint(), getQuery(), getHeader(), new SANetworkInterface() {
             @Override
             public void saDidGetResponse(int status, String payload, boolean success) {
+
+                if (!isDebug) {
+                    String url = getUrl() + getEndpoint() + SAUtils.formGetQueryFromDict(getQuery());
+                    Log.d("SuperAwesome", success + " | " + status + " | " + url);
+                }
 
                 if ((status == 200 || status == 302) && success) {
                     if (listener != null) {

@@ -17,8 +17,8 @@ public class SAPGOpenEvent extends SAServerEvent {
         super(context, ad, session);
     }
 
-    public SAPGOpenEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout) {
-        super(context, ad, session, executor, timeout);
+    public SAPGOpenEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
+        super(context, ad, session, executor, timeout, isDebug);
     }
 
     @Override

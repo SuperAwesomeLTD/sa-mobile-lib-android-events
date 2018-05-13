@@ -19,7 +19,7 @@ public class TestViewableImpressionEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createDisplayAd(1000);
-        SAViewableImpressionEvent event = new SAViewableImpressionEvent(null, ad, super.session, super.executor, 1000);
+        SAViewableImpressionEvent event = new SAViewableImpressionEvent(null, ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {
@@ -37,7 +37,7 @@ public class TestViewableImpressionEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createDisplayAd(1001);
-        SAViewableImpressionEvent event = new SAViewableImpressionEvent(null, ad, super.session, super.executor, 1000);
+        SAViewableImpressionEvent event = new SAViewableImpressionEvent(null, ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {

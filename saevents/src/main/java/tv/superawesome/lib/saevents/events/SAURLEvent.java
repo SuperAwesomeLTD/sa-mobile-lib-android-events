@@ -10,11 +10,11 @@ public class SAURLEvent extends SAServerEvent {
     protected String vastUrl = null;
 
     public SAURLEvent(Context context, String vastUrl) {
-        this(context, vastUrl, Executors.newSingleThreadExecutor(), 15000);
+        this(context, vastUrl, Executors.newSingleThreadExecutor(), 15000, false);
     }
 
-    public SAURLEvent (Context context, String vastUrl, Executor executor, int timeout) {
-        super(context, null, null, executor, timeout);
+    public SAURLEvent (Context context, String vastUrl, Executor executor, int timeout, boolean isDebug) {
+        super(context, null, null, executor, timeout, isDebug);
         this.vastUrl = vastUrl;
     }
 
