@@ -69,7 +69,7 @@ public class SAServerEvent {
             public void saDidGetResponse(int status, String payload, boolean success) {
 
                 if (!isDebug) {
-                    String url = getUrl() + getEndpoint() + SAUtils.formGetQueryFromDict(getQuery());
+                    String url = getUrl() + getEndpoint() + "?" + SAUtils.formGetQueryFromDict(getQuery());
                     Log.d("SuperAwesome", success + " | " + status + " | " + url);
                 }
 
