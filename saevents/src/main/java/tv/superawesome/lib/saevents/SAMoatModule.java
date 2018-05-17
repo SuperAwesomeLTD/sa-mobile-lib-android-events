@@ -69,7 +69,9 @@ public class SAMoatModule {
         // here calc if moat should be displayed
         int moatIntRand = SAUtils.randomNumberBetween(0, 100);
         double moatRand = moatIntRand / 100.0;
-        return ad != null && ((moatRand < ad.moat && moatLimiting) || !moatLimiting);
+        boolean moatAllowed = ad != null && ((moatRand < ad.moat && moatLimiting) || !moatLimiting);
+        Log.d("SuperAwesome", "Moat allowed is " + moatAllowed);
+        return moatAllowed;
     }
 
     /**
@@ -98,8 +100,10 @@ public class SAMoatModule {
             return (String) returnValue;
 
         } catch (Exception e) {
+            Log.w("SuperAwesome", "Start Moat Tracking For Display: " + e.getMessage());
             return "";
         } else {
+            Log.w("SuperAwesome", "Start Moat Tracking For Display: Moat instance is null or isMoatAllowed() returned false");
             return "";
         }
     }
@@ -142,9 +146,11 @@ public class SAMoatModule {
             return (Boolean) returnValue;
 
         } catch (Exception e) {
-            Log.d("SuperAwesome", "Exception: " + e.getMessage());
+            e.printStackTrace();
+            Log.w("SuperAwesome", "Start Moat Tracking For Video: " + e.getMessage());
             return false;
         } else {
+            Log.w("SuperAwesome", "Start Moat Tracking For Video: Moat instance is null or isMoatAllowed() returned false");
             return false;
         }
     }
