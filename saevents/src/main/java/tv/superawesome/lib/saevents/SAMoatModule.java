@@ -69,9 +69,7 @@ public class SAMoatModule {
         // here calc if moat should be displayed
         int moatIntRand = SAUtils.randomNumberBetween(0, 100);
         double moatRand = moatIntRand / 100.0;
-        boolean moatAllowed = ad != null && ((moatRand < ad.moat && moatLimiting) || !moatLimiting);
-        Log.d("SuperAwesome", "Moat allowed is " + moatAllowed);
-        return moatAllowed;
+        return ad != null && ((moatRand < ad.moat && moatLimiting) || !moatLimiting);
     }
 
     /**
