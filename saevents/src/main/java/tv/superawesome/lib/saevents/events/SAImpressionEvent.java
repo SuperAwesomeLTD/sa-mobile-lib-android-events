@@ -36,7 +36,9 @@ public class SAImpressionEvent extends SAServerEvent {
                     "bundle", session.getPackageName(),
                     "ct", session.getConnectionType().ordinal(),
                     "no_image", true,
-                    "rnd", session.getCachebuster());
+                    "rnd", session.getCachebuster(),
+                    "type", "impressionDownloaded"
+            );
         } catch (Exception e) {
             return new JSONObject();
         }
