@@ -77,5 +77,4 @@ install {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/moatlib.jar')
-    compile 'com.google.android.gms:play-services-ads:+'
 }

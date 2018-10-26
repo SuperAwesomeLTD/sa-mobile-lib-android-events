@@ -32,8 +32,8 @@ dependencies {
 
     compile 'com.android.support:design:26.1.0'
 
-    compile project(':saevents')
-    compile project(':samoatevents')
+    api project(':saevents')
+    api project(':samoatevents')
 
     testCompile 'junit:junit:4.12'
 
@@ -47,4 +47,7 @@ dependencies {
 
     compile 'tv.superawesome.lib.sawebplayer:sawebplayer:1.0.1'
     compile 'tv.superawesome.lib.savideoplayer:savideoplayer:1.0.0'
+
+    def gmsVersion = "16.0.0"
+    implementation "com.google.android.gms:play-services-ads:$gmsVersion"
 }
