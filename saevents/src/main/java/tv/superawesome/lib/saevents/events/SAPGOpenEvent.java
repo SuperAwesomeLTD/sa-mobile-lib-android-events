@@ -1,7 +1,5 @@
 package tv.superawesome.lib.saevents.events;
 
-import android.content.Context;
-
 import org.json.JSONObject;
 
 import java.util.concurrent.Executor;
@@ -13,12 +11,12 @@ import tv.superawesome.lib.sautils.SAUtils;
 
 public class SAPGOpenEvent extends SAServerEvent {
 
-    public SAPGOpenEvent(Context context, SAAd ad, ISASession session) {
-        super(context, ad, session);
+    public SAPGOpenEvent(SAAd ad, ISASession session) {
+        super(ad, session);
     }
 
-    public SAPGOpenEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
-        super(context, ad, session, executor, timeout, isDebug);
+    public SAPGOpenEvent(SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
+        super(ad, session, executor, timeout, isDebug);
     }
 
     @Override

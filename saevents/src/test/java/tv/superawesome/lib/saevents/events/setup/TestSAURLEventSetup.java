@@ -16,7 +16,7 @@ public class TestSAURLEventSetup extends TestEventSetup {
         String url = "https://api.url/abc";
 
         // when
-        SAURLEvent event = new SAURLEvent(null, url, super.executor, 1000, true);
+        SAURLEvent event = new SAURLEvent(url, super.executor, 1000, true);
 
         // then - endpoint
         Assert.assertNotNull(event.getEndpoint());

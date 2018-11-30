@@ -20,9 +20,9 @@ public class SAEvents {
     // Set & unset the ad needed for triggering events
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void setAd (Context context, ISASession session, SAAd ad) {
-        serverModule = new SAServerModule(context, ad, session);
-        vastModule = new SAVASTModule(context, ad);
+    public void setAd (ISASession session, SAAd ad) {
+        serverModule = new SAServerModule(ad, session);
+        vastModule = new SAVASTModule(ad);
         moatModule = new SAMoatModule(ad, true);
         viewableModule = new SAViewableModule();
     }

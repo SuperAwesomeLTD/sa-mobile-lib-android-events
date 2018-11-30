@@ -19,7 +19,7 @@ public class TestSAClickEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createDisplayAd(1000);
-        SAClickEvent event = new SAClickEvent(null, ad, super.session, super.executor, 1000, true);
+        SAClickEvent event = new SAClickEvent(ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {
@@ -37,7 +37,7 @@ public class TestSAClickEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createDisplayAd(1001);
-        SAClickEvent event = new SAClickEvent(null, ad, super.session, super.executor, 1000, true);
+        SAClickEvent event = new SAClickEvent(ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {
@@ -55,7 +55,7 @@ public class TestSAClickEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createVideoAd(1000);
-        SAClickEvent event = new SAClickEvent(null, ad, super.session, super.executor, 1000, true);
+        SAClickEvent event = new SAClickEvent(ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {
@@ -73,7 +73,7 @@ public class TestSAClickEventTrigger extends TestEventTrigger {
 
         // given
         SAAd ad = ModelFactory.createVideoAd(1001);
-        SAClickEvent event = new SAClickEvent(null, ad, super.session, super.executor, 1000, true);
+        SAClickEvent event = new SAClickEvent(ad, super.session, super.executor, 1000, true);
 
         // when
         event.triggerEvent(new SAServerEvent.Listener() {

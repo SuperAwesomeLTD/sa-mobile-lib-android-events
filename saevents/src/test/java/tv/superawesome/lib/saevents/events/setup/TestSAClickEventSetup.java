@@ -19,7 +19,7 @@ public class TestSAClickEventSetup extends TestEventSetup {
         SAAd ad = ModelFactory.createDisplayAd(1000);
 
         // when
-        SAClickEvent event = new SAClickEvent(null, ad, super.session, super.executor, 1000, true);
+        SAClickEvent event = new SAClickEvent(ad, super.session, super.executor, 1000, true);
 
         // then - endpoint
         Assert.assertNotNull(event.getEndpoint());
@@ -45,7 +45,7 @@ public class TestSAClickEventSetup extends TestEventSetup {
         SAAd ad = ModelFactory.createVideoAd(1000);
 
         // when
-        SAClickEvent event = new SAClickEvent(null, ad, super.session, super.executor, 1000, true);
+        SAClickEvent event = new SAClickEvent(ad, super.session, super.executor, 1000, true);
 
         // then - endpoint
         Assert.assertNotNull(event.getEndpoint());

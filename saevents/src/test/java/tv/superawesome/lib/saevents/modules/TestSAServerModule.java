@@ -18,7 +18,7 @@ public class TestSAServerModule extends TestModule {
     public void test_SAServerModule_WithDisplayAd_Success () {
         // given
         SAAd ad = ModelFactory.createDisplayAd(1000);
-        SAServerModule module = new SAServerModule(null, ad, super.session, super.executor, 1000, true);
+        SAServerModule module = new SAServerModule(ad, super.session, super.executor, 1000, true);
 
         // when
         module.triggerClickEvent(new SAServerEvent.Listener() {
@@ -54,7 +54,7 @@ public class TestSAServerModule extends TestModule {
 
         // given
         SAAd ad = ModelFactory.createDisplayAd(1001);
-        SAServerModule module = new SAServerModule(null, ad, super.session, super.executor, 1000, true);
+        SAServerModule module = new SAServerModule(ad, super.session, super.executor, 1000, true);
 
         // when
         module.triggerClickEvent(new SAServerEvent.Listener() {
@@ -90,7 +90,7 @@ public class TestSAServerModule extends TestModule {
 
         // given
         SAAd ad = ModelFactory.createVideoAd(1000);
-        SAServerModule module = new SAServerModule(null, ad, super.session, super.executor, 1000, true);
+        SAServerModule module = new SAServerModule(ad, super.session, super.executor, 1000, true);
 
         // when
         module.triggerClickEvent(new SAServerEvent.Listener() {
@@ -126,7 +126,7 @@ public class TestSAServerModule extends TestModule {
 
         // given
         SAAd ad = ModelFactory.createVideoAd(1001);
-        SAServerModule module = new SAServerModule(null, ad, super.session, super.executor, 1000, true);
+        SAServerModule module = new SAServerModule(ad, super.session, super.executor, 1000, true);
 
         // when
         module.triggerClickEvent(new SAServerEvent.Listener() {

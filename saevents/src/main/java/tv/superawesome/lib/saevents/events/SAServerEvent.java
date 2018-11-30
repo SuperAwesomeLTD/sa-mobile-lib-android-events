@@ -17,18 +17,16 @@ import tv.superawesome.lib.sautils.SAUtils;
 
 public class SAServerEvent {
 
-    protected Context     context  = null;
     protected SAAd        ad       = null;
     protected ISASession  session  = null;
     private   SANetwork   network  = null;
     private   boolean     isDebug  = false;
 
-    public SAServerEvent(Context context, SAAd ad, ISASession session) {
-        this(context, ad, session, Executors.newSingleThreadExecutor(), 15000, false);
+    public SAServerEvent(SAAd ad, ISASession session) {
+        this(ad, session, Executors.newSingleThreadExecutor(), 15000, false);
     }
 
-    public SAServerEvent(Context context, SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
-        this.context = context;
+    public SAServerEvent(SAAd ad, ISASession session, Executor executor, int timeout, boolean isDebug) {
         this.ad = ad;
         this.session = session;
         this.isDebug = isDebug;

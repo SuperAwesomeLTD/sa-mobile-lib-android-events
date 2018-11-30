@@ -18,7 +18,7 @@ public class TestSAVASTModule extends TestModule {
     public void test_SAVASTModule_Success () {
         // given
         SAAd ad = ModelFactory.createVideoAd(1000);
-        SAVASTModule module = new SAVASTModule(null, ad, super.executor, 1000, true);
+        SAVASTModule module = new SAVASTModule(ad, super.executor, 1000, true);
 
         // when
         module.triggerVASTImpressionEvent(new SAServerEvent.Listener() {
@@ -97,7 +97,7 @@ public class TestSAVASTModule extends TestModule {
     public void test_SAVASTModule_Failure () {
         // given
         SAAd ad = ModelFactory.createVideoAd(1001);
-        SAVASTModule module = new SAVASTModule(null, ad, super.executor, 1000, true);
+        SAVASTModule module = new SAVASTModule(ad, super.executor, 1000, true);
 
         // when
         module.triggerVASTImpressionEvent(new SAServerEvent.Listener() {
