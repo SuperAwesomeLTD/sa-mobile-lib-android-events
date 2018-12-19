@@ -1,6 +1,5 @@
 package tv.superawesome.lib;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,19 +7,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
-import com.moat.analytics.mobile.sup.MoatAdEvent;
-import com.moat.analytics.mobile.sup.MoatAdEventType;
-import com.moat.analytics.mobile.sup.MoatAnalytics;
-import com.moat.analytics.mobile.sup.MoatFactory;
-import com.moat.analytics.mobile.sup.MoatOptions;
-import com.moat.analytics.mobile.sup.ReactiveVideoTracker;
-import com.moat.analytics.mobile.sup.ReactiveVideoTrackerPlugin;
-import com.moat.analytics.mobile.sup.WebAdTracker;
-
-import java.util.HashMap;
-
 import tv.superawesome.lib.saevents.SAEvents;
-import tv.superawesome.lib.saevents.SAMoatModule;
 import tv.superawesome.lib.samodelspace.saad.SAAd;
 import tv.superawesome.lib.samodelspace.saad.SACampaignType;
 import tv.superawesome.lib.samodelspace.saad.SACreativeFormat;
@@ -31,7 +18,6 @@ import tv.superawesome.lib.sasession.session.SASession;
 import tv.superawesome.lib.savideoplayer.SAVideoPlayer;
 import tv.superawesome.lib.savideoplayer.SAVideoPlayerEvent;
 import tv.superawesome.lib.savideoplayer.SAVideoPlayerEventInterface;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         final SAAd ad = getTestAd();
 
         final SAEvents events = new SAEvents();
-        events.setAd(this, new SASession(this), ad);
+        events.setAd(new SASession(this), ad);
         events.disableMoatLimiting();
 
         player = new SAVideoPlayer();
